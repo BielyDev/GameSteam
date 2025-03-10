@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8d07v8w5asjf"]
+
+[ext_resource type="Script" uid="uid://cj6mqxo3pc2bw" path="res://Scene/Screen/notification.gd" id="1_iy7b2"]
+[ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="1_xstki"]
+
+[node name="GUI" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_iy7b2")
+
+[node name="Notification" type="Control" parent="."]
+z_index = 1
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Notification"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 22.0
+offset_right = 121.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Notification/Panel"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Notification/Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_xstki")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Tittle" type="Label" parent="Notification/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Notification"
+horizontal_alignment = 1

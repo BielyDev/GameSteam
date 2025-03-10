@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://dahm6s34f8v3e"]
+
+[ext_resource type="Script" uid="uid://dxvtb6w4epsk5" path="res://Script/Menu/id_lobby.gd" id="1_ukx4a"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_wyodb"]
+
+[node name="IDLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_ukx4a")
+
+[node name="IDLobby" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -16.0
+offset_right = 189.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tittle" type="Label" parent="vbox"]
+layout_mode = 2
+text = "Past ID"
+horizontal_alignment = 1
+
+[node name="hs" type="HSeparator" parent="vbox"]
+layout_mode = 2
+
+[node name="id" type="LineEdit" parent="vbox"]
+custom_minimum_size = Vector2(0, 72.765)
+layout_mode = 2
+placeholder_text = "ID"
+alignment = 1
+max_length = 20
+
+[node name="hs2" type="HSeparator" parent="vbox"]
+layout_mode = 2
+
+[node name="Enter" type="Button" parent="vbox"]
+custom_minimum_size = Vector2(130, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Enter Lobby"
+script = ExtResource("2_wyodb")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 2
+offset_left = 12.0
+offset_top = 592.0
+offset_right = 142.0
+offset_bottom = 633.0
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+text = "Back"
+script = ExtResource("2_wyodb")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="text_changed" from="vbox/id" to="." method="_on_id_text_changed"]
+[connection signal="pressed" from="vbox/Enter" to="." method="_on_enter_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
