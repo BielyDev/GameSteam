@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfq5sm6xj4c8e"
-path="res://.godot/imported/valorant-all-agents.jpg-a1837388224bbae5f36b51b4aef62fd8.ctex"
+path="res://.godot/imported/valorant-all-agents.jpg-40f3442d2771be3fb7d1d7a1f7768060.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://valorant-all-agents.jpg"
-dest_files=["res://.godot/imported/valorant-all-agents.jpg-a1837388224bbae5f36b51b4aef62fd8.ctex"]
+source_file="res://Assets/2D/Background/valorant-all-agents.jpg"
+dest_files=["res://.godot/imported/valorant-all-agents.jpg-40f3442d2771be3fb7d1d7a1f7768060.ctex"]
 
 [params]
 

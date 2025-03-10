@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dahm6s34f8v3e"]
 
-[ext_resource type="Script" uid="uid://dxvtb6w4epsk5" path="res://Script/Menu/id_lobby.gd" id="1_ukx4a"]
-[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_wyodb"]
+[ext_resource type="Script" path="res://Script/Menu/id_lobby.gd" id="1_ukx4a"]
+[ext_resource type="Script" path="res://Script/Menu/buttonAnimated.gd" id="2_wyodb"]
 
 [node name="IDLobby" type="Control"]
 layout_mode = 3
