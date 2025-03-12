@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8d07v8w5asjf"]
 
-[ext_resource type="Script" path="res://Scene/Screen/notification.gd" id="1_iy7b2"]
+[ext_resource type="Script" uid="uid://cj6mqxo3pc2bw" path="res://Scene/Screen/notification.gd" id="1_iy7b2"]
 [ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="1_xstki"]
 
 [node name="GUI" type="CanvasLayer"]

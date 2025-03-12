@@ -30,13 +30,14 @@ func host_config() -> void:
 
 func _on_quit_button_pressed() -> void:
 	Steam.leaveLobby(Lobby.lobby_id)
-	Server.notif("Você saiu do lobby!")
+	Host.notif("Você saiu do lobby!")
 	CreateLobby.show()
 	InfoLobby.hide()
 	CreateLobby.set_disabled_buttons(false)
 	
-	Server.request_lobby()
+	Host.request_lobby()
 
 
 func _on_id_pressed() -> void:
 	DisplayServer.clipboard_set(ID.text.erase(0).erase(0).erase(0))
+	Host.notif("ID COPIADO")

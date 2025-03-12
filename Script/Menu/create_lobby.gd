@@ -7,11 +7,16 @@ extends PanelContainer
 @onready var CreateLobby: Button = $Margin/Buttons/CreateLobby
 @onready var InfoLobby: PanelContainer = $"../InfoLobby"
 
+
+
 func _ready() -> void:
 	Steam.lobby_created.connect(lobby_created)
 
 func create_lobby() -> void:
+	Host.enet.create_server(Host.port, 4)
+	
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
+	Steam.connectP2P(Host.steam_id, Host.port, {})
 
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	print("Criando um lobby...")
@@ -22,12 +27,15 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 			print("Lobby criado com sucesso!")
 			Lobby.lobby_id = _lobby_id
 			
-			print("AcceptP2PSessionWithUser: ",Steam.acceptP2PSessionWithUser(Server.steam_id))
+			print("AcceptP2PSessionWithUser: ",Steam.acceptP2PSessionWithUser(Host.steam_id))
 			print("AllowP2PPacketRelay: ",Steam.allowP2PPacketRelay(true))
 			
 			print("SetLobbyJoinable: ",Steam.setLobbyJoinable(_lobby_id, true))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Server.key_name, NameLobby.text))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "mode", Server.mode[ModeLobby.selected]))
+			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_NAME, NameLobby.text))
+			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_MAP_NAME, NameLobby.text))
+			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "owner_name", Steam.getPersonaName()))
+			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Host.lobby_settings)))
+			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "mode", Host.MODE[ModeLobby.selected]))
 			
 			hide_create()
 			return
@@ -43,11 +51,11 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 func hide_create() -> void:
 	await get_tree().create_timer(0.5).timeout # Apenas por aviso
 	
-	Server.notif("Lobby created")
+	Host.notif("Lobby created")
 	NameLobby.text = ""
-	Server.request_lobby()
-	hide()
+	Host.request_lobby()
 	InfoLobby.host_config()
+	hide()
 
 func set_disabled_buttons(value: bool = true) -> void:
 	NameLobby.editable = !value
@@ -56,4 +64,3 @@ func set_disabled_buttons(value: bool = true) -> void:
 
 func _on_create_pressed() -> void:
 	create_lobby()
-	

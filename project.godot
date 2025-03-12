@@ -12,8 +12,13 @@ config_version=5
 
 config/name="P2P-Sem-nome"
 run/main_scene="res://Scene/Map/world.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Ui="*res://Script/Singleton/UI.gd"
+Host="*res://Script/Singleton/Host.gd"
 
 [debug]
 
@@ -21,7 +26,12 @@ file_logging/enable_file_logging=true
 
 [display]
 
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[gui]
+
+theme/custom="uid://bviqf28ee70lw"
 
 [input]
 

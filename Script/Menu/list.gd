@@ -1,25 +1,15 @@
 extends PanelContainer
 
-const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
+const MAP_BUTTON = preload("res://Scene/Screen/map_button.tscn")
 
 @onready var Server: Node = $"../../../../../../../.."
-@onready var ListVbox: VBoxContainer = $VBox/Scroll/ListVbox
+@onready var ListVbox: VBoxContainer = $VBox/Scroll/margin/ListVbox
 @onready var Lobby: PanelContainer = $"../../../../.."
 
 
 func _ready() -> void:
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
 
-
-func instance_button() -> Button:
-	var _new_button = Button.new()
-	
-	_new_button.set_script(BUTTON_SCRIPT)
-	ListVbox.add_child(_new_button)
-	
-	_new_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	
-	return _new_button
 
 func delete_buttons() -> void:
 	for child: Node in ListVbox.get_children():
@@ -30,20 +20,31 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 	delete_buttons()
 	
 	for _id_lobby: int in _id_lobbies:
-		var _lobby_name: String = Steam.getLobbyData(_id_lobby,Server.key_name)
+		var _lobby_name: String = Steam.getLobbyData(_id_lobby,Host.KEY_NAME)
+		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_id_lobby,Host.KEY_SETTINGS))
 		
+		if _lobby_settings == null: # Apenas pra debugar
+			_lobby_settings = Host.lobby_settings
 		
-		var button: Button = instance_button()
+		var new_button: Button = MAP_BUTTON.instantiate()
+		ListVbox.add_child(new_button)
+		
+		new_button.Map.texture = Host.MAP[int(_lobby_settings.map)].image
+		new_button.MapName.text = Host.MAP[int(_lobby_settings.map)].name
 		
 		var _lobby_mode: String = Steam.getLobbyData(_id_lobby,"mode")
 		var _lobby_size: String = str(" ",Steam.getNumLobbyMembers(_id_lobby),"/",Steam.getLobbyMemberLimit(_id_lobby))
+		#Steam.getLobbyMemberData(_id_lobby,)
 		
-		button.text = str(_lobby_mode," - ",_lobby_name,_lobby_size)
+		new_button.lobby_id = _id_lobby
+		
+		new_button.Mode.text = _lobby_mode
+		new_button.Tittle.text = _lobby_name
+		new_button.Number.text = _lobby_size
 
 func _on_refresh_pressed() -> void:
-	
-	Server.request_lobby()
+	Host.request_lobby()
 
 func _on_mode_item_selected(_index: int) -> void:
-	Steam.setLobbyData(Lobby.lobby_id, "mode", Server.mode[_index])
+	Steam.setLobbyData(Lobby.lobby_id, "mode", Host.MODE[_index])
 	

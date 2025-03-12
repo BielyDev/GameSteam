@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=3 uid="uid://do380hr48wlex"]
+
+[ext_resource type="Script" uid="uid://n52ymqpllokr" path="res://Script/Menu/button.gd" id="1_x7jwd"]
+[ext_resource type="Shader" uid="uid://cuekut0h7m45o" path="res://Assets/2D/Shader/Clip.tres" id="2_75opv"]
+[ext_resource type="Texture2D" uid="uid://78tev7xsyros" path="res://Assets/2D/Background/bind.png" id="2_x7jwd"]
+[ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="4_orc58"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_orc58"]
+resource_local_to_scene = true
+shader = ExtResource("2_75opv")
+shader_parameter/gradient_force = 1.0
+
+[node name="MapButton" type="Button"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -970.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+script = ExtResource("1_x7jwd")
+enable_x = false
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Map" type="TextureRect" parent="."]
+modulate = Color(0.454902, 0.454902, 0.454902, 0.552941)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_orc58")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_x7jwd")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Avatar" type="TextureRect" parent="margin"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("4_orc58")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Adm" type="Label" parent="margin/Avatar"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 10
+size_flags_vertical = 1
+text = "asdasdads"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="MapName" type="Label" parent="margin"]
+modulate = Color(0.740127, 0.695999, 0.859514, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"LabelMap"
+text = "MapName"
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="text" type="Control" parent="margin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Mode" type="Label" parent="margin/text"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 19.0
+size_flags_vertical = 0
+text = "Hard"
+
+[node name="Tittle" type="Label" parent="margin/text"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+text = "NameLoy..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Number" type="Label" parent="margin/text"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -19.0
+offset_right = 33.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "1/4"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
