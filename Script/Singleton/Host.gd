@@ -16,12 +16,6 @@ const MAP: Array = [
 ]
 
 
-var lobby_settings: Dictionary = {
-	"map" : 0,
-	"mode" : 0,
-	"adm_id": 0,
-}
-var lobby_id: int
 var steam_id: int
 var port: int = 0:
 	get():
@@ -42,7 +36,7 @@ func _ready() -> void:
 		get_tree().quit()
 	
 	steam_id = Steam.getSteamID()
-	lobby_settings.adm_id = steam_id
+	Lobby.lobby_settings.adm_id = steam_id
 	
 	await get_tree().create_timer(1).timeout
 	
@@ -65,5 +59,4 @@ func notif(text: String, icon: Texture2D = null) -> void:
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.addRequestLobbyListStringFilter(KEY_NAME, "", Steam.LOBBY_COMPARISON_NOT_EQUAL)
-	Steam.addRequestLobbyListStringFilter(KEY_NAME, " ", Steam.LOBBY_COMPARISON_NOT_EQUAL)
 	Steam.requestLobbyList()

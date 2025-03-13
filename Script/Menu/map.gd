@@ -11,7 +11,7 @@ var selected: int:
 			value = 0
 		
 		selected = value
-		Host.lobby_settings.map = selected
+		Lobby.lobby_settings.map = selected
 
 func animate(idx: int, value: float) -> void:
 	var image: TextureRect = ImageMap.get_child(idx)

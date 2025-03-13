@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Ui="*res://Script/Singleton/UI.gd"
 Host="*res://Script/Singleton/Host.gd"
+Lobby="*res://Script/Menu/lobby.gd"
 
 [debug]
 

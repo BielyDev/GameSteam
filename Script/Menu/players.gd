@@ -15,8 +15,8 @@ func refresh() -> void:
 	
 	Steam.avatar_loaded.connect(createPlayerLobby)
 	
-	for player_number: int in Steam.getNumLobbyMembers(Host.lobby_id):
-		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Host.lobby_id, player_number))
+	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		await loaded_avatar
 	
 	Steam.avatar_loaded.disconnect(createPlayerLobby)
@@ -33,10 +33,8 @@ func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 func _on_lobby_new_player(id: int) -> void:
 	refresh()
 
-
 func _on_lobby_exited_player(id: int) -> void:
 	refresh()
-
 
 func _on_button_pressed() -> void:
 	refresh()

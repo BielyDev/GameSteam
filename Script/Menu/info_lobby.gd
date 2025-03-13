@@ -21,11 +21,11 @@ func host_config() -> void:
 	PlayButton.show()
 	SettingsLobby.show()
 	Players.show()
-	ID.text = str("ID ",Host.lobby_id)
+	ID.text = str("ID ",Lobby.lobby_id)
 	show()
 
 func _on_quit_button_pressed() -> void:
-	Steam.leaveLobby(Host.lobby_id)
+	Steam.leaveLobby(Lobby.lobby_id)
 	Host.notif("Você saiu do lobby!")
 	
 	Host.request_lobby()
