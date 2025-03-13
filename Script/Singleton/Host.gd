@@ -19,7 +19,7 @@ const MAP: Array = [
 var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
-	"adm_id": "",
+	"adm_id": 0,
 }
 var lobby_id: int
 var steam_id: int

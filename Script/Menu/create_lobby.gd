@@ -26,6 +26,7 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 		Steam.RESULT_OK:
 			print("Lobby criado com sucesso!")
 			Lobby.lobby_id = _lobby_id
+			Host.lobby_settings.adm_id = Host.steam_id
 			
 			print("AcceptP2PSessionWithUser: ",Steam.acceptP2PSessionWithUser(Host.steam_id))
 			print("AllowP2PPacketRelay: ",Steam.allowP2PPacketRelay(true))
