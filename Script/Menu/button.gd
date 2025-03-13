@@ -25,7 +25,7 @@ func _pressed() -> void:
 	Host.joinLobby(lobby_id, Host.port)
 
 func avatar_loader(_user_id: int, _size: int, _image_byte: PackedByteArray) -> void:
-	Adm.text = Steam.getPlayerNickname(adm_id)
+	Adm.text = str(adm_id)
 	AdmAvatar.texture = Ui.readImageSteam(_size, _image_byte)
 
 
