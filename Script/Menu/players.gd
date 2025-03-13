@@ -6,14 +6,17 @@ const BUTTONPLAYER = preload("res://Scene/Screen/buttonplayer.tscn")
 
 @onready var List: HBoxContainer = $Margin/Buttons/list
 
+func _ready() -> void:
+	refresh()
+
 func refresh() -> void:
 	for child in List.get_children():
 		child.queue_free()
 	
 	Steam.avatar_loaded.connect(createPlayerLobby)
-	for player in Host.players_lobby:
-		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, player)
-		
+	
+	for player_number: int in Steam.getNumLobbyMembers(Host.lobby_id):
+		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Host.lobby_id, player_number))
 		await loaded_avatar
 	
 	Steam.avatar_loaded.disconnect(createPlayerLobby)

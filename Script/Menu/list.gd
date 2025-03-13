@@ -2,10 +2,7 @@ extends PanelContainer
 
 const MAP_BUTTON = preload("res://Scene/Screen/map_button.tscn")
 
-@onready var Server: Node = $"../../../../../../../.."
 @onready var ListVbox: VBoxContainer = $VBox/Scroll/margin/ListVbox
-@onready var Lobby: PanelContainer = $"../../../../.."
-
 
 func _ready() -> void:
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
@@ -51,5 +48,5 @@ func _on_refresh_pressed() -> void:
 	Host.request_lobby()
 
 func _on_mode_item_selected(_index: int) -> void:
-	Steam.setLobbyData(Lobby.lobby_id, "mode", Host.MODE[_index])
+	Steam.setLobbyData(Host.lobby_id, "mode", Host.MODE[_index])
 	

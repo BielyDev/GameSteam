@@ -1,12 +1,10 @@
-extends PanelContainer
+extends Control
 
-@onready var Server: Node = $"../../../../.."
-@onready var Lobby: PanelContainer = $"../.."
-@onready var NameLobby: LineEdit = $Margin/Buttons/hbox/NameLobby
-@onready var ModeLobby: OptionButton = $Margin/Buttons/hbox/ModeLobby
-@onready var CreateLobby: Button = $Margin/Buttons/CreateLobby
-@onready var InfoLobby: PanelContainer = $"../InfoLobby"
+@onready var NameLobby: LineEdit = $Panel/Margin/Buttons/hbox/NameLobby
+@onready var ModeLobby: OptionButton = $Panel/Margin/Buttons/hbox/ModeLobby
+@onready var CreateLobby: Button = $Panel/Margin/Buttons/CreateLobby
 
+const INFO_LOBBY = preload("res://Scene/Screen/info_lobby.tscn")
 
 
 func _ready() -> void:
@@ -19,33 +17,21 @@ func create_lobby() -> void:
 	Steam.connectP2P(Host.steam_id, Host.port, {})
 
 func lobby_created(_result: int, _lobby_id: int) -> void:
-	print("Criando um lobby...")
 	set_disabled_buttons()
 	
 	match _result:
 		Steam.RESULT_OK:
-			print("Lobby criado com sucesso!")
-			Lobby.lobby_id = _lobby_id
+			Host.lobby_id = _lobby_id
 			Host.lobby_settings.adm_id = Host.steam_id
+			#Host.players_lobby.append(Host.steam_id)
 			
-			print("AcceptP2PSessionWithUser: ",Steam.acceptP2PSessionWithUser(Host.steam_id))
-			print("AllowP2PPacketRelay: ",Steam.allowP2PPacketRelay(true))
-			
-			print("SetLobbyJoinable: ",Steam.setLobbyJoinable(_lobby_id, true))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_NAME, NameLobby.text))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Host.lobby_settings)))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "mode", Host.MODE[ModeLobby.selected]))
-			
-			hide_create()
+			Ui.new_scene(INFO_LOBBY).host_config()
 			return
 		Steam.RESULT_FAIL:
 			set_disabled_buttons(false)
-			print("Não foi possivel criar o lobby!")
-			print("Erro desconhecido!")
 			return
 	
-	print("Não foi possivel criar o lobby!")
-	print("Erro numero: ",_result)
+	Ui.notif("Não foi possível criar o lobby!")
 
 func hide_create() -> void:
 	await get_tree().create_timer(0.5).timeout # Apenas por aviso
@@ -53,7 +39,7 @@ func hide_create() -> void:
 	Host.notif("Lobby created")
 	NameLobby.text = ""
 	Host.request_lobby()
-	InfoLobby.host_config()
+	#InfoLobby.host_config()
 	hide()
 
 func set_disabled_buttons(value: bool = true) -> void:

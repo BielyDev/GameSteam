@@ -1,0 +1,230 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6kkqat6ikuvn"]
+
+[ext_resource type="Script" uid="uid://c6vxu1ina8rdr" path="res://Script/Menu/info_lobby.gd" id="1_avspo"]
+[ext_resource type="Shader" uid="uid://5smgjtmpegii" path="res://Assets/2D/Shader/blur.gdshader" id="2_m2sst"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_qdqe4"]
+[ext_resource type="Script" uid="uid://dqtkb8tv45fau" path="res://Script/Menu/players.gd" id="3_m2sst"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_octjr"]
+shader = ExtResource("2_m2sst")
+shader_parameter/blur_force = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2sst"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdqe4"]
+
+[node name="InfoLobby" type="Control"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("1_avspo")
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_octjr")
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+anchor_left = 0.0503472
+anchor_top = 0.0694444
+anchor_right = 0.949653
+anchor_bottom = 0.945988
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="PanelContainer" parent="vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"PanelGradient"
+metadata/_edit_use_anchors_ = true
+
+[node name="Margin" type="MarginContainer" parent="vbox/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Buttons" type="VBoxContainer" parent="vbox/Panel/Margin"]
+layout_mode = 2
+
+[node name="vbox" type="HBoxContainer" parent="vbox/Panel/Margin/Buttons"]
+layout_mode = 2
+alignment = 1
+
+[node name="Tittle" type="Label" parent="vbox/Panel/Margin/Buttons/vbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Info lobby"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="Button" parent="vbox/Panel/Margin/Buttons/vbox"]
+modulate = Color(0.79434, 0.79434, 0.79434, 0.65098)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 14
+text = "ID: "
+script = ExtResource("2_qdqe4")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="hs" type="HSeparator" parent="vbox/Panel/Margin/Buttons"]
+layout_mode = 2
+
+[node name="Hbox" type="VBoxContainer" parent="vbox/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsLobby" type="PanelContainer" parent="vbox/Panel/Margin/Buttons/Hbox"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m2sst")
+
+[node name="Margin" type="MarginContainer" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Buttons" type="VBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin"]
+layout_mode = 2
+
+[node name="Tittle" type="Label" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
+visible = false
+layout_mode = 2
+text = "Settings lobby"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hs" type="HSeparator" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
+visible = false
+layout_mode = 2
+
+[node name="Mode" type="HBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
+layout_mode = 2
+
+[node name="Tittle" type="Label" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode"]
+layout_mode = 2
+text = "LobbyMode:"
+
+[node name="ModeLobby" type="OptionButton" parent="vbox/Panel/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+script = ExtResource("2_qdqe4")
+enable_x = false
+
+[node name="Players" type="PanelContainer" parent="vbox/Panel/Margin/Buttons/Hbox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qdqe4")
+script = ExtResource("3_m2sst")
+
+[node name="Margin" type="MarginContainer" parent="vbox/Panel/Margin/Buttons/Hbox/Players"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Buttons" type="VBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox/Players/Margin"]
+layout_mode = 2
+
+[node name="Tittle" type="Label" parent="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons"]
+visible = false
+layout_mode = 2
+text = "Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hs" type="HSeparator" parent="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons"]
+layout_mode = 2
+
+[node name="list" type="HBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
+text = "Atualizar"
+
+[node name="hs2" type="HSeparator" parent="vbox/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Buttons" type="HBoxContainer" parent="vbox"]
+custom_minimum_size = Vector2(256, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="vbox/Buttons"]
+modulate = Color(0.880157, 0.785138, 0.90584, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Play"
+script = ExtResource("2_qdqe4")
+enable_x = false
+scale_max = 1.2
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="ReadyButton" type="Button" parent="vbox/Buttons"]
+modulate = Color(0.880157, 0.785138, 0.90584, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Ready"
+script = ExtResource("2_qdqe4")
+enable_x = false
+scale_max = 1.2
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="QuitButton" type="Button" parent="vbox/Buttons"]
+modulate = Color(1, 0.336673, 0.270683, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Quit"
+script = ExtResource("2_qdqe4")
+enable_y = false
+scale_max = 1.15
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/vbox/ID" to="." method="_on_id_pressed"]
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="vbox/Panel/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
+[connection signal="pressed" from="vbox/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

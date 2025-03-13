@@ -1,15 +1,11 @@
-extends PanelContainer
+extends Control
 
-@onready var SettingsLobby: PanelContainer = $Margin/Buttons/Hbox/SettingsLobby
-@onready var Players: PanelContainer = $Margin/Buttons/Hbox/Players
-@onready var PlayButton: Button = $Margin/Buttons/Buttons/PlayButton
-@onready var ReadyButton: Button = $Margin/Buttons/Buttons/ReadyButton
-@onready var QuitButton: Button = $Margin/Buttons/Buttons/QuitButton
-@onready var Lobby: PanelContainer = $"../.."
-@onready var InfoLobby: PanelContainer = $"."
-@onready var CreateLobby: PanelContainer = $"../CreateLobby"
-@onready var ID: Button = $Margin/Buttons/vbox/ID
-@onready var Server: Node = $"../../../../.."
+@onready var SettingsLobby: PanelContainer = $vbox/Panel/Margin/Buttons/Hbox/SettingsLobby
+@onready var Players: PanelContainer = $vbox/Panel/Margin/Buttons/Hbox/Players
+@onready var PlayButton: Button = $vbox/Buttons/PlayButton
+@onready var ReadyButton: Button = $vbox/Buttons/ReadyButton
+@onready var QuitButton: Button = $vbox/Buttons/QuitButton
+@onready var ID: Button = $vbox/Panel/Margin/Buttons/vbox/ID
 
 
 func client_config() -> void:
@@ -17,7 +13,7 @@ func client_config() -> void:
 	PlayButton.hide()
 	Players.show()
 	ReadyButton.show()
-	ID.text = str("ID ",Lobby.lobby_id)
+	ID.text = str("ID ",Host.lobby_id)
 	
 	show()
 func host_config() -> void:
@@ -25,15 +21,12 @@ func host_config() -> void:
 	PlayButton.show()
 	SettingsLobby.show()
 	Players.show()
-	ID.text = str("ID ",Lobby.lobby_id)
+	ID.text = str("ID ",Host.lobby_id)
 	show()
 
 func _on_quit_button_pressed() -> void:
-	Steam.leaveLobby(Lobby.lobby_id)
+	Steam.leaveLobby(Host.lobby_id)
 	Host.notif("Você saiu do lobby!")
-	CreateLobby.show()
-	InfoLobby.hide()
-	CreateLobby.set_disabled_buttons(false)
 	
 	Host.request_lobby()
 

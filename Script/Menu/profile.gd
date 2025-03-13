@@ -1,11 +1,11 @@
 extends PanelContainer
 
-@onready var Server: Node = $"../../../../../.."
 @onready var User: Button = $User
 @onready var Id: Label = $User/ID
 
 func _ready() -> void:
 	Steam.avatar_loaded.connect(avatar_loaded)
+	Host.steamConnected.connect(loader)
 
 func loader() -> void:
 	Steam.getPlayerAvatar(2, Host.steam_id)

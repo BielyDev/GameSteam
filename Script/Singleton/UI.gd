@@ -1,6 +1,39 @@
-extends Node
+extends CanvasLayer
 
 const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
+const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
+
+var parent_scene: Control = Control.new()
+
+func _ready() -> void:
+	layer = 2
+	
+	add_child(parent_scene)
+	parent_scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent_scene.size = get_viewport().size
+
+func new_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
+	if _remove_scenes:
+		for child in parent_scene.get_children():
+			child.queue_free()
+	
+	var _new_scene: Node = _scene.instantiate()
+	parent_scene.add_child(_new_scene)
+	
+	return _new_scene
+
+func new_simple_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
+	if _remove_scenes:
+		for child in parent_scene.get_children():
+			child.queue_free()
+	
+	var new_panel = PANEL_SCENE.instantiate()
+	
+	var _new_scene: Node = _scene.instantiate()
+	parent_scene.add_child(new_panel)
+	new_panel.add_child(_new_scene)
+	
+	return _new_scene
 
 func readImageSteam(_size: int, _image_byte: PackedByteArray) -> Texture:
 	var _image_loader = Image.new()

@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bixyxbk4ttw0o"]
+
+[ext_resource type="Script" uid="uid://bdku4vgrpykdt" path="res://Script/Menu/profile.gd" id="1_wvil1"]
+[ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="2_voc8h"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="3_okktg"]
+
+[node name="Profile" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 64)
+script = ExtResource("1_wvil1")
+
+[node name="User" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "NAME"
+icon = ExtResource("2_voc8h")
+expand_icon = true
+script = ExtResource("3_okktg")
+offset_edit = true
+scale_max = 1.02
+
+[node name="ID" type="Label" parent="User"]
+modulate = Color(1, 1, 1, 0.345098)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -17.0
+offset_right = 29.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.755315, 0.755315)
+text = "123123123123"
+
+[connection signal="pressed" from="User" to="." method="_on_user_pressed"]

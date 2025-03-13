@@ -15,7 +15,7 @@ func _ready() -> void:
 func _inicialize_steam() -> void:
 	Message.hide()
 	Menu.show()
-	InfoLobby.hide()
+	#InfoLobby.hide()
 	steamConnected.emit()
 
 func _process(_delta: float) -> void:

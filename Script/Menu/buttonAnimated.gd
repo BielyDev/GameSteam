@@ -6,6 +6,7 @@ class_name ButtonAnimated
 @export var enable_y: bool = true
 
 @export var scale_max: float = 1.05
+@export var scale_pressed: float = 0.9
 
 var tw: Tween 
 var twScale: Tween 
@@ -29,7 +30,7 @@ func on_up() -> void:
 	change_scale(1)
 func on_down() -> void:
 	transparency()
-	change_scale(0.8)
+	change_scale(scale_pressed)
 
 
 func transparency() -> void:
@@ -57,8 +58,8 @@ func change_scale(_size: float = 1.0) -> void:
 		pivot_offset = Vector2(size.x / 2, size.y / 2)
 
 func _pressed() -> void:
-	if enable_x: scale.x = scale_max * 1.2
-	if enable_y: scale.y = scale_max * 1.2
+	if enable_x: scale.x = scale_max * 1.1
+	if enable_y: scale.y = scale_max * 1.1
 	
 	create_tween().tween_property(self,"scale:x",1,0.3).set_trans(Tween.TRANS_CUBIC)
 	create_tween().tween_property(self,"scale:y",1,0.3).set_trans(Tween.TRANS_CUBIC)

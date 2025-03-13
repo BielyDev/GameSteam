@@ -1,8 +1,6 @@
 extends HBoxContainer
 
 @onready var ImageMap: Control = $Image
-@onready var Server: Node = $"../../../../../../../.."
-@onready var Lobby: PanelContainer = $"../../../../.."
 
 
 var selected: int:

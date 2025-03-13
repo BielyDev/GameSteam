@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://wdxbbmlnfh3m"]
+
+[ext_resource type="Script" uid="uid://5da1flpthlbp" path="res://Script/Menu/friend_list.gd" id="1_1gr7h"]
+[ext_resource type="Texture2D" uid="uid://b8h7o87s4ovfm" path="res://Assets/2D/arrow_up.png" id="2_n8qdq"]
+[ext_resource type="Script" uid="uid://pji5csx4s38w" path="res://Script/Menu/buttonExpand.gd" id="3_a7yqt"]
+
+[node name="FriendList" type="PanelContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_1gr7h")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="vbox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="tittle" type="Label" parent="Margin/vbox"]
+visible = false
+layout_mode = 2
+text = "Friend List"
+horizontal_alignment = 1
+
+[node name="hs" type="HSeparator" parent="Margin/vbox"]
+layout_mode = 2
+
+[node name="List" type="PanelContainer" parent="Margin/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"PanelGradient"
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/vbox/List"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="margin" type="MarginContainer" parent="Margin/vbox/List/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="vbox" type="VBoxContainer" parent="Margin/vbox/List/Scroll/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Online" type="PanelContainer" parent="Margin/vbox/List/Scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="info" type="VBoxContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Online"]
+layout_mode = 2
+
+[node name="TittleButton" type="Button" parent="Margin/vbox/List/Scroll/margin/vbox/Online/info" node_paths=PackedStringArray("NodeVisible")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonList"
+text = "Online"
+icon = ExtResource("2_n8qdq")
+icon_alignment = 2
+script = ExtResource("3_a7yqt")
+NodeVisible = NodePath("../margin/VboxOnline")
+metadata/_custom_type_script = "uid://pji5csx4s38w"
+
+[node name="hs" type="HSeparator" parent="Margin/vbox/List/Scroll/margin/vbox/Online/info"]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Online/info"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="VboxOnline" type="VBoxContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Online/info/margin"]
+layout_mode = 2
+
+[node name="Offline" type="PanelContainer" parent="Margin/vbox/List/Scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="info" type="VBoxContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Offline"]
+layout_mode = 2
+
+[node name="TittleButton" type="Button" parent="Margin/vbox/List/Scroll/margin/vbox/Offline/info" node_paths=PackedStringArray("NodeVisible")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonList"
+text = "Offline"
+icon = ExtResource("2_n8qdq")
+icon_alignment = 2
+script = ExtResource("3_a7yqt")
+NodeVisible = NodePath("../margin/VboxOffline")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="hs" type="HSeparator" parent="Margin/vbox/List/Scroll/margin/vbox/Offline/info"]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Offline/info"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="VboxOffline" type="VBoxContainer" parent="Margin/vbox/List/Scroll/margin/vbox/Offline/info/margin"]
+layout_mode = 2
+size_flags_horizontal = 3

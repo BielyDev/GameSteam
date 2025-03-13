@@ -1,42 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dg7mxqfmvjwu5"]
+[gd_scene load_steps=9 format=3 uid="uid://dg7mxqfmvjwu5"]
 
 [ext_resource type="Script" uid="uid://dyheatqx33lt5" path="res://Script/world.gd" id="1_6m6su"]
-[ext_resource type="Script" uid="uid://dskye0jibi8us" path="res://Script/Menu/list.gd" id="3_c5ll6"]
 [ext_resource type="Theme" uid="uid://bviqf28ee70lw" path="res://Assets/Theme/main.tres" id="3_ds4xc"]
 [ext_resource type="Texture2D" uid="uid://dfq5sm6xj4c8e" path="res://Assets/2D/Background/valorant-all-agents.jpg" id="3_wyosj"]
-[ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="4_4c4pm"]
-[ext_resource type="Script" uid="uid://bdku4vgrpykdt" path="res://Script/Menu/profile.gd" id="4_ybfmy"]
+[ext_resource type="Script" uid="uid://xopp0jblj88x" path="res://Script/Menu/menu.gd" id="4_gjq3k"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="5_d4o73"]
 [ext_resource type="Script" uid="uid://es1wee4f5lwe" path="res://Script/Menu/lobby.gd" id="5_gj02k"]
-[ext_resource type="Script" uid="uid://c6vxu1ina8rdr" path="res://Script/Menu/info_lobby.gd" id="6_hejkk"]
-[ext_resource type="Script" uid="uid://pbmi7upegtxj" path="res://Script/Menu/create_lobby.gd" id="6_mnqew"]
-[ext_resource type="Script" uid="uid://dqtkb8tv45fau" path="res://Script/Menu/players.gd" id="7_015kr"]
-[ext_resource type="Script" uid="uid://dgk3yq5oiu68m" path="res://Script/Menu/map.gd" id="7_ggsoj"]
-[ext_resource type="Shader" uid="uid://cefk4ldpmlfex" path="res://Assets/2D/Shader/mapimage.tres" id="8_oy8lh"]
-[ext_resource type="Texture2D" uid="uid://b22mhxu20ktdx" path="res://Assets/2D/arrow.png" id="8_w375h"]
-[ext_resource type="Texture2D" uid="uid://78tev7xsyros" path="res://Assets/2D/Background/bind.png" id="9_oy8lh"]
-[ext_resource type="Texture2D" uid="uid://0105lkw7dsc7" path="res://Assets/2D/Background/mapa2.jpg" id="10_c1qje"]
-[ext_resource type="Script" uid="uid://v4bgtfbjg03m" path="res://Script/Menu/lobbies.gd" id="10_gjq3k"]
-[ext_resource type="Texture2D" uid="uid://2mahwu87r12u" path="res://Assets/2D/Background/sunsent.jpg" id="11_g41ys"]
-[ext_resource type="Script" uid="uid://5da1flpthlbp" path="res://Script/Menu/friend_list.gd" id="12_wyosj"]
-[ext_resource type="Texture2D" uid="uid://cbgvisutpavkq" path="res://Assets/2D/arrow_right.png" id="13_2bc0k"]
-[ext_resource type="Script" uid="uid://pji5csx4s38w" path="res://Script/Menu/buttonExpand.gd" id="13_wc0ey"]
-[ext_resource type="Texture2D" uid="uid://b8h7o87s4ovfm" path="res://Assets/2D/arrow_up.png" id="21_2bc0k"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1qje"]
-resource_local_to_scene = true
-shader = ExtResource("8_oy8lh")
-shader_parameter/x = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g41ys"]
-resource_local_to_scene = true
-shader = ExtResource("8_oy8lh")
-shader_parameter/x = -1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w375h"]
-resource_local_to_scene = true
-shader = ExtResource("8_oy8lh")
-shader_parameter/x = -1.05
+[ext_resource type="PackedScene" uid="uid://bixyxbk4ttw0o" path="res://Scene/Screen/profile.tscn" id="6_015kr"]
+[ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="9_mnqew"]
 
 [node name="Server" type="Node"]
 script = ExtResource("1_6m6su")
@@ -82,411 +53,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_ds4xc")
+script = ExtResource("4_gjq3k")
 metadata/_edit_use_anchors_ = true
 
-[node name="Lobby" type="PanelContainer" parent="Gui/Menu"]
+[node name="Lobby" type="Control" parent="Gui/Menu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -302.0
-offset_top = -178.0
-offset_right = 511.0
-offset_bottom = 195.0
+offset_left = -355.0
+offset_top = -165.0
+offset_right = 294.0
+offset_bottom = 208.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"PanelGradient"
 script = ExtResource("5_gj02k")
-
-[node name="Hbox" type="HBoxContainer" parent="Gui/Menu/Lobby"]
-layout_mode = 2
-
-[node name="CreateLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_vertical = 4
-script = ExtResource("6_mnqew")
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/CreateLobby"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Buttons" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-layout_mode = 2
-text = "Create lobby"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="hbox" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="NameLobby" type="LineEdit" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/hbox"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "LobbyName"
-
-[node name="ModeLobby" type="OptionButton" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/hbox"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "Easy"
-popup/item_0/id = 0
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "Hard"
-popup/item_2/id = 2
-script = ExtResource("5_d4o73")
-enable_x = false
-
-[node name="Map" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-custom_minimum_size = Vector2(0, 145)
-layout_mode = 2
-script = ExtResource("7_ggsoj")
-
-[node name="back" type="Button" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map"]
-z_as_relative = false
-custom_minimum_size = Vector2(40, 64)
-layout_mode = 2
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-icon = ExtResource("8_w375h")
-icon_alignment = 1
-script = ExtResource("5_d4o73")
-enable_y = false
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="Image" type="Control" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Map" type="TextureRect" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/Image"]
-material = SubResource("ShaderMaterial_c1qje")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-texture = ExtResource("9_oy8lh")
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="Map2" type="TextureRect" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/Image"]
-material = SubResource("ShaderMaterial_g41ys")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_c1qje")
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="Map3" type="TextureRect" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/Image"]
-material = SubResource("ShaderMaterial_w375h")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_g41ys")
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="front" type="Button" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map"]
-custom_minimum_size = Vector2(40, 64)
-layout_mode = 2
-size_flags_vertical = 4
-mouse_default_cursor_shape = 2
-icon = ExtResource("13_2bc0k")
-icon_alignment = 1
-script = ExtResource("5_d4o73")
-enable_y = false
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="hs2" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-layout_mode = 2
-size_flags_vertical = 10
-
-[node name="CreateLobby" type="Button" parent="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_vertical = 8
-mouse_default_cursor_shape = 2
-text = "Create"
-script = ExtResource("5_d4o73")
-enable_x = false
-scale_max = 1.07
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="InfoLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
-visible = false
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("6_hejkk")
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Buttons" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin"]
-layout_mode = 2
-
-[node name="vbox" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/vbox"]
-layout_mode = 2
-text = "Info lobby"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ID" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/vbox"]
-modulate = Color(0.79434, 0.79434, 0.79434, 0.65098)
-layout_mode = 2
-size_flags_vertical = 8
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 14
-text = "ID: "
-script = ExtResource("5_d4o73")
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="Hbox" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SettingsLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Buttons" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
-layout_mode = 2
-text = "Settings lobby"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="Mode" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode"]
-layout_mode = 2
-text = "LobbyMode:"
-
-[node name="ModeLobby" type="OptionButton" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode"]
-layout_mode = 2
-size_flags_horizontal = 10
-mouse_default_cursor_shape = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "Easy"
-popup/item_0/id = 0
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "Hard"
-popup/item_2/id = 2
-script = ExtResource("5_d4o73")
-enable_x = false
-
-[node name="Players" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-script = ExtResource("7_015kr")
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Buttons" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
-layout_mode = 2
-text = "Players"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
-layout_mode = 2
-
-[node name="list" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
-layout_mode = 2
-alignment = 1
-
-[node name="Button" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
-layout_mode = 2
-size_flags_vertical = 10
-text = "Atualizar"
-
-[node name="hs2" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="Buttons" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
-layout_mode = 2
-
-[node name="PlayButton" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons"]
-modulate = Color(0.880157, 0.785138, 0.90584, 1)
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 8
-mouse_default_cursor_shape = 2
-text = "Play"
-script = ExtResource("5_d4o73")
-enable_x = false
-scale_max = 1.2
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="ReadyButton" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons"]
-modulate = Color(0.880157, 0.785138, 0.90584, 1)
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 8
-mouse_default_cursor_shape = 2
-text = "Ready"
-script = ExtResource("5_d4o73")
-enable_x = false
-scale_max = 1.2
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="QuitButton" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons"]
-modulate = Color(1, 0.336673, 0.270683, 1)
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_vertical = 8
-mouse_default_cursor_shape = 2
-text = "Quit"
-script = ExtResource("5_d4o73")
-enable_y = false
-scale_max = 1.15
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="Lobbies" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("10_gjq3k")
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies"]
-layout_mode = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="vbox" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin"]
-layout_mode = 2
-
-[node name="Tittle" type="Label" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox"]
-layout_mode = 2
-text = "Lobbies"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox"]
-layout_mode = 2
-
-[node name="List" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("3_c5ll6")
-
-[node name="VBox" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List"]
-layout_mode = 2
-
-[node name="Scroll" type="ScrollContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List/VBox/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 5
-
-[node name="ListVbox" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List/VBox/Scroll/margin"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List/VBox"]
-layout_mode = 2
-
-[node name="Buttons" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox"]
-layout_mode = 2
-
-[node name="Refresh" type="Button" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/Buttons"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-text = "Refresh"
-script = ExtResource("5_d4o73")
-enable_x = false
-scale_max = 1.07
-metadata/_custom_type_script = "uid://b32k327cs6cov"
-
-[node name="EnterID" type="Button" parent="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/Buttons"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-text = "Enter ID"
-script = ExtResource("5_d4o73")
-metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="PanelSocial" type="PanelContainer" parent="Gui/Menu"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 122.0
+offset_left = -126.0
+grow_horizontal = 0
 grow_vertical = 2
+theme_type_variation = &"PanelGradient"
 
 [node name="margin" type="MarginContainer" parent="Gui/Menu/PanelSocial"]
 layout_mode = 2
@@ -498,159 +93,54 @@ theme_override_constants/margin_bottom = 6
 [node name="Social" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin"]
 layout_mode = 2
 
-[node name="Profile" type="PanelContainer" parent="Gui/Menu/PanelSocial/margin/Social"]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 64)
+[node name="Profile" parent="Gui/Menu/PanelSocial/margin/Social" instance=ExtResource("6_015kr")]
 layout_mode = 2
-script = ExtResource("4_ybfmy")
 
-[node name="User" type="Button" parent="Gui/Menu/PanelSocial/margin/Social/Profile"]
+[node name="FriendList" parent="Gui/Menu/PanelSocial/margin/Social" instance=ExtResource("9_mnqew")]
 layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "NAME"
-icon = ExtResource("4_4c4pm")
-expand_icon = true
-script = ExtResource("5_d4o73")
-offset_edit = true
 
-[node name="ID" type="Label" parent="Gui/Menu/PanelSocial/margin/Social/Profile/User"]
-modulate = Color(1, 1, 1, 0.345098)
+[node name="margin" type="MarginContainer" parent="Gui/Menu"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -101.0
-offset_top = -17.0
-offset_right = 29.0
-offset_bottom = 2.0
-grow_horizontal = 0
+offset_top = -158.0
+offset_right = 271.0
 grow_vertical = 0
-scale = Vector2(0.755315, 0.755315)
-text = "123123123123"
-
-[node name="FriendList" type="PanelContainer" parent="Gui/Menu/PanelSocial/margin/Social"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("12_wyosj")
-
-[node name="Margin" type="MarginContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList"]
-layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="vbox" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin"]
+[node name="vbox" type="VBoxContainer" parent="Gui/Menu/margin"]
 layout_mode = 2
 
-[node name="tittle" type="Label" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox"]
-visible = false
-layout_mode = 2
-text = "Friend List"
-horizontal_alignment = 1
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox"]
-layout_mode = 2
-
-[node name="List" type="PanelContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"PanelGradient"
-
-[node name="Scroll" type="ScrollContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="margin" type="MarginContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="vbox" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Online" type="PanelContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox"]
-layout_mode = 2
-
-[node name="info" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Online"]
-layout_mode = 2
-
-[node name="TittleButton" type="Button" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Online/info" node_paths=PackedStringArray("NodeVisible")]
+[node name="Play" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-theme_type_variation = &"ButtonList"
-text = "Online"
-icon = ExtResource("21_2bc0k")
-icon_alignment = 2
-script = ExtResource("13_wc0ey")
-NodeVisible = NodePath("../margin/VboxOnline")
-metadata/_custom_type_script = "uid://pji5csx4s38w"
-
-[node name="hs" type="HSeparator" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Online/info"]
-layout_mode = 2
-
-[node name="margin" type="MarginContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Online/info"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 0
-
-[node name="VboxOnline" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Online/info/margin"]
-layout_mode = 2
-
-[node name="Offline" type="PanelContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox"]
-layout_mode = 2
-
-[node name="info" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Offline"]
-layout_mode = 2
-
-[node name="TittleButton" type="Button" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Offline/info" node_paths=PackedStringArray("NodeVisible")]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_type_variation = &"ButtonList"
-text = "Offline"
-icon = ExtResource("21_2bc0k")
-icon_alignment = 2
-script = ExtResource("13_wc0ey")
-NodeVisible = NodePath("../margin/VboxOffline")
+theme_type_variation = &"ButtonQuad"
+text = "PLAY"
+script = ExtResource("5_d4o73")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="hs" type="HSeparator" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Offline/info"]
+[node name="Options" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "OPTIONS"
+script = ExtResource("5_d4o73")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="margin" type="MarginContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Offline/info"]
+[node name="Quit" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "QUIT"
+script = ExtResource("5_d4o73")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="VboxOffline" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin/Social/FriendList/Margin/vbox/List/Scroll/margin/vbox/Offline/info/margin"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[connection signal="steamConnected" from="." to="Gui/Menu/PanelSocial/margin/Social/Profile" method="_on_server_steam_connected"]
-[connection signal="steamConnected" from="." to="Gui/Menu/PanelSocial/margin/Social/FriendList" method="_on_server_steam_connected"]
-[connection signal="exited_player" from="Gui/Menu/Lobby" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_lobby_exited_player"]
-[connection signal="new_player" from="Gui/Menu/Lobby" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_lobby_new_player"]
-[connection signal="item_selected" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/hbox/ModeLobby" to="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List" method="_on_mode_item_selected"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/back" to="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map" method="_on_back_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/front" to="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map" method="_on_front_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/CreateLobby" to="Gui/Menu/Lobby/Hbox/CreateLobby" method="_on_create_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/vbox/ID" to="Gui/Menu/Lobby/Hbox/InfoLobby" method="_on_id_pressed"]
-[connection signal="item_selected" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode/ModeLobby" to="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List" method="_on_mode_item_selected"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/PlayButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/ReadyButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/QuitButton" to="Gui/Menu/Lobby/Hbox/InfoLobby" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/Buttons/Refresh" to="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List" method="_on_refresh_pressed"]
-[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/Buttons/EnterID" to="Gui/Menu/Lobby/Hbox/Lobbies" method="_on_enter_id_pressed"]
-[connection signal="pressed" from="Gui/Menu/PanelSocial/margin/Social/Profile/User" to="Gui/Menu/PanelSocial/margin/Social/Profile" method="_on_user_pressed"]
+[connection signal="pressed" from="Gui/Menu/margin/vbox/Play" to="Gui/Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="Gui/Menu/margin/vbox/Quit" to="Gui/Menu" method="_on_quit_pressed"]

@@ -11,22 +11,25 @@ gradient = SubResource("Gradient_jpub1")
 fill_to = Vector2(0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_swgiw"]
+resource_local_to_scene = true
 shader = ExtResource("2_jpub1")
-shader_parameter/gradient_force = 0.58
 shader_parameter/GradientTexture = SubResource("GradientTexture2D_swgiw")
+shader_parameter/gradient_force = 1.0
 
 [node name="Player" type="Button"]
-custom_minimum_size = Vector2(250, 350)
+custom_minimum_size = Vector2(175, 250)
 anchors_preset = -1
-anchor_right = 0.260417
-anchor_bottom = 0.756173
-offset_right = -50.0
-offset_bottom = -140.0
+anchor_right = 0.148438
+anchor_bottom = 0.382716
+offset_right = 4.0
+offset_bottom = 2.0
+pivot_offset = Vector2(87.5, 125)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ButtonPlayer"
 script = ExtResource("1_82534")
+scale_max = 0.98
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 metadata/_edit_use_anchors_ = true
 

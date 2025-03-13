@@ -15,8 +15,8 @@ gradient = SubResource("Gradient_jwecu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orc58"]
 resource_local_to_scene = true
 shader = ExtResource("2_75opv")
-shader_parameter/gradient_force = 1.0
 shader_parameter/GradientTexture = SubResource("GradientTexture1D_orc58")
+shader_parameter/gradient_force = 1.0
 
 [node name="MapButton" type="Button"]
 custom_minimum_size = Vector2(0, 50)
