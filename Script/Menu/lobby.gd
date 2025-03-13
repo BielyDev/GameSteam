@@ -20,6 +20,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	match _responde:
 		Steam.RESULT_OK:
 			Host.notif("Enter lobby!")
+			Host.request_lobby()
 			return
 		Steam.RESULT_FAIL:
 			Host.notif("Aconteceu algo inesperado! COD 2")

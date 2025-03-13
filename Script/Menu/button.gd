@@ -19,13 +19,14 @@ func _ready() -> void:
 	_on_mouse_exited()
 	
 	Steam.avatar_loaded.connect(avatar_loader)
-	Steam.getPlayerAvatar(1, adm_id)
+	print(Steam.avatar_loaded.is_connected(avatar_loader))
+	Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM, adm_id)
 
 func _pressed() -> void:
 	Host.joinLobby(lobby_id, Host.port)
 
 func avatar_loader(_user_id: int, _size: int, _image_byte: PackedByteArray) -> void:
-	Adm.text = str(adm_id)
+	Adm.text = str(_user_id)
 	AdmAvatar.texture = Ui.readImageSteam(_size, _image_byte)
 
 

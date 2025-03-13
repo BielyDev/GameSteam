@@ -27,6 +27,10 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 			_lobby_settings = Host.lobby_settings
 		
 		var new_button: Button = MAP_BUTTON.instantiate()
+		
+		new_button.lobby_id = _id_lobby
+		new_button.adm_id = _lobby_settings.adm_id
+		
 		ListVbox.add_child(new_button)
 		
 		new_button.Map.texture = Host.MAP[int(_lobby_settings.map)].image
@@ -36,8 +40,6 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 		var _lobby_size: String = str(" ",Steam.getNumLobbyMembers(_id_lobby),"/",Steam.getLobbyMemberLimit(_id_lobby))
 		#Steam.getLobbyMemberData(_id_lobby,)
 		
-		new_button.lobby_id = _id_lobby
-		new_button.adm_id = _lobby_settings.adm_id
 		print(" --a- ",_lobby_settings.adm_id)
 		print(Host.steam_id)
 		
