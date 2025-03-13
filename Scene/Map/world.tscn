@@ -240,6 +240,7 @@ scale_max = 1.07
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="InfoLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -352,6 +353,7 @@ layout_mode = 2
 
 [node name="list" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
 layout_mode = 2
+alignment = 1
 
 [node name="Button" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
 layout_mode = 2
@@ -404,7 +406,6 @@ scale_max = 1.15
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="Lobbies" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3

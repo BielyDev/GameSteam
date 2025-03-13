@@ -2,6 +2,8 @@ extends PanelContainer
 
 @onready var Server: Node = $"../../.."
 @onready var NameLobby: LineEdit = $Hbox/CreateLobby/Margin/Buttons/hbox/NameLobby
+@onready var InfoLobby: PanelContainer = $Hbox/InfoLobby
+@onready var Lobbies: PanelContainer = $Hbox/Lobbies
 
 signal new_player(id: int)
 signal exited_player(id: int)
@@ -20,12 +22,13 @@ func _ready() -> void:
 
 
 func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int) -> void:
-	
+	print("lobby")
 	match _responde:
 		Steam.RESULT_OK:
 			Host.notif("Enter lobby!")
 			Host.players_lobby.append(Host.steam_id)
-			Host.request_lobby()
+			Lobbies.hide()
+			InfoLobby.client_config()
 			return
 		Steam.RESULT_FAIL:
 			Host.notif("Aconteceu algo inesperado! COD 2")

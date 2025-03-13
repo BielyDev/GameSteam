@@ -1,14 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://do380hr48wlex"]
+[gd_scene load_steps=8 format=3 uid="uid://do380hr48wlex"]
 
 [ext_resource type="Script" uid="uid://n52ymqpllokr" path="res://Script/Menu/button.gd" id="1_x7jwd"]
 [ext_resource type="Shader" uid="uid://cuekut0h7m45o" path="res://Assets/2D/Shader/Clip.tres" id="2_75opv"]
 [ext_resource type="Texture2D" uid="uid://78tev7xsyros" path="res://Assets/2D/Background/bind.png" id="2_x7jwd"]
 [ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="4_orc58"]
 
+[sub_resource type="Gradient" id="Gradient_jwecu"]
+offsets = PackedFloat32Array(0, 0.9319)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_orc58"]
+gradient = SubResource("Gradient_jwecu")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orc58"]
 resource_local_to_scene = true
 shader = ExtResource("2_75opv")
 shader_parameter/gradient_force = 1.0
+shader_parameter/GradientTexture = SubResource("GradientTexture1D_orc58")
 
 [node name="MapButton" type="Button"]
 custom_minimum_size = Vector2(0, 50)
