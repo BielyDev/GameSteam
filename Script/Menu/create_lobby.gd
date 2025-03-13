@@ -13,7 +13,7 @@ func _ready() -> void:
 	Steam.lobby_created.connect(lobby_created)
 
 func create_lobby() -> void:
-	Host.enet.create_server(Host.port, 4)
+	Host.steam.create_host(Host.port)
 	
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
 	Steam.connectP2P(Host.steam_id, Host.port, {})
@@ -32,8 +32,6 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 			
 			print("SetLobbyJoinable: ",Steam.setLobbyJoinable(_lobby_id, true))
 			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_NAME, NameLobby.text))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_MAP_NAME, NameLobby.text))
-			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "owner_name", Steam.getPersonaName()))
 			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Host.lobby_settings)))
 			print("SetLobbyData: ",Steam.setLobbyData(_lobby_id, "mode", Host.MODE[ModeLobby.selected]))
 			

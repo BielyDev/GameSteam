@@ -1,6 +1,8 @@
 extends ButtonAnimated
 
 var lobby_id: int
+var adm_id: int
+
 var tween: Tween
 var tweenSize: Tween
 var tweenAvatar: Tween
@@ -17,13 +19,13 @@ func _ready() -> void:
 	_on_mouse_exited()
 	
 	Steam.avatar_loaded.connect(avatar_loader)
-	Steam.getPlayerAvatar(1, lobby_id)
+	Steam.getPlayerAvatar(1, adm_id)
 
 func _pressed() -> void:
 	Host.joinLobby(lobby_id, Host.port)
 
 func avatar_loader(_user_id: int, _size: int, _image_byte: PackedByteArray) -> void:
-	Adm.text = Steam.getPlayerNickname(_user_id)
+	Adm.text = Steam.getPlayerNickname(adm_id)
 	AdmAvatar.texture = Ui.readImageSteam(_size, _image_byte)
 
 

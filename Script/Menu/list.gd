@@ -37,6 +37,7 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 		#Steam.getLobbyMemberData(_id_lobby,)
 		
 		new_button.lobby_id = _id_lobby
+		new_button.adm_id = int(_lobby_settings.adm_id)
 		
 		new_button.Mode.text = _lobby_mode
 		new_button.Tittle.text = _lobby_name

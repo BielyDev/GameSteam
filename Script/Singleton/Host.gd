@@ -30,7 +30,7 @@ var port: int = 0:
 		return port
 
 
-var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
 	OS.set_environment("SteamAppID",str(APP_ID))
@@ -52,7 +52,7 @@ func _ready() -> void:
 func joinLobby(_lobby_id: int, _port: int) -> void:
 	Steam.joinLobby(_lobby_id)
 	print("Connect: ",Steam.connectP2P(Steam.getLobbyOwner(_lobby_id), _port, {}))
-	enet.create_client("192.168.1.100",_port)
+	print(steam.create_client(_lobby_id,_port))
 
 func peer_connected(id: int) -> void:
 	print("App = ",id)
