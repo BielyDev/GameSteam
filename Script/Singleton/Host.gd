@@ -28,7 +28,7 @@ var port: int = 0:
 		if port == 0:
 			port = randi_range(1420,9999)
 		return port
-
+var players_lobby: Array
 
 var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 

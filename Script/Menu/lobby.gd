@@ -3,6 +3,9 @@ extends PanelContainer
 @onready var Server: Node = $"../../.."
 @onready var NameLobby: LineEdit = $Hbox/CreateLobby/Margin/Buttons/hbox/NameLobby
 
+signal new_player(id: int)
+signal exited_player(id: int)
+
 var lobby_id: int
 var settings: Dictionary = {
 	"map" : [0, "Name"],
@@ -13,6 +16,7 @@ func _ready() -> void:
 	Steam.lobby_chat_update.connect(lobby_chat_update)
 	Steam.lobby_kicked.connect(lobby_kicked)
 	Steam.lobby_joined.connect(lobby_joined)
+	Steam.persona_state_change.connect(persona_state_change)
 
 
 func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int) -> void:
@@ -20,6 +24,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	match _responde:
 		Steam.RESULT_OK:
 			Host.notif("Enter lobby!")
+			Host.players_lobby.append(Host.steam_id)
 			Host.request_lobby()
 			return
 		Steam.RESULT_FAIL:
@@ -37,15 +42,27 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:
-	print(NameLobby.text," - ",Steam.getAllLobbyData(_lobby_id))
+	
 	
 	if _changed_id == Host.steam_id:
 		print("Data")
 func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
-	print(NameLobby.text," - ",Steam.getAllLobbyData(_lobby_id))
+	print(_chat_state,": Fui_Chamada: ",_changed_id," - ",_making_change_id)
+	match _chat_state:
+		Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
+			Host.players_lobby.append(_changed_id)
+			new_player.emit(_changed_id)
+		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
+			Host.players_lobby.erase(_changed_id)
+			exited_player.emit(_changed_id)
 	
 	if _changed_id == Host.steam_id:
 		print("asdasd")
+
+func persona_state_change(_nick, _avatar) -> void:
+	print(_nick, _avatar)
+
+
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	
 	if _changed_id == Host.steam_id:

@@ -4,6 +4,7 @@ signal steamConnected
 
 @onready var Message: RichTextLabel = $Gui/Message
 @onready var Menu: Control = $Gui/Menu
+@onready var InfoLobby: PanelContainer = $Gui/Menu/Lobby/Hbox/InfoLobby
 
 func _ready() -> void:
 	Message.show()
@@ -14,6 +15,7 @@ func _ready() -> void:
 func _inicialize_steam() -> void:
 	Message.hide()
 	Menu.show()
+	InfoLobby.hide()
 	steamConnected.emit()
 
 func _process(_delta: float) -> void:

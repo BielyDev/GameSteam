@@ -86,16 +86,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Lobby" type="PanelContainer" parent="Gui/Menu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.325521
-anchor_top = 0.291667
-anchor_right = 0.849827
-anchor_bottom = 0.709877
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -302.0
+offset_top = -178.0
+offset_right = 511.0
+offset_bottom = 195.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"PanelGradient"
 script = ExtResource("5_gj02k")
-metadata/_edit_use_anchors_ = true
 
 [node name="Hbox" type="HBoxContainer" parent="Gui/Menu/Lobby"]
 layout_mode = 2
@@ -103,6 +106,7 @@ layout_mode = 2
 [node name="CreateLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_vertical = 4
 script = ExtResource("6_mnqew")
 
 [node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/CreateLobby"]
@@ -236,9 +240,9 @@ scale_max = 1.07
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="InfoLobby" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 script = ExtResource("6_hejkk")
 
 [node name="Margin" type="MarginContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby"]
@@ -273,7 +277,7 @@ metadata/_custom_type_script = "uid://b32k327cs6cov"
 [node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
 layout_mode = 2
 
-[node name="Hbox" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
+[node name="Hbox" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -346,12 +350,13 @@ vertical_alignment = 1
 [node name="hs" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
 layout_mode = 2
 
-[node name="list" type="VBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
+[node name="list" type="HBoxContainer" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons/list"]
+[node name="Button" type="Button" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons"]
 layout_mode = 2
-text = "Biely"
+size_flags_vertical = 10
+text = "Atualizar"
 
 [node name="hs2" type="HSeparator" parent="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons"]
 layout_mode = 2
@@ -399,6 +404,7 @@ scale_max = 1.15
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="Lobbies" type="PanelContainer" parent="Gui/Menu/Lobby/Hbox"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -632,12 +638,15 @@ size_flags_horizontal = 3
 
 [connection signal="steamConnected" from="." to="Gui/Menu/PanelSocial/margin/Social/Profile" method="_on_server_steam_connected"]
 [connection signal="steamConnected" from="." to="Gui/Menu/PanelSocial/margin/Social/FriendList" method="_on_server_steam_connected"]
+[connection signal="exited_player" from="Gui/Menu/Lobby" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_lobby_exited_player"]
+[connection signal="new_player" from="Gui/Menu/Lobby" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_lobby_new_player"]
 [connection signal="item_selected" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/hbox/ModeLobby" to="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List" method="_on_mode_item_selected"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/back" to="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map" method="_on_back_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map/front" to="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/Map" method="_on_front_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/CreateLobby/Margin/Buttons/CreateLobby" to="Gui/Menu/Lobby/Hbox/CreateLobby" method="_on_create_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/vbox/ID" to="Gui/Menu/Lobby/Hbox/InfoLobby" method="_on_id_pressed"]
 [connection signal="item_selected" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/SettingsLobby/Margin/Buttons/Mode/ModeLobby" to="Gui/Menu/Lobby/Hbox/Lobbies/Margin/vbox/List" method="_on_mode_item_selected"]
+[connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/PlayButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/ReadyButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Gui/Menu/Lobby/Hbox/InfoLobby/Margin/Buttons/Buttons/QuitButton" to="Gui/Menu/Lobby/Hbox/InfoLobby" method="_on_quit_button_pressed"]

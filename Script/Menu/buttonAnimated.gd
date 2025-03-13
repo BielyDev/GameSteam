@@ -46,8 +46,12 @@ func change_scale(_size: float = 1.0) -> void:
 		twScale.stop()
 	twScale = create_tween()
 	
-	if enable_x: twScale.tween_property(self,"scale:x",_size,0.3).set_trans(Tween.TRANS_CUBIC)
-	if enable_y: twScale.tween_property(self,"scale:y",_size,0.3).set_trans(Tween.TRANS_CUBIC)
+	var scale_edit: Vector2 = Vector2(1,1)
+	
+	if enable_x: scale_edit.x = _size
+	if enable_y: scale_edit.y = _size
+	
+	twScale.tween_property(self,"scale",scale_edit,0.3).set_trans(Tween.TRANS_CUBIC)
 	
 	if !offset_edit:
 		pivot_offset = Vector2(size.x / 2, size.y / 2)

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2wl64crax7g0"]
+
+[ext_resource type="Script" uid="uid://chjc4k1ib1nkl" path="res://Script/Menu/Buttonplayer.gd" id="1_82534"]
+[ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="1_scd3q"]
+
+[node name="Player" type="Button"]
+custom_minimum_size = Vector2(250, 350)
+anchors_preset = -1
+anchor_right = 0.260417
+anchor_bottom = 0.756173
+offset_right = -50.0
+offset_bottom = -140.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonPlayer"
+script = ExtResource("1_82534")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+metadata/_edit_use_anchors_ = true
+
+[node name="Avatar" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.5
+offset_top = 9.77
+offset_right = 56.5
+offset_bottom = 122.77
+grow_horizontal = 2
+texture = ExtResource("1_scd3q")
+expand_mode = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
