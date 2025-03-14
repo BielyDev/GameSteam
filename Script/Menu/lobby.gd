@@ -10,7 +10,7 @@ var lobby_id: int
 var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
-	"adm_id": 0,
+	"adm_id": "",
 }
 var settings: Dictionary = {
 	"map" : [0, "Name"],
@@ -38,7 +38,7 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 			configureLobby(_lobby_id)
 			
 			Lobby.lobby_id = _lobby_id
-			Lobby.lobby_settings.adm_id = Host.steam_id
+			Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
 			
 			Ui.new_scene(INFO_LOBBY).host_config()
 			return

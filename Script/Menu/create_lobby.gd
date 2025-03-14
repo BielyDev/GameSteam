@@ -6,8 +6,9 @@ extends Control
 
 
 func create_lobby() -> void:
-	Host.steam.create_host(Host.port)
 	Lobby.lobby_name = NameLobby.text
+	
+	Host.steam.create_host(Host.port)
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
 	Steam.connectP2P(Host.steam_id, Host.port, {})
 

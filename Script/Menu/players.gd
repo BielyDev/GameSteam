@@ -30,10 +30,10 @@ func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 	loaded_avatar.emit()
 
 
-func _on_lobby_new_player(id: int) -> void:
+func _on_lobby_new_player(_id: int) -> void:
 	refresh()
 
-func _on_lobby_exited_player(id: int) -> void:
+func _on_lobby_exited_player(_id: int) -> void:
 	refresh()
 
 func _on_button_pressed() -> void:

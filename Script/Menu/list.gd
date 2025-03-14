@@ -15,7 +15,7 @@ func delete_buttons() -> void:
 
 func _on_lobby_match_list(_id_lobbies: Array) -> void:
 	delete_buttons()
-	print(_id_lobbies)
+	
 	for _id_lobby: int in _id_lobbies:
 		var _lobby_name: String = Steam.getLobbyData(_id_lobby,Host.KEY_NAME)
 		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_id_lobby,Host.KEY_SETTINGS))
@@ -25,10 +25,10 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 		
 		var new_button: Button = MAP_BUTTON.instantiate()
 		
-		new_button.lobby_id = _id_lobby
-		new_button.adm_id = _lobby_settings.adm_id
-		
 		ListVbox.add_child(new_button)
+		
+		new_button.lobby_id = _id_lobby
+		new_button.adm_id = int(_lobby_settings.adm_id)
 		
 		new_button.Map.texture = Host.MAP[int(_lobby_settings.map)].image
 		new_button.MapName.text = Host.MAP[int(_lobby_settings.map)].name

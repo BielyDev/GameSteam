@@ -17,41 +17,36 @@ var tweenAvatar: Tween
 
 func _ready() -> void:
 	_on_mouse_exited()
-	
+
+func loader_adm() -> void:
 	Steam.avatar_loaded.connect(avatar_loader)
-	print(Steam.avatar_loaded.is_connected(avatar_loader))
+	
+	Adm.text = str(adm_id)
 	Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM, adm_id)
 
 func _pressed() -> void:
 	Host.joinLobby(lobby_id, Host.port)
 
 func avatar_loader(_user_id: int, _size: int, _image_byte: PackedByteArray) -> void:
-	Adm.text = str(_user_id)
+	
 	AdmAvatar.texture = Ui.readImageSteam(_size, _image_byte)
 
-
 func _on_mouse_entered() -> void:
-	if tween != null:
-		tween.stop()
-	if tweenSize != null:
-		tweenSize.stop()
-	
-	tween = create_tween()
-	tween.tween_property(Map.material,"shader_parameter/gradient_force",0.9,0.5).set_trans(Tween.TRANS_CUBIC)
-	tweenSize = create_tween()
-	tweenSize.tween_property(self,"custom_minimum_size:y",90,0.5).set_trans(Tween.TRANS_CUBIC)
-	tweenAvatar = create_tween()
-	tweenAvatar.tween_property(AdmAvatar,"modulate:a",1,0.5).set_trans(Tween.TRANS_CUBIC)
+	animation(1, 90, 1)
+	loader_adm()
 
 func _on_mouse_exited() -> void:
+	animation(0.4, 50, 0)
+
+func animation(_gradient_force: float, custom_y: float, modulate_a: float) -> void:
 	if tween != null:
 		tween.stop()
 	if tweenSize != null:
 		tweenSize.stop()
 	
 	tween = create_tween()
-	tween.tween_property(Map.material,"shader_parameter/gradient_force",0.4,0.5).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(Map.material,"shader_parameter/gradient_force",_gradient_force,0.5).set_trans(Tween.TRANS_CUBIC)
 	tweenSize = create_tween()
-	tweenSize.tween_property(self,"custom_minimum_size:y",50,0.5).set_trans(Tween.TRANS_CUBIC)
+	tweenSize.tween_property(self,"custom_minimum_size:y",custom_y,0.5).set_trans(Tween.TRANS_CUBIC)
 	tweenAvatar = create_tween()
-	tweenAvatar.tween_property(AdmAvatar,"modulate:a",0,0.5).set_trans(Tween.TRANS_CUBIC)
+	tweenAvatar.tween_property(AdmAvatar,"modulate:a",modulate_a,0.5).set_trans(Tween.TRANS_CUBIC)
