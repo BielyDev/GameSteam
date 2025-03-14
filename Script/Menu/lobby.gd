@@ -57,8 +57,9 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				Ui.new_scene(INFO_LOBBY).host_config()
 			else:
 				Lobby.lobby_id = _lobby_id
+				print(_lobby_id," - aaa")
 				Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-				
+				 
 				Ui.new_scene(INFO_LOBBY).client_config()
 			return
 		Steam.RESULT_FAIL:
