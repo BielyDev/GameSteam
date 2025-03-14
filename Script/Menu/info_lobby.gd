@@ -13,7 +13,7 @@ func client_config() -> void:
 	PlayButton.hide()
 	Players.show()
 	ReadyButton.show()
-	ID.text = str("ID ",Host.lobby_id)
+	ID.text = str("ID ",Lobby.lobby_id)
 	
 	show()
 func host_config() -> void:

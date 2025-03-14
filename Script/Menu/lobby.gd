@@ -40,7 +40,6 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 			Lobby.lobby_id = _lobby_id
 			Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
 			
-			Ui.new_scene(INFO_LOBBY).host_config()
 			return
 		Steam.RESULT_FAIL:
 			Ui.notif("Expirado")
@@ -53,8 +52,11 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	match _responde:
 		Steam.RESULT_OK:
 			Host.notif("Enter lobby!")
-			#Lobbies.hide()
-			#InfoLobby.client_config()
+			
+			if int(Lobby.lobby_settings.adm_id) == Host.steam_id:
+				Ui.new_scene(INFO_LOBBY).host_config()
+			else:
+				Ui.new_scene(INFO_LOBBY).client_config()
 			return
 		Steam.RESULT_FAIL:
 			Host.notif("Aconteceu algo inesperado! COD 2")
@@ -67,7 +69,6 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 			return
 	
 	Host.notif(str("ERROR ,",_responde))
-
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:
 	pass

@@ -38,6 +38,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Blur" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_octjr")
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 

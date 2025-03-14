@@ -7,6 +7,13 @@ const BUTTONPLAYER = preload("res://Scene/Screen/buttonplayer.tscn")
 @onready var List: HBoxContainer = $Margin/Buttons/list
 
 func _ready() -> void:
+	Lobby.new_player.connect(new_player)
+	
+	refresh()
+
+func new_player(_id: int) -> void:
+	refresh()
+func exit_player(_id: int) -> void:
 	refresh()
 
 func refresh() -> void:
