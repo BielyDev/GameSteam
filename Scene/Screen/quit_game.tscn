@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://qu101sp887pv"]
+
+[ext_resource type="Script" uid="uid://y0ute1vi2y42" path="res://Script/Menu/quit_game.gd" id="1_0eil1"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_63bjl"]
+
+[node name="QuitGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0eil1")
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 291.0
+offset_top = 183.0
+offset_right = 862.0
+offset_bottom = 507.0
+
+[node name="Panel" type="PanelContainer" parent="vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="vbox/Panel"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "DESEJA MESMO SAIR DO JOGO?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hbox" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="vbox/hbox"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+text = "CANCEL"
+script = ExtResource("1_63bjl")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Quitgame" type="Button" parent="vbox/hbox"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+text = "QUIT GAME"
+script = ExtResource("1_63bjl")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="pressed" from="vbox/hbox/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="vbox/hbox/Quitgame" to="." method="_on_quitgame_pressed"]

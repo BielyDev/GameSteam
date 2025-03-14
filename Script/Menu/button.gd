@@ -29,6 +29,7 @@ func _pressed() -> void:
 
 func avatar_loader(_user_id: int, _size: int, _image_byte: PackedByteArray) -> void:
 	AdmAvatar.texture = Ui.readImageSteam(_size, _image_byte)
+	Steam.avatar_loaded.disconnect(avatar_loader)
 
 func _on_mouse_entered() -> void:
 	animation(1, 90, 1)
