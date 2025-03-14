@@ -7,28 +7,25 @@ extends Control
 @onready var QuitButton: Button = $vbox/Buttons/QuitButton
 @onready var ID: Button = $vbox/Panel/Margin/Buttons/vbox/ID
 
+const LOBBIES = preload("res://Scene/Screen/lobbies.tscn")
+
+func _ready() -> void:
+	ID.text = str("ID ",Lobby.lobby_id)
 
 func client_config() -> void:
 	SettingsLobby.hide()
 	PlayButton.hide()
-	Players.show()
 	ReadyButton.show()
-	ID.text = str("ID ",Lobby.lobby_id)
-	
-	show()
 func host_config() -> void:
-	ReadyButton.hide()
-	PlayButton.show()
 	SettingsLobby.show()
-	Players.show()
-	ID.text = str("ID ",Lobby.lobby_id)
-	show()
+	PlayButton.show()
+	ReadyButton.hide()
 
 func _on_quit_button_pressed() -> void:
 	Steam.leaveLobby(Lobby.lobby_id)
-	Host.notif("Você saiu do lobby!")
+	Ui.new_simple_scene(LOBBIES)
 	
-	Host.request_lobby()
+	Host.notif("Você saiu do lobby!")
 
 
 func _on_id_pressed() -> void:

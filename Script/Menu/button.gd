@@ -21,7 +21,7 @@ func _ready() -> void:
 func loader_adm() -> void:
 	Steam.avatar_loaded.connect(avatar_loader)
 	
-	Adm.text = str(adm_id)
+	Adm.text = str(Steam.getFriendPersonaName(adm_id)," ")
 	Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM, adm_id)
 
 func _pressed() -> void:
