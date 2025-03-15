@@ -2,11 +2,16 @@ extends Control
 
 signal new_player(id: int)
 signal exited_player(id: int)
+signal ready_lobby(id: int, value: bool)
+
+enum MESSAGE_LOBBY {PLAY, READY}
 
 const INFO_LOBBY = preload("res://Scene/Screen/info_lobby.tscn")
 
-var lobby_name: String
 var lobby_id: int
+var lobby_name: String
+var players_lobby: Dictionary
+
 var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
@@ -15,6 +20,10 @@ var lobby_settings: Dictionary = {
 var settings: Dictionary = {
 	"map" : [0, "Name"],
 }
+var my_ready_lobby: bool:
+	set(value):
+		Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.READY, value]))
+		my_ready_lobby = value
 
 func _ready() -> void:
 	Steam.lobby_data_update.connect(lobby_data_update)
@@ -22,6 +31,7 @@ func _ready() -> void:
 	Steam.lobby_kicked.connect(lobby_kicked)
 	Steam.lobby_joined.connect(lobby_joined)
 	Steam.lobby_created.connect(lobby_created)
+	Steam.lobby_message.connect(lobby_message)
 	Steam.persona_state_change.connect(persona_state_change)
 
 
@@ -30,6 +40,8 @@ func configureLobby(_lobby_id: int) -> void:
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
 
+func startGame() -> void:
+	Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.PLAY]))
 
 func joinLobby(_lobby_id: int, _port: int) -> void:
 	Steam.joinLobby(_lobby_id)
@@ -84,14 +96,27 @@ func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -
 func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	match _chat_state:
 		Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
-			Host.players_lobby.append(_changed_id)
+			new_player.emit(_changed_id)
 		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
 			exited_player.emit(_changed_id)
 		Steam.CHAT_MEMBER_STATE_CHANGE_DISCONNECTED:
 			exited_player.emit(_changed_id)
 
 func persona_state_change(_nick, _avatar) -> void:
-	print(_nick, _avatar)
+	print("persona_state_change: ",_nick, _avatar)
 
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	print("State: ",_chat_state)
+func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
+	match _type:
+		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
+			var message: Array = JSON.parse_string(_buffer)
+			
+			match int(message[0]):
+				Lobby.MESSAGE_LOBBY.PLAY:
+					for player in players_lobby:
+						print(player)
+					OS.alert("Vai começar")
+				Lobby.MESSAGE_LOBBY.READY:
+					players_lobby[str(_user_id)] = message[1]
+					ready_lobby.emit(_user_id, message[1])

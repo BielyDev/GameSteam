@@ -98,12 +98,13 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-411.187, -74.5139)
 mode = 1
 flags/light_only = false
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_6aa0x")
 nodes/fragment/2/position = Vector2(-300, 260)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_vcoti")
-nodes/fragment/3/position = Vector2(-220, 60)
+nodes/fragment/3/position = Vector2(-400, 40)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_qlsrn")
 nodes/fragment/4/position = Vector2(-240, 820)
 nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_xkljr")
@@ -118,4 +119,4 @@ nodes/fragment/18/node = SubResource("VisualShaderNodeFloatOp_6aa0x")
 nodes/fragment/18/position = Vector2(160, 1240)
 nodes/fragment/19/node = SubResource("VisualShaderNodeFloatOp_vcoti")
 nodes/fragment/19/position = Vector2(-180, 1260)
-nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 5, 0, 0, 1, 2, 4, 5, 0, 16, 0, 4, 2, 4, 0, 17, 0, 17, 0, 5, 1, 7, 0, 19, 0, 19, 0, 18, 0, 18, 0, 17, 1)
+nodes/fragment/connections = PackedInt32Array(5, 0, 0, 1, 2, 4, 5, 0, 16, 0, 4, 2, 4, 0, 17, 0, 17, 0, 5, 1, 7, 0, 19, 0, 19, 0, 18, 0, 18, 0, 17, 1, 3, 0, 0, 0)

@@ -22,9 +22,7 @@ func refresh() -> void:
 		child.queue_free()
 	
 	Steam.avatar_loaded.connect(createPlayerLobby)
-	print("aa",Steam.getNumLobbyMembers(Lobby.lobby_id))
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-		print("nene: ",player_number)
 		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		await loaded_avatar
 	
@@ -33,6 +31,7 @@ func refresh() -> void:
 func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 	var button: Button = BUTTONPLAYER.instantiate()
 	List.add_child(button)
+	button.name = str(_id)
 	button.text = Steam.getFriendPersonaName(_id)
 	button.Avatar.texture = Ui.readImageSteam(_size, _avatar)
 	

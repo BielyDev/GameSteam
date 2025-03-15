@@ -32,3 +32,10 @@ func _on_quit_button_pressed() -> void:
 func _on_id_pressed() -> void:
 	DisplayServer.clipboard_set(ID.text.erase(0).erase(0).erase(0))
 	Host.notif("ID COPIADO")
+
+
+func _on_ready_button_pressed() -> void:
+	Lobby.my_ready_lobby = !Lobby.my_ready_lobby
+
+func _on_play_button_pressed() -> void:
+	Lobby.startGame()

@@ -3,10 +3,28 @@ extends ButtonAnimated
 var tween: Tween
 var tweenOpacity: Tween
 
+var ready_lobby: bool:
+	set(value):
+		Ready.visible = value
+		NoReady.visible = !value
+		ready_lobby = value
+
+@onready var Ready: TextureRect = $Ready
+@onready var NoReady: TextureRect = $NoReady
 @onready var Avatar: TextureRect = $Avatar
 
 func _ready() -> void:
 	_on_mouse_exited()
+	
+	Lobby.ready_lobby.connect(_ready_in_player)
+
+func _process(delta: float) -> void:
+	NoReady.texture.noise.offset.y += -8 * delta
+
+
+func _ready_in_player(_id: int, _value: bool) -> void:
+	if name.to_int() == _id:
+		ready_lobby = _value
 
 func _on_mouse_entered() -> void:
 	if tween != null:

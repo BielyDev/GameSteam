@@ -6,8 +6,9 @@ const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
 
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
-const KEY_MAP_NAME: String = "map"
 const KEY_SETTINGS: String = "settings"
+const KEY_PLAYER_LOBBY: String = "player_lobby"
+
 const MODE: Array = ["Easy","Medium","Hard"]
 const MAP: Array = [
 	{"name" : "Bind", "image" : preload("res://Assets/2D/Background/bind.png")},
@@ -22,7 +23,6 @@ var port: int = 0:
 		if port == 0:
 			port = randi_range(1420,9999)
 		return port
-var players_lobby: Array
 
 var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 

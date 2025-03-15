@@ -230,4 +230,6 @@ metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/vbox/ID" to="." method="_on_id_pressed"]
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="vbox/Panel/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
+[connection signal="pressed" from="vbox/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="vbox/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
 [connection signal="pressed" from="vbox/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

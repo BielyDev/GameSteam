@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2wl64crax7g0"]
+[gd_scene load_steps=15 format=3 uid="uid://d2wl64crax7g0"]
 
 [ext_resource type="Script" uid="uid://chjc4k1ib1nkl" path="res://Script/Menu/Buttonplayer.gd" id="1_82534"]
 [ext_resource type="Texture2D" uid="uid://crafwjl66npwg" path="res://icon.svg" id="1_scd3q"]
@@ -14,7 +14,40 @@ fill_to = Vector2(0, 1)
 resource_local_to_scene = true
 shader = ExtResource("2_jpub1")
 shader_parameter/GradientTexture = SubResource("GradientTexture2D_swgiw")
-shader_parameter/gradient_force = 1.0
+shader_parameter/gradient_force = 0.5
+
+[sub_resource type="Gradient" id="Gradient_swgiw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nuqtu"]
+gradient = SubResource("Gradient_swgiw")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_okqbv"]
+shader = ExtResource("2_jpub1")
+shader_parameter/GradientTexture = SubResource("GradientTexture2D_nuqtu")
+shader_parameter/gradient_force = 0.305
+
+[sub_resource type="Gradient" id="Gradient_n6a36"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.0100503, 0.190955, 0.331658, 0.512563, 0.768844, 1)
+colors = PackedColorArray(0.462252, 0.505214, 0.365176, 1, 0.54204, 0.525359, 0.298443, 1, 0.604097, 0.541028, 0.24654, 1, 0.683885, 0.561174, 0.179807, 1, 0.796918, 0.589713, 0.0852697, 1, 0.89887, 0.615455, 3.85046e-07, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_voyp4"]
+offset = Vector3(157.432, 317.217, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j7xwp"]
+height = 82
+seamless = true
+color_ramp = SubResource("Gradient_n6a36")
+noise = SubResource("FastNoiseLite_voyp4")
+
+[sub_resource type="Gradient" id="Gradient_nuqtu"]
+colors = PackedColorArray(0.711442, 0.904569, 0.405371, 1, 0.415686, 1, 0.415686, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_okqbv"]
+gradient = SubResource("Gradient_nuqtu")
+fill_from = Vector2(1, 1)
+fill_to = Vector2(1, 0.429082)
 
 [node name="Player" type="Button"]
 custom_minimum_size = Vector2(175, 250)
@@ -40,11 +73,32 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -56.5
-offset_top = 9.77
 offset_right = 56.5
-offset_bottom = 122.77
+offset_bottom = 113.0
 grow_horizontal = 2
 texture = ExtResource("1_scd3q")
+expand_mode = 1
+
+[node name="NoReady" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_okqbv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_j7xwp")
+expand_mode = 1
+
+[node name="Ready" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_okqbv")
 expand_mode = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
