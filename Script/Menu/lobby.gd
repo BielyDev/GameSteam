@@ -31,15 +31,18 @@ func configureLobby(_lobby_id: int) -> void:
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
 
 
+func joinLobby(_lobby_id: int, _port: int) -> void:
+	Steam.joinLobby(_lobby_id)
+	print("connectP2P: ",Steam.connectP2P(Steam.getLobbyOwner(_lobby_id), _port, {}))
+	print("create_client: ",Host.steam.create_client(_lobby_id,_port))
+
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	
 	match _result:
 		Steam.RESULT_OK:
 			configureLobby(_lobby_id)
 			
-			Lobby.lobby_id = _lobby_id
 			Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
-			
 			return
 		Steam.RESULT_FAIL:
 			Ui.notif("Expirado")
@@ -53,14 +56,14 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 		Steam.RESULT_OK:
 			Host.notif("Enter lobby!")
 			
-			if int(Lobby.lobby_settings.adm_id) == Host.steam_id:
-				Ui.new_scene(INFO_LOBBY).host_config()
-			else:
+			if Lobby.lobby_id != _lobby_id:
 				Lobby.lobby_id = _lobby_id
-				print(_lobby_id," - aaa")
-				Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-				 
-				Ui.new_scene(INFO_LOBBY).client_config()
+				
+				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
+					Ui.new_scene(INFO_LOBBY).host_config()
+				else:
+					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
+					Ui.new_scene(INFO_LOBBY).client_config()
 			return
 		Steam.RESULT_FAIL:
 			Host.notif("Aconteceu algo inesperado! COD 2")
@@ -83,7 +86,7 @@ func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _
 		Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
 			Host.players_lobby.append(_changed_id)
 			new_player.emit(_changed_id)
-		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
+		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_DISCONNECTED:
 			Host.players_lobby.erase(_changed_id)
 			exited_player.emit(_changed_id)
 
@@ -91,4 +94,4 @@ func persona_state_change(_nick, _avatar) -> void:
 	print(_nick, _avatar)
 
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
-	pass
+	print("State: ",_chat_state)

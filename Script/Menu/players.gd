@@ -8,6 +8,7 @@ const BUTTONPLAYER = preload("res://Scene/Screen/buttonplayer.tscn")
 
 func _ready() -> void:
 	Lobby.new_player.connect(new_player)
+	Lobby.exited_player.connect(exit_player)
 	
 	refresh()
 
@@ -21,8 +22,9 @@ func refresh() -> void:
 		child.queue_free()
 	
 	Steam.avatar_loaded.connect(createPlayerLobby)
-	
+	print("aa",Steam.getNumLobbyMembers(Lobby.lobby_id))
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+		print("nene: ",player_number)
 		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		await loaded_avatar
 	
@@ -35,13 +37,6 @@ func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 	button.Avatar.texture = Ui.readImageSteam(_size, _avatar)
 	
 	loaded_avatar.emit()
-
-
-func _on_lobby_new_player(_id: int) -> void:
-	refresh()
-
-func _on_lobby_exited_player(_id: int) -> void:
-	refresh()
 
 func _on_button_pressed() -> void:
 	refresh()
