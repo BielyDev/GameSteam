@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
 const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
+const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
 
 var parent_scene: Control = Control.new()
 
@@ -11,6 +12,11 @@ func _ready() -> void:
 	add_child(parent_scene)
 	parent_scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent_scene.size = get_viewport().size
+
+func alert(text: String, icon: Texture2D = null) -> void:
+	var new_n = NOTIFICATION.instantiate()
+	add_child(new_n)
+	new_n.start(text, icon)
 
 func new_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
 	if _remove_scenes:

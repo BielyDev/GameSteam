@@ -2,8 +2,6 @@ extends Node
 
 signal steamConnected
 
-const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
-
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
@@ -45,11 +43,6 @@ func _ready() -> void:
 
 func peer_connected(id: int) -> void:
 	print("App = ",id)
-
-func notif(text: String, icon: Texture2D = null) -> void:
-	var new_n = NOTIFICATION.instantiate()
-	add_child(new_n)
-	new_n.start(text, icon)
 
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)

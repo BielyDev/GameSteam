@@ -67,28 +67,29 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	
 	match _responde:
 		Steam.RESULT_OK:
-			Host.notif("Enter lobby!")
+			Ui.alert("Enter lobby!")
 			
 			if Lobby.lobby_id != _lobby_id:
 				Lobby.lobby_id = _lobby_id
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
-					Ui.new_scene(INFO_LOBBY).host_config()
+					players_lobby[str(Host.steam_id)] = true
+					Ui.new_scene(INFO_LOBBY)#.host_config()
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					Ui.new_scene(INFO_LOBBY).client_config()
+					Ui.new_scene(INFO_LOBBY)#.client_config()
 			return
 		Steam.RESULT_FAIL:
-			Host.notif("Aconteceu algo inesperado! COD 2")
+			Ui.alert("Aconteceu algo inesperado! COD 2")
 			return
 		Steam.RESULT_ACCESS_DENIED:
-			Host.notif("Acesso negado!")
+			Ui.alert("Acesso negado!")
 			return
 		Steam.RESULT_CONNECT_FAILED:
-			Host.notif("Conexão falhou!")
+			Ui.alert("Conexão falhou!")
 			return
 	
-	Host.notif(str("ERROR ,",_responde))
+	Ui.alert(str("ERROR ,",_responde))
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:
 	pass
@@ -115,8 +116,15 @@ func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -
 			match int(message[0]):
 				Lobby.MESSAGE_LOBBY.PLAY:
 					for player in players_lobby:
-						print(player)
-					OS.alert("Vai começar")
+						if players_lobby.get(player) == false:
+							Ui.alert(str(Steam.getFriendPersonaName(int(player))," ainda não está pronto."))
+							return
+					
+					Ui.alert("Vai começar em...")
+					for i in range(3):
+						await get_tree().create_timer(1).timeout
+						Ui.alert(str(3-i))
+					
 				Lobby.MESSAGE_LOBBY.READY:
 					players_lobby[str(_user_id)] = message[1]
 					ready_lobby.emit(_user_id, message[1])

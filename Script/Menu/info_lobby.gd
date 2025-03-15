@@ -26,12 +26,12 @@ func _on_quit_button_pressed() -> void:
 	Lobby.lobby_id = 0
 	Ui.new_simple_scene(LOBBIES)
 	
-	Host.notif("Você saiu do lobby!")
+	Ui.alert("Você saiu do lobby!")
 
 
 func _on_id_pressed() -> void:
 	DisplayServer.clipboard_set(ID.text.erase(0).erase(0).erase(0))
-	Host.notif("ID COPIADO")
+	Ui.alert("ID COPIADO")
 
 
 func _on_ready_button_pressed() -> void:

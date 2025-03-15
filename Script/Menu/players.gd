@@ -5,6 +5,7 @@ signal loaded_avatar()
 const BUTTONPLAYER = preload("res://Scene/Screen/buttonplayer.tscn")
 
 @onready var List: HBoxContainer = $Margin/Buttons/list
+@onready var InfoLobby: Control = $"../../../../../.."
 
 func _ready() -> void:
 	Lobby.new_player.connect(new_player)
@@ -25,8 +26,12 @@ func refresh() -> void:
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
 		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		await loaded_avatar
-	
 	Steam.avatar_loaded.disconnect(createPlayerLobby)
+	
+	if Steam.getLobbyOwner(Lobby.lobby_id) == Host.steam_id:
+		InfoLobby.host_config()
+	else:
+		InfoLobby.client_config()
 
 func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 	var button: Button = BUTTONPLAYER.instantiate()
