@@ -17,6 +17,7 @@ var lobby_settings: Dictionary = {
 	"mode" : 0,
 	"adm_id": "",
 	"port": 0,
+	"ip": "",
 }
 var settings: Dictionary = {
 	"map" : [0, "Name"],
@@ -38,6 +39,7 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
+	Lobby.lobby_settings.ip = IP.get_local_addresses()
 	#print(Lobby.lobby_settings.port)
 	#print("Create Host: ",Host.steam.create_host(Lobby.lobby_settings.port))
 	
@@ -79,18 +81,18 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				Lobby.lobby_id = _lobby_id
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
-					var _err: int = Host.steam.create_host(0)
+					var _err: int = Host.enet.create_server(0)#Host.steam.create_host(0)
 					if _err == OK:
-						multiplayer.multiplayer_peer = Host.steam
+						multiplayer.multiplayer_peer = Host.enet
 						Ui.alert(str("Host criado"))
 						players_lobby[str(Host.steam_id)] = true
 						Ui.new_scene(INFO_LOBBY)
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					var _err: int = Host.steam.create_client(_lobby_id, 0)
+					var _err: int = Host.enet.create_client(Lobby.lobby_settings.ip,0)#Host.steam.create_client(_lobby_id, 0)
 					if _err == OK:
 						Ui.alert("Create client")
-						multiplayer.multiplayer_peer = Host.steam
+						multiplayer.multiplayer_peer = Host.enet#Host.steam
 						Ui.new_scene(INFO_LOBBY)
 			return
 		Steam.RESULT_FAIL:
