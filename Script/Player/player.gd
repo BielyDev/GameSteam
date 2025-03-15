@@ -15,7 +15,7 @@ var authority: bool
 
 func _ready() -> void:
 	Camera.current = authority
-	set_physics_process(!authority)
+	set_physics_process(authority)
 
 func _physics_process(_delta: float) -> void:
 	
