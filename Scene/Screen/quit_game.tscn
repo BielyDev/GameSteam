@@ -44,15 +44,20 @@ layout_mode = 2
 alignment = 1
 
 [node name="Cancel" type="Button" parent="vbox/hbox"]
-custom_minimum_size = Vector2(128, 32)
+modulate = Color(0.270588, 0.819608, 0.639216, 1)
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
 text = "CANCEL"
 script = ExtResource("1_63bjl")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="Quitgame" type="Button" parent="vbox/hbox"]
-custom_minimum_size = Vector2(128, 32)
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
 text = "QUIT GAME"
 script = ExtResource("1_63bjl")
 metadata/_custom_type_script = "uid://b32k327cs6cov"

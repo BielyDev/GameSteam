@@ -141,8 +141,9 @@ func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -
 					for i in range(3):
 						await get_tree().create_timer(1).timeout
 						Ui.alert(str(3-i))
-						print(i)
+					
 					Loader.pass_scene("res://Scene/Map/world.tscn")
+					Ui.clear_scene()
 			
 				Lobby.MESSAGE_LOBBY.READY:
 					players_lobby[str(_user_id)] = message[1]

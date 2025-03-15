@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0opisdwp7lvc"]
+
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_31cgp"]
+[ext_resource type="Script" uid="uid://bgv3oqulw0b6g" path="res://Script/Menu/property_player_button.gd" id="1_gfu4p"]
+
+[node name="PropertyPlayerButton" type="VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 138.0
+offset_bottom = 68.0
+script = ExtResource("1_gfu4p")
+
+[node name="AddFriend" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "Add Friend"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="SendMessage" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "Send Message"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="ButtonAnimated3" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
+[connection signal="pressed" from="SendMessage" to="." method="_on_send_message_pressed"]

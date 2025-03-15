@@ -18,6 +18,10 @@ func alert(text: String, icon: Texture2D = null) -> void:
 	add_child(new_n)
 	new_n.start(text, icon)
 
+func clear_scene() -> void:
+	for child in parent_scene.get_children():
+		child.queue_free()
+
 func new_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
 	if _remove_scenes:
 		for child in parent_scene.get_children():
