@@ -122,7 +122,9 @@ func persona_state_change(_nick, _avatar) -> void:
 
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	print("State: ",_chat_state)
+
 func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
+	print("---- ",_user_id)
 	match _type:
 		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
 			var message: Array = JSON.parse_string(_buffer)
@@ -132,16 +134,15 @@ func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -
 					for player in players_lobby:
 						if players_lobby.get(player) == false:
 							Ui.alert(str(Steam.getFriendPersonaName(int(player))," ainda não está pronto."))
+							
 							return
 					
 					Ui.alert("Vai começar em...")
 					for i in range(3):
 						await get_tree().create_timer(1).timeout
 						Ui.alert(str(3-i))
-					
-					get_tree().change_scene_to_file("res://Scene/Map/world.tscn")
-					return
-					
+						print(i)
+					Loader.pass_scene("res://Scene/Map/world.tscn")
 			
 				Lobby.MESSAGE_LOBBY.READY:
 					players_lobby[str(_user_id)] = message[1]
