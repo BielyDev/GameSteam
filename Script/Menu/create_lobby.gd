@@ -5,13 +5,6 @@ extends Control
 @onready var CreateLobby: Button = $Panel/Margin/Buttons/CreateLobby
 
 
-func create_lobby() -> void:
-	Lobby.lobby_name = NameLobby.text
-	
-	Host.steam.create_host(Host.port)
-	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
-	Steam.connectP2P(Host.steam_id, Host.port, {})
-
 
 func hide_create() -> void:
 	await get_tree().create_timer(0.5).timeout # Apenas por aviso
@@ -26,4 +19,6 @@ func set_disabled_buttons(value: bool = true) -> void:
 	CreateLobby.disabled = value
 
 func _on_create_pressed() -> void:
-	create_lobby()
+	Lobby.lobby_name = NameLobby.text
+	
+	Lobby.createLobby()

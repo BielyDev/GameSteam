@@ -38,8 +38,8 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
-	
-	print("Create Host: ",Host.steam.create_host(Lobby.lobby_settings.port))
+	#print(Lobby.lobby_settings.port)
+	#print("Create Host: ",Host.steam.create_host(Lobby.lobby_settings.port))
 	
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
@@ -51,8 +51,12 @@ func startGame() -> void:
 func joinLobby(_lobby_id: int) -> void:
 	Steam.joinLobby(_lobby_id)
 
+func createLobby() -> void:
+	Ui.alert(str("Host criado: ",Host.steam.create_host(Host.port)))
+	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
+	#Steam.connectP2P(Host.steam_id, Host.port, {})
+
 func lobby_created(_result: int, _lobby_id: int) -> void:
-	
 	match _result:
 		Steam.RESULT_OK:
 			configureLobby(_lobby_id)
@@ -80,7 +84,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 					Ui.new_scene(INFO_LOBBY)
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					print("Create client: ",Host.steam.create_client(_lobby_id, Lobby.lobby_settings.port))
+					Ui.alert(str("Create client: ",Host.steam.create_client(_lobby_id, Lobby.lobby_settings.port)))
 					multiplayer.multiplayer_peer = Host.steam
 					
 					Ui.new_scene(INFO_LOBBY)
