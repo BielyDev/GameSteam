@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="P2P-Sem-nome"
-run/main_scene="res://Scene/Map/world.tscn"
+run/main_scene="res://Scene/Screen/Menu.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

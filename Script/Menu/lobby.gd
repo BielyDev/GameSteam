@@ -16,6 +16,7 @@ var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
 	"adm_id": "",
+	"port": 0,
 }
 var settings: Dictionary = {
 	"map" : [0, "Name"],
@@ -36,6 +37,10 @@ func _ready() -> void:
 
 
 func configureLobby(_lobby_id: int) -> void:
+	Lobby.lobby_settings.port = Host.port
+	
+	print("Create Host: ",Host.steam.create_host(Lobby.lobby_settings.port))
+	
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
@@ -43,10 +48,8 @@ func configureLobby(_lobby_id: int) -> void:
 func startGame() -> void:
 	Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.PLAY]))
 
-func joinLobby(_lobby_id: int, _port: int) -> void:
+func joinLobby(_lobby_id: int) -> void:
 	Steam.joinLobby(_lobby_id)
-	print("connectP2P: ",Steam.connectP2P(Steam.getLobbyOwner(_lobby_id), _port, {}))
-	print("create_client: ",Host.steam.create_client(_lobby_id,_port))
 
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	
@@ -74,10 +77,13 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					players_lobby[str(Host.steam_id)] = true
-					Ui.new_scene(INFO_LOBBY)#.host_config()
+					Ui.new_scene(INFO_LOBBY)
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					Ui.new_scene(INFO_LOBBY)#.client_config()
+					print("Create client: ",Host.steam.create_client(_lobby_id, Lobby.lobby_settings.port))
+					multiplayer.multiplayer_peer = Host.steam
+					
+					Ui.new_scene(INFO_LOBBY)
 			return
 		Steam.RESULT_FAIL:
 			Ui.alert("Aconteceu algo inesperado! COD 2")

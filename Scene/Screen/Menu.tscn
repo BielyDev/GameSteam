@@ -1,0 +1,146 @@
+[gd_scene load_steps=9 format=3 uid="uid://dg7mxqfmvjwu5"]
+
+[ext_resource type="Script" uid="uid://dyheatqx33lt5" path="res://Script/world.gd" id="1_yrwqp"]
+[ext_resource type="Texture2D" uid="uid://dfq5sm6xj4c8e" path="res://Assets/2D/Background/valorant-all-agents.jpg" id="2_stgls"]
+[ext_resource type="Theme" uid="uid://bviqf28ee70lw" path="res://Assets/Theme/main.tres" id="3_2vnot"]
+[ext_resource type="Script" uid="uid://xopp0jblj88x" path="res://Script/Menu/menu.gd" id="4_e6qgj"]
+[ext_resource type="Script" uid="uid://es1wee4f5lwe" path="res://Script/Menu/lobby.gd" id="5_iv6cl"]
+[ext_resource type="PackedScene" uid="uid://bixyxbk4ttw0o" path="res://Scene/Screen/profile.tscn" id="6_a12hu"]
+[ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="7_mrfr7"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="8_rm2lv"]
+
+[node name="Menu" type="Node"]
+script = ExtResource("1_yrwqp")
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="Valorant-all-agents" type="TextureRect" parent="Gui"]
+modulate = Color(0.0138452, 0.096381, 0.25032, 1)
+z_index = -2
+anchors_preset = -1
+anchor_left = -1.16667
+anchor_top = -1.16667
+anchor_right = 2.16667
+anchor_bottom = 2.16667
+offset_left = 1344.0
+offset_top = 756.0
+offset_right = -1344.0
+offset_bottom = -756.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_stgls")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Message" type="RichTextLabel" parent="Gui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 46
+bbcode_enabled = true
+text = "[wave amp=60.0]Conectando na [rainbow freq=0.3 val=0.8 speed=1.0]STEAM[/rainbow][/wave]"
+fit_content = true
+scroll_active = false
+
+[node name="Menu" type="Control" parent="Gui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_2vnot")
+script = ExtResource("4_e6qgj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Lobby" type="Control" parent="Gui/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.0
+offset_top = -165.0
+offset_right = 294.0
+offset_bottom = 208.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_iv6cl")
+
+[node name="PanelSocial" type="PanelContainer" parent="Gui/Menu"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -126.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_type_variation = &"PanelGradient"
+
+[node name="margin" type="MarginContainer" parent="Gui/Menu/PanelSocial"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Social" type="VBoxContainer" parent="Gui/Menu/PanelSocial/margin"]
+layout_mode = 2
+
+[node name="Profile" parent="Gui/Menu/PanelSocial/margin/Social" instance=ExtResource("6_a12hu")]
+layout_mode = 2
+
+[node name="FriendList" parent="Gui/Menu/PanelSocial/margin/Social" instance=ExtResource("7_mrfr7")]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="Gui/Menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -158.0
+offset_right = 271.0
+grow_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="vbox" type="VBoxContainer" parent="Gui/Menu/margin"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "PLAY"
+script = ExtResource("8_rm2lv")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Options" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "OPTIONS"
+script = ExtResource("8_rm2lv")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Quit" type="Button" parent="Gui/Menu/margin/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "QUIT"
+script = ExtResource("8_rm2lv")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="pressed" from="Gui/Menu/margin/vbox/Play" to="Gui/Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="Gui/Menu/margin/vbox/Quit" to="Gui/Menu" method="_on_quit_pressed"]
