@@ -39,6 +39,8 @@ func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	
 	steamConnected.emit()
+	
+	steam.peer_connected.connect(peer_connected)
 
 
 func peer_connected(id: int) -> void:
