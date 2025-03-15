@@ -32,6 +32,3 @@ shadow_enabled = true
 script = ExtResource("2_i7xta")
 
 [node name="Instances" type="Node3D" parent="Player"]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Player"]
-spawn_path = NodePath("../Instances")

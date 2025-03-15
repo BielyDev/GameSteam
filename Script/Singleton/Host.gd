@@ -41,6 +41,7 @@ func _ready() -> void:
 	steamConnected.emit()
 	
 	steam.peer_connected.connect(peer_connected)
+	
 
 
 func peer_connected(id: int) -> void:
