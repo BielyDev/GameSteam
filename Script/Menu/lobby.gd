@@ -74,7 +74,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	
 	match _responde:
 		Steam.RESULT_OK:
-			Ui.alert("Enter lobby!")
+			#Ui.alert("Enter lobby!")
 			
 			if Lobby.lobby_id != _lobby_id:
 				Lobby.lobby_id = _lobby_id
