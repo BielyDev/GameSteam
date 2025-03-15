@@ -23,6 +23,7 @@ func host_config() -> void:
 
 func _on_quit_button_pressed() -> void:
 	Steam.leaveLobby(Lobby.lobby_id)
+	Lobby.lobby_id = 0
 	Ui.new_simple_scene(LOBBIES)
 	
 	Host.notif("Você saiu do lobby!")

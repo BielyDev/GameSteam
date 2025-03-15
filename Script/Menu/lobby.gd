@@ -41,11 +41,12 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 	match _result:
 		Steam.RESULT_OK:
 			configureLobby(_lobby_id)
-			
 			Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
+			
 			return
 		Steam.RESULT_FAIL:
 			Ui.notif("Expirado")
+			
 			return
 	
 	Ui.notif("Não foi possível criar o lobby! ERROR: ",_result)
@@ -81,13 +82,12 @@ func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -
 	pass
 
 func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
-	
 	match _chat_state:
 		Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
 			Host.players_lobby.append(_changed_id)
-			new_player.emit(_changed_id)
-		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_LEFT or Steam.CHAT_MEMBER_STATE_CHANGE_DISCONNECTED:
-			Host.players_lobby.erase(_changed_id)
+		Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
+			exited_player.emit(_changed_id)
+		Steam.CHAT_MEMBER_STATE_CHANGE_DISCONNECTED:
 			exited_player.emit(_changed_id)
 
 func persona_state_change(_nick, _avatar) -> void:
