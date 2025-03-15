@@ -52,7 +52,6 @@ func joinLobby(_lobby_id: int) -> void:
 	Steam.joinLobby(_lobby_id)
 
 func createLobby() -> void:
-	Ui.alert(str("Host criado: ",Host.steam.create_host(Host.port)))
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
 	#Steam.connectP2P(Host.steam_id, Host.port, {})
 
@@ -80,14 +79,19 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				Lobby.lobby_id = _lobby_id
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
-					players_lobby[str(Host.steam_id)] = true
-					Ui.new_scene(INFO_LOBBY)
+					var _err: int = Host.steam.create_host(0)
+					if _err == OK:
+						multiplayer.multiplayer_peer = Host.steam
+						Ui.alert(str("Host criado"))
+						players_lobby[str(Host.steam_id)] = true
+						Ui.new_scene(INFO_LOBBY)
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					Ui.alert(str("Create client: ",Host.steam.create_client(_lobby_id, Lobby.lobby_settings.port)))
-					multiplayer.multiplayer_peer = Host.steam
-					
-					Ui.new_scene(INFO_LOBBY)
+					var _err: int = Host.steam.create_client(_lobby_id, 0)
+					if _err == OK:
+						Ui.alert("Create client")
+						multiplayer.multiplayer_peer = Host.steam
+						Ui.new_scene(INFO_LOBBY)
 			return
 		Steam.RESULT_FAIL:
 			Ui.alert("Aconteceu algo inesperado! COD 2")
