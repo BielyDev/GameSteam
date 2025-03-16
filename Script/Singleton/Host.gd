@@ -23,7 +23,7 @@ var port: int = 0:
 		return port
 
 var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
-var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+#var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 
 func _ready() -> void:
 	OS.set_environment("SteamAppID",str(APP_ID))
@@ -41,7 +41,7 @@ func _ready() -> void:
 	
 	steamConnected.emit()
 	
-	enet.peer_connected.connect(peer_connected)
+	steam.peer_connected.connect(peer_connected)
 	
 
 

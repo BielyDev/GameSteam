@@ -39,9 +39,7 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
-	Lobby.lobby_settings.ip = IP.get_local_addresses()[5]
-	#print(Lobby.lobby_settings.port)
-	#print("Create Host: ",Host.steam.create_host(Lobby.lobby_settings.port))
+	Lobby.lobby_settings.ip = "127.0.0.1"
 	
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
@@ -81,19 +79,21 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				Lobby.lobby_id = _lobby_id
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
-					var _err: int = Host.enet.create_server(Lobby.lobby_settings.port)#Host.steam.create_host(0)
+					
+					var _err: int = Host.steam.create_client(32,int(Lobby.lobby_settings.port))
+					
 					if _err == OK:
-						multiplayer.multiplayer_peer = Host.enet
-						Ui.alert(str("Host criado"))
+						multiplayer.multiplayer_peer = Host.steam
+						Ui.alert("Host criado")
 						players_lobby[str(Host.steam_id)] = true
 						Ui.new_scene(INFO_LOBBY)
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					print(Lobby.lobby_settings.ip)
-					var _err: int = Host.enet.create_client(str(Lobby.lobby_settings.ip),int(Lobby.lobby_settings.port))#Host.steam.create_client(_lobby_id, 0)
+					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(_lobby_id, 0)
 					if _err == OK:
 						Ui.alert("Create client")
-						multiplayer.multiplayer_peer = Host.enet#Host.steam
+						multiplayer.multiplayer_peer = Host.steam
 						Ui.new_scene(INFO_LOBBY)
 			return
 		Steam.RESULT_FAIL:

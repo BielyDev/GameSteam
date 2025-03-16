@@ -7,6 +7,8 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 func _ready() -> void:
 	
+	print(Host.steam)
+	
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
 		
 		var peer_id: int = Host.steam.get_peer_id_from_steam64(Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
