@@ -3,13 +3,18 @@
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_31cgp"]
 [ext_resource type="Script" uid="uid://bgv3oqulw0b6g" path="res://Script/Menu/property_player_button.gd" id="1_gfu4p"]
 
-[node name="PropertyPlayerButton" type="VBoxContainer"]
+[node name="PropertyPlayerButton" type="Popup"]
+initial_position = 4
+size = Vector2i(144, 100)
+visible = true
+script = ExtResource("1_gfu4p")
+
+[node name="vbox" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)
 offset_right = 138.0
 offset_bottom = 68.0
-script = ExtResource("1_gfu4p")
 
-[node name="AddFriend" type="Button" parent="."]
+[node name="AddFriend" type="Button" parent="vbox"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -18,7 +23,7 @@ text = "Add Friend"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="SendMessage" type="Button" parent="."]
+[node name="SendMessage" type="Button" parent="vbox"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -27,7 +32,7 @@ text = "Send Message"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="ButtonAnimated3" type="Button" parent="."]
+[node name="ButtonAnimated3" type="Button" parent="vbox"]
 visible = false
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -36,5 +41,6 @@ theme_type_variation = &"ButtonQuad"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
-[connection signal="pressed" from="SendMessage" to="." method="_on_send_message_pressed"]
+[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]
+[connection signal="pressed" from="vbox/AddFriend" to="." method="_on_add_friend_pressed"]
+[connection signal="pressed" from="vbox/SendMessage" to="vbox" method="_on_send_message_pressed"]

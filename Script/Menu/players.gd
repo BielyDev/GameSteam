@@ -36,7 +36,7 @@ func refresh() -> void:
 func createPlayerLobby(_id: int, _size: int, _avatar: PackedByteArray) -> void:
 	var button: Button = BUTTONPLAYER.instantiate()
 	List.add_child(button)
-	button.name = str(_id)
+	button.id = _id
 	button.text = Steam.getFriendPersonaName(_id)
 	button.Avatar.texture = Ui.readImageSteam(_size, _avatar)
 	

@@ -37,3 +37,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Player"]
 _spawnable_scenes = PackedStringArray("uid://bp8ku5q1oxrcj")
 spawn_path = NodePath("../Instances")
+spawn_limit = 4
