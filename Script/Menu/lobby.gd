@@ -80,7 +80,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
-					var _err: int = Host.steam.create_client(32,int(Lobby.lobby_settings.port))
+					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(0,0)
 					
 					if _err == OK:
 						multiplayer.multiplayer_peer = Host.steam
