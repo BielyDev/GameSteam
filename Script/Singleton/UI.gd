@@ -5,7 +5,13 @@ const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
 const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
 const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_button.tscn")
 
-var parent_scene: Control = Control.new()
+enum STATUS_BUTTONFRIEND {
+	FRIEND,
+	RECENT,
+	OFFLINE,
+}
+
+var parent_scene: Node = Node.new()
 var newProperty: Control
 var FriendList: Control
 
@@ -13,8 +19,7 @@ func _ready() -> void:
 	layer = 2
 	
 	add_child(parent_scene)
-	parent_scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	parent_scene.size = get_viewport().size
+	#parent_scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func alert(text: String, icon: Texture2D = null) -> void:
 	var new_n = NOTIFICATION.instantiate()
@@ -26,6 +31,7 @@ func clear_scene() -> void:
 		child.queue_free()
 
 func new_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
+	
 	if _remove_scenes:
 		for child in parent_scene.get_children():
 			child.queue_free()
@@ -36,6 +42,7 @@ func new_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
 	return _new_scene
 
 func new_simple_scene(_scene: PackedScene, _remove_scenes: bool = true) -> Node:
+	
 	if _remove_scenes:
 		for child in parent_scene.get_children():
 			child.queue_free()

@@ -5,15 +5,26 @@ extends ButtonAnimated
 @onready var Status: Label = $margin/Status
 
 var id: int
+var status: int
+var is_free: bool
 
 var tween: Tween
 var tweenSize: Tween
 var tweenAvatar: Tween
 
-
+func _ready() -> void:
+	match status:
+		Ui.STATUS_BUTTONFRIEND.FRIEND:
+			Status.text = "online"
+		Ui.STATUS_BUTTONFRIEND.RECENT:
+			Status.text = "online"
+		Ui.STATUS_BUTTONFRIEND.OFFLINE:
+			Status.text = "offline"
+			disabled = true
+			mouse_default_cursor_shape = Control.CURSOR_ARROW
 
 func _on_pressed() -> void:
-	Ui.property_friend(id)
+	Ui.property_friend(id, Vector2(global_position.x - 130, global_position.y))
 func _on_mouse_entered() -> void:
 	animation(1,70)
 func _on_mouse_exited() -> void:

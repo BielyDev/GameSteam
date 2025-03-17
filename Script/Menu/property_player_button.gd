@@ -12,8 +12,17 @@ var id: int
 @onready var CreateInvinteLobby: ButtonAnimated = $vbox/CreateInvinteLobby
 
 func _ready() -> void:
-	InvinteLobby.visible = !is_lobby
-	CreateInvinteLobby.visible = is_lobby
+	if Host.steam_id == id:
+		AddFriend.hide()
+		RemoveFriend.hide()
+		SendMessage.hide()
+		InvinteLobby.hide()
+		CreateInvinteLobby.hide()
+	
+	if is_lobby:
+		CreateInvinteLobby.hide()
+	else:
+		InvinteLobby.hide()
 	
 	if Steam.hasFriend(id, Steam.FRIEND_FLAG_IMMEDIATE):
 		AddFriend.hide()
@@ -26,7 +35,7 @@ func _ready() -> void:
 func _input(_event: InputEvent) -> void:
 	if !(_event is InputEventMouseMotion):
 		if !mouse:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.1).timeout
 			queue_free()
 
 func _on_add_friend_pressed() -> void:
