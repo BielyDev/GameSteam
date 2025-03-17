@@ -17,7 +17,7 @@ func _ready() -> void:
 		Ui.STATUS_BUTTONFRIEND.FRIEND:
 			Status.text = "online"
 		Ui.STATUS_BUTTONFRIEND.RECENT:
-			Status.text = "online"
+			Status.text = "recent"
 		Ui.STATUS_BUTTONFRIEND.OFFLINE:
 			Status.text = "offline"
 			disabled = true

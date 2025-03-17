@@ -2,6 +2,7 @@ extends Node
 
 signal steamConnected
 
+const DEFAULT_PORT: int = 4802
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
@@ -22,13 +23,14 @@ var port: int = 0:
 			port = randi_range(1420,9999)
 		return port
 
-var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
-#var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+#var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
+var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var players: Array
 
 func _ready() -> void:
 	OS.set_environment("SteamAppID",str(APP_ID))
 	
-	var _result: Dictionary = Steam.steamInit()
+	var _result: Dictionary = Steam.steamInit(true, APP_ID)
 	
 	if !Steam.isSteamRunning():
 		OS.alert("Abre a steam rapaz","Game")
@@ -41,7 +43,7 @@ func _ready() -> void:
 	
 	steamConnected.emit()
 	
-	steam.network_connection_status_changed.connect(peer_connected)
+	enet.peer_connected.connect(peer_connected)
 
 
 func peer_connected(connect_handle: int, connection: Dictionary, old_state: int) -> void:
@@ -53,3 +55,16 @@ func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.addRequestLobbyListStringFilter(KEY_NAME, "", Steam.LOBBY_COMPARISON_NOT_EQUAL)
 	Steam.requestLobbyList()
+
+func createHost() -> int:
+	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
+	multiplayer.set_multiplayer_peer(enet)
+	
+	return _err
+
+func createClient(address : String) -> int:
+	var _err: int = enet.create_client(address, DEFAULT_PORT)
+	multiplayer.set_multiplayer_peer(enet)
+	await multiplayer.connected_to_server
+	
+	return _err

@@ -10,7 +10,6 @@ config_version=5
 
 [application]
 
-config/name="P2P-Sem-nome"
 run/main_scene="res://Scene/Screen/Menu.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
@@ -70,7 +69,5 @@ jump={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.162866, 0.109968, 0.249871, 1)

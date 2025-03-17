@@ -81,10 +81,9 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
-					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(0,0)
+					var _err: int = Host.createHost()
 					print(_err)
 					if _err == OK:
-						multiplayer.multiplayer_peer = Host.steam
 						Ui.alert("Host criado")
 						players_lobby[str(Host.steam_id)] = true
 						Ui.new_scene(INFO_LOBBY)
@@ -93,10 +92,9 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
-					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(_lobby_id, 0)
+					var _err: int = await Host.createClient("127.0.0.1")
 					if _err == OK:
 						Ui.alert("Create client")
-						multiplayer.multiplayer_peer = Host.steam
 						Ui.new_scene(INFO_LOBBY)
 					
 					Ui.FriendList.z_index = 10
