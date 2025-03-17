@@ -15,7 +15,7 @@ var tweenAvatar: Tween
 func _on_pressed() -> void:
 	Ui.property_friend(id)
 func _on_mouse_entered() -> void:
-	animation(1,60)
+	animation(1,70)
 func _on_mouse_exited() -> void:
 	animation(0.4,40)
 

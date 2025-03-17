@@ -41,12 +41,13 @@ func _ready() -> void:
 	
 	steamConnected.emit()
 	
-	steam.peer_connected.connect(peer_connected)
-	
+	steam.network_connection_status_changed.connect(peer_connected)
 
 
-func peer_connected(id: int) -> void:
-	print("App = ",id)
+func peer_connected(connect_handle: int, connection: Dictionary, old_state: int) -> void:
+	print("connect_handle = ",connect_handle)
+	print("connection = ",connection)
+	print("old_state = ",old_state)
 
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)

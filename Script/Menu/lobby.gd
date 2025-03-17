@@ -36,11 +36,12 @@ func _ready() -> void:
 	Steam.lobby_message.connect(lobby_message)
 	Steam.persona_state_change.connect(persona_state_change)
 
-
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
 	Lobby.lobby_settings.ip = "127.0.0.1"
+	Lobby.players_lobby = {}
 	
+	#Host.steam.disconnect_peer(1,true)
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
@@ -81,20 +82,24 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
 					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(0,0)
-					
+					print(_err)
 					if _err == OK:
 						multiplayer.multiplayer_peer = Host.steam
 						Ui.alert("Host criado")
 						players_lobby[str(Host.steam_id)] = true
 						Ui.new_scene(INFO_LOBBY)
+					
+					Ui.FriendList.z_index = 10
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					print(Lobby.lobby_settings.ip)
+					
 					var _err: int = Host.steam.create_host(int(Lobby.lobby_settings.port))#Host.steam.create_client(_lobby_id, 0)
 					if _err == OK:
 						Ui.alert("Create client")
 						multiplayer.multiplayer_peer = Host.steam
 						Ui.new_scene(INFO_LOBBY)
+					
+					Ui.FriendList.z_index = 10
 			return
 		Steam.RESULT_FAIL:
 			Ui.alert("Aconteceu algo inesperado! COD 2")
@@ -127,7 +132,6 @@ func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_
 	print("State: ",_chat_state)
 
 func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
-	print("---- ",_user_id)
 	match _type:
 		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
 			var message: Array = JSON.parse_string(_buffer)

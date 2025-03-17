@@ -20,6 +20,8 @@ func _ready() -> void:
 	else:
 		RemoveFriend.hide()
 		SendMessage.hide()
+	
+	size = Vector2()
 
 func _input(_event: InputEvent) -> void:
 	if !(_event is InputEventMouseMotion):

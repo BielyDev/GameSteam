@@ -13,7 +13,7 @@ func refresh_player() -> void:
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
 		
 		var peer_id: int = Host.steam.get_peer_id_from_steam64(Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
-		print(peer_id)
+		print(Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		var new_player = PLAYER.instantiate()
 		if Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) == Host.steam_id:
 			new_player.authority = true
@@ -22,4 +22,4 @@ func refresh_player() -> void:
 		new_player.name = str(peer_id)
 		new_player.set_multiplayer_authority(peer_id)
 		
-		print(Host.steam.get_peer(new_player.name.to_int()))
+		#print(Host.steam.gnew_player.name.to_int()))

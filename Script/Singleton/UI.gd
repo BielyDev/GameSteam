@@ -7,6 +7,7 @@ const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_butto
 
 var parent_scene: Control = Control.new()
 var newProperty: Control
+var FriendList: Control
 
 func _ready() -> void:
 	layer = 2

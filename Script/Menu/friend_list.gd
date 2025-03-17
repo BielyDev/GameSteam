@@ -15,7 +15,7 @@ var on: bool
 
 func _ready() -> void:
 	Host.steamConnected.connect(_server_steam_connected)
-	
+	Ui.FriendList = self
 
 func _server_steam_connected() -> void:
 	for friend in Steam.getUserSteamFriends():
