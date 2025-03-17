@@ -3,23 +3,52 @@
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_31cgp"]
 [ext_resource type="Script" uid="uid://bgv3oqulw0b6g" path="res://Script/Menu/property_player_button.gd" id="1_gfu4p"]
 
-[node name="PropertyPlayerButton" type="Popup"]
-initial_position = 4
-size = Vector2i(144, 100)
-visible = true
+[node name="PropertyPlayerButton" type="PanelContainer"]
+offset_right = 122.0
+offset_bottom = 212.0
 script = ExtResource("1_gfu4p")
 
 [node name="vbox" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)
-offset_right = 138.0
-offset_bottom = 68.0
+layout_mode = 2
 
 [node name="AddFriend" type="Button" parent="vbox"]
+modulate = Color(0.411765, 1, 1, 1)
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ButtonQuad"
 text = "Add Friend"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="InvinteLobby" type="Button" parent="vbox"]
+modulate = Color(0.411765, 1, 0.466667, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "Invinte Lobby"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="CreateInvinteLobby" type="Button" parent="vbox"]
+modulate = Color(0.411765, 1, 0.466667, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "Invinte Lobby"
+script = ExtResource("1_31cgp")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="RemoveFriend" type="Button" parent="vbox"]
+modulate = Color(1, 0.384314, 0.45098, 1)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ButtonQuad"
+text = "Remove Friend"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
@@ -32,15 +61,20 @@ text = "Send Message"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="ButtonAnimated3" type="Button" parent="vbox"]
-visible = false
+[node name="ViewProfile" type="Button" parent="vbox"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ButtonQuad"
+text = "View Profile"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]
-[connection signal="pressed" from="vbox/AddFriend" to="." method="_on_add_friend_pressed"]
+[connection signal="mouse_entered" from="vbox" to="vbox" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="vbox" to="vbox" method="_on_mouse_exited"]
+[connection signal="pressed" from="vbox/AddFriend" to="vbox" method="_on_add_friend_pressed"]
+[connection signal="pressed" from="vbox/InvinteLobby" to="vbox" method="_on_invinte_lobby_pressed"]
+[connection signal="pressed" from="vbox/CreateInvinteLobby" to="vbox" method="_on_create_invinte_lobby_pressed"]
+[connection signal="pressed" from="vbox/RemoveFriend" to="vbox" method="_on_remove_friend_pressed"]
 [connection signal="pressed" from="vbox/SendMessage" to="vbox" method="_on_send_message_pressed"]
+[connection signal="pressed" from="vbox/ViewProfile" to="vbox" method="_on_view_profile_pressed"]

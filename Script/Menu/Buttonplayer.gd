@@ -1,6 +1,5 @@
 extends ButtonAnimated
 
-const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_button.tscn")
 
 @onready var Ready: TextureRect = $Ready
 @onready var NoReady: TextureRect = $NoReady
@@ -9,7 +8,7 @@ const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_butto
 var id: int
 var tween: Tween
 var tweenOpacity: Tween
-var newProperty: Popup
+
 
 var ready_lobby: bool:
 	set(value):
@@ -50,12 +49,4 @@ func _on_mouse_exited() -> void:
 
 
 func _on_pressed() -> void:
-	if is_instance_valid(newProperty):
-		newProperty.queue_free()
-		return
-	
-	newProperty = PROPERTY_PLAYER_BUTTON.instantiate()
-	Ui.add_child(newProperty)
-	newProperty.id = id
-	newProperty.popup(Rect2i(Vector2(Vector2(global_position.x + 175.0, global_position.y)),Vector2(140,140)))
-	#newProperty.global_position = 
+	Ui.property_friend(id)

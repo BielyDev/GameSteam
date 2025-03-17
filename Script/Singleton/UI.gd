@@ -3,8 +3,10 @@ extends CanvasLayer
 const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
 const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
 const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
+const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_button.tscn")
 
 var parent_scene: Control = Control.new()
+var newProperty: Control
 
 func _ready() -> void:
 	layer = 2
@@ -72,3 +74,15 @@ func instance_button_script(_parent: Node,_script: GDScript) -> Button:
 	_new_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
 	return _new_button
+
+
+func property_friend( _id: int, _position: Vector2 = get_viewport().get_mouse_position()) -> void:
+	if is_instance_valid(newProperty):
+		newProperty.queue_free()
+		return
+	
+	newProperty = PROPERTY_PLAYER_BUTTON.instantiate()
+	newProperty.id = _id
+	Ui.add_child(newProperty)
+	
+	newProperty.global_position = _position
