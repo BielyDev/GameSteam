@@ -31,10 +31,10 @@ func _server_steam_connected() -> void:
 	set_free()
 	
 	await get_tree().create_timer(1).timeout
-	
+	Steam.avatar_loaded.connect(createPlayerLobby)
 	for friend in Steam.getUserSteamFriends():
 		#await get_tree().create_timer(0.05).timeout
-		Steam.avatar_loaded.connect(createPlayerLobby)
+		
 		
 		match friend.status:
 			Steam.PERSONA_STATE_ONLINE:
@@ -56,7 +56,7 @@ func _server_steam_connected() -> void:
 				add_friend(friend, VboxAway)
 				await loader_friend
 		
-		Steam.avatar_loaded.disconnect(createPlayerLobby)
+	Steam.avatar_loaded.disconnect(createPlayerLobby)
 
 
 func add_friend(_friend_info: Dictionary,_parent: Node) -> void:

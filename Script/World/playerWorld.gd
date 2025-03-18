@@ -12,7 +12,9 @@ func _ready() -> void:
 
 func refresh_player() -> void:
 	
-	print(Host.enet.host.get_peers())
+	Ui.alert(str(Host.enet.host.get_peers()," - ",Host.enet.get_unique_id()," - ",Host.enet.get_connection_status(),"\n",
+		multiplayer.multiplayer_peer.get_packet_peer()
+	))
 	
 	for player_number in Host.enet.host.get_peers():
 		print(player_number)
