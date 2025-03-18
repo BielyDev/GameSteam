@@ -58,6 +58,7 @@ func request_lobby() -> void:
 
 func createHost() -> int:
 	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
+	enet.set_target_peer(1)
 	multiplayer.set_multiplayer_peer(enet)
 	enet.peer_connected.connect(peer_connected)
 	

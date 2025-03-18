@@ -1,6 +1,6 @@
 extends Control
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_ESCAPE):
 		quit()
 

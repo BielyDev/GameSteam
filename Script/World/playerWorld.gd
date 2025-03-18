@@ -5,13 +5,14 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 @onready var Spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var Instances: Node3D = $Instances
 
-var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
 	refresh_player()
 
 func refresh_player() -> void:
 	
+	
+	await get_tree().create_timer(2).timeout
 	Ui.alert(str(Host.enet.host.get_peers()," - ",Host.enet.get_unique_id()," - ",Host.enet.get_connection_status(),"\n",
 		multiplayer.multiplayer_peer.get_packet_peer()
 	))
