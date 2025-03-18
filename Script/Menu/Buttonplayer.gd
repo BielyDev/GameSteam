@@ -49,4 +49,4 @@ func _on_mouse_exited() -> void:
 
 
 func _on_pressed() -> void:
-	Ui.property_friend(id)
+	Ui.property_friend(id,get_viewport().get_mouse_position(),true,true)

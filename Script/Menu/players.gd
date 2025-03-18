@@ -24,6 +24,7 @@ func refresh() -> void:
 	
 	Steam.avatar_loaded.connect(createPlayerLobby)
 	for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+		Steam.setPlayedWith(player_number)
 		Steam.getPlayerAvatar(Steam.AVATAR_LARGE, Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number))
 		await loaded_avatar
 	Steam.avatar_loaded.disconnect(createPlayerLobby)

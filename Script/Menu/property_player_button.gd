@@ -2,6 +2,7 @@ extends Control
 
 var mouse: bool
 var is_lobby: bool
+var is_in_lobby: bool
 var id: int
 
 @onready var AddFriend: ButtonAnimated = $vbox/AddFriend
@@ -12,6 +13,9 @@ var id: int
 @onready var CreateInvinteLobby: ButtonAnimated = $vbox/CreateInvinteLobby
 
 func _ready() -> void:
+	update()
+
+func update() -> void:
 	if Host.steam_id == id:
 		AddFriend.hide()
 		RemoveFriend.hide()
@@ -21,6 +25,9 @@ func _ready() -> void:
 	
 	if is_lobby:
 		CreateInvinteLobby.hide()
+		
+		if is_in_lobby:
+			InvinteLobby.hide()
 	else:
 		InvinteLobby.hide()
 	
@@ -30,7 +37,7 @@ func _ready() -> void:
 		RemoveFriend.hide()
 		SendMessage.hide()
 	
-	size = Vector2()
+	size.y = 0
 
 func _input(_event: InputEvent) -> void:
 	if !(_event is InputEventMouseMotion):

@@ -24,7 +24,7 @@ var port: int = 0:
 		return port
 
 #var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
-var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var enet: ENetMultiplayerPeer
 var players: Array
 
 func _ready() -> void:
@@ -42,8 +42,6 @@ func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	
 	steamConnected.emit()
-	
-	enet.peer_connected.connect(peer_connected)
 
 
 func peer_connected(connect_handle: int, connection: Dictionary, old_state: int) -> void:
@@ -57,14 +55,16 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
+	enet = ENetMultiplayerPeer.new()
 	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
 	multiplayer.set_multiplayer_peer(enet)
-	
+	enet.peer_connected.connect(peer_connected)
 	return _err
 
 func createClient(address : String) -> int:
+	enet = ENetMultiplayerPeer.new()
 	var _err: int = enet.create_client(address, DEFAULT_PORT)
 	multiplayer.set_multiplayer_peer(enet)
-	await multiplayer.connected_to_server
-	
+	enet.peer_connected.connect(peer_connected)
+	print("aaaaa",_err)
 	return _err

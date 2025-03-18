@@ -7,8 +7,9 @@ const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_butto
 
 enum STATUS_BUTTONFRIEND {
 	FRIEND,
-	RECENT,
+	PENDING,
 	OFFLINE,
+	AWAY,
 }
 
 var parent_scene: Node = Node.new()
@@ -84,13 +85,17 @@ func instance_button_script(_parent: Node,_script: GDScript) -> Button:
 	return _new_button
 
 
-func property_friend( _id: int, _position: Vector2 = get_viewport().get_mouse_position()) -> void:
+func property_friend( _id: int, _position: Vector2 = get_viewport().get_mouse_position(),_is_lobby: bool = false,_is_in_lobby: bool = false) -> Control:
 	if is_instance_valid(newProperty):
 		newProperty.queue_free()
 		return
 	
 	newProperty = PROPERTY_PLAYER_BUTTON.instantiate()
 	newProperty.id = _id
+	newProperty.is_lobby = _is_lobby
+	newProperty.is_in_lobby = _is_in_lobby
 	Ui.add_child(newProperty)
 	
 	newProperty.global_position = _position
+	
+	return newProperty

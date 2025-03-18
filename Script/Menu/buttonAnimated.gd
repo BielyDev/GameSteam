@@ -42,6 +42,8 @@ func transparency() -> void:
 	
 
 func change_scale(_size: float = 1.0) -> void:
+	if !offset_edit:
+		pivot_offset = Vector2(size.x / 2, size.y / 2)
 	
 	if twScale != null:
 		twScale.stop()
@@ -53,11 +55,12 @@ func change_scale(_size: float = 1.0) -> void:
 	if enable_y: scale_edit.y = _size
 	
 	twScale.tween_property(self,"scale",scale_edit,0.3).set_trans(Tween.TRANS_CUBIC)
-	
-	if !offset_edit:
-		pivot_offset = Vector2(size.x / 2, size.y / 2)
+
 
 func _pressed() -> void:
+	if !offset_edit:
+		pivot_offset = Vector2(size.x / 2, size.y / 2)
+	
 	if enable_x: scale.x = scale_max * 1.1
 	if enable_y: scale.y = scale_max * 1.1
 	
