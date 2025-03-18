@@ -33,7 +33,7 @@ func _server_steam_connected() -> void:
 	await get_tree().create_timer(1).timeout
 	
 	for friend in Steam.getUserSteamFriends():
-		await get_tree().create_timer(0.05).timeout
+		#await get_tree().create_timer(0.05).timeout
 		Steam.avatar_loaded.connect(createPlayerLobby)
 		
 		match friend.status:

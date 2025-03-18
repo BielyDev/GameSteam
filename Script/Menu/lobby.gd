@@ -83,7 +83,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
 					var _err: int = Host.createHost()
-					print(_err)
+					print("CreateHost: ",_err)
 					if _err == OK:
 						Ui.alert("Host criado")
 						players_lobby[str(Host.steam_id)] = true
@@ -93,7 +93,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
-					var _err: int = Host.createClient("127.0.0.1")
+					var _err: int = Host.createClient("127.0.0.1",Host.steam_id)
 					if _err == OK:
 						Ui.alert("Create client")
 						Ui.new_scene(INFO_LOBBY)

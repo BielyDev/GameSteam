@@ -25,6 +25,7 @@ var port: int = 0:
 
 #var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var enet: ENetMultiplayerPeer
+var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var players: Array
 
 func _ready() -> void:
@@ -40,9 +41,12 @@ func _ready() -> void:
 	Lobby.lobby_settings.adm_id = steam_id
 	
 	await get_tree().create_timer(1).timeout
-	
+	steam.peer_connected.connect(peer_connected_steam)
 	steamConnected.emit()
+	
 
+func peer_connected_steam(peer: int) -> void:
+	print("connect_handle = ",peer)
 
 func peer_connected(connect_handle: int, connection: Dictionary, old_state: int) -> void:
 	print("connect_handle = ",connect_handle)
@@ -57,14 +61,17 @@ func request_lobby() -> void:
 func createHost() -> int:
 	enet = ENetMultiplayerPeer.new()
 	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
-	multiplayer.set_multiplayer_peer(enet)
+	steam.create_host(DEFAULT_PORT)
+	multiplayer.set_multiplayer_peer(steam)
+	set_multiplayer_authority(enet.get_unique_id())
 	enet.peer_connected.connect(peer_connected)
 	return _err
 
-func createClient(address : String) -> int:
+func createClient(address : String, id: int) -> int:
 	enet = ENetMultiplayerPeer.new()
 	var _err: int = enet.create_client(address, DEFAULT_PORT)
-	multiplayer.set_multiplayer_peer(enet)
+	steam.create_client(id,DEFAULT_PORT)
+	multiplayer.set_multiplayer_peer(steam)
 	enet.peer_connected.connect(peer_connected)
 	print("aaaaa",_err)
 	return _err
