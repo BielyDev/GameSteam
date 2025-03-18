@@ -58,6 +58,7 @@ func _on_invinte_lobby_pressed() -> void:
 func _on_create_invinte_lobby_pressed() -> void:
 	Lobby.createLobby()
 	await get_tree().create_timer(2).timeout
+	Steam.inviteUserToGame(id,"teste")
 	Steam.inviteUserToLobby(Lobby.lobby_id, id)
 
 func _on_mouse_entered() -> void:

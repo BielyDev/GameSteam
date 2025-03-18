@@ -35,6 +35,7 @@ func _ready() -> void:
 	Steam.lobby_created.connect(lobby_created)
 	Steam.lobby_message.connect(lobby_message)
 	Steam.persona_state_change.connect(persona_state_change)
+	Steam.lobby_invite.connect(lobby_invite)
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
@@ -110,6 +111,10 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 			return
 	
 	Ui.alert(str("ERROR ,",_responde))
+
+func lobby_invite(_lobby_id: int) -> void:
+	print(_lobby_id)
+
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:
 	pass

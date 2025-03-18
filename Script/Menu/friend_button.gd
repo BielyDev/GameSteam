@@ -34,7 +34,7 @@ func _ready() -> void:
 	_on_mouse_exited()
 
 func _on_pressed() -> void:
-	Ui.property_friend(id, Vector2(global_position.x - 130, global_position.y))
+	Ui.property_friend(id, Vector2(global_position.x - 160, global_position.y))
 func _on_mouse_entered() -> void:
 	animation(1,y + 30)
 func _on_mouse_exited() -> void:
