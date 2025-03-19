@@ -62,7 +62,7 @@ func createHost() -> int:
 
 func createClient() -> int:
 	#var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
-	var _err: int = enet.create_client("192.168.1.1",DEFAULT_PORT)
+	var _err: int = enet.create_client("192.168.1.100",DEFAULT_PORT)
 	multiplayer.multiplayer_peer = enet
 	enet.peer_connected.connect(peer_connected)
 	#enet.connected_to_server.connect(connected_to_server)	

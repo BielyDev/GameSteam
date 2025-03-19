@@ -13,7 +13,7 @@ func _ready() -> void:
 func refresh_player() -> void:
 	
 	print("Host ",Host.enet)
-	print("Netword ",multiplayer.is_server())
+	print("Netword ",Host.enet.host.get_peers())
 	
 	
 	await get_tree().create_timer(2).timeout
