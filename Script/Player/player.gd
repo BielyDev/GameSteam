@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 	_moviment()
 	move_and_slide()
 
-@rpc("call_local")
+@rpc("call_local","any_peer")
 func test(id) -> void:
 	Ui.alert(str(id))
 
@@ -51,9 +51,9 @@ func _moviment() -> void:
 
 func _on_timer_timeout() -> void:
 	if Input.is_action_pressed("jump"):
-		#test.rpc(Host.steam_id)
+		test.rpc(Host.steam_id)
 		
-		for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-			var id = (Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ))
-			print(id)
-			test.rpc_id(id,"EEEEEUUUUU")
+		#for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+		#	var id = (Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ))
+		#	print(id)
+		#	test.rpc_id(id,"EEEEEUUUUU")
