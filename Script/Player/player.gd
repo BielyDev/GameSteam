@@ -51,4 +51,9 @@ func _moviment() -> void:
 
 func _on_timer_timeout() -> void:
 	if Input.is_action_pressed("jump"):
-		test.rpc(Host.steam_id)
+		#test.rpc(Host.steam_id)
+		
+		for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+			print(Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ))
+			
+			test.rpc_id(Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ),"EEEEEUUUUU")
