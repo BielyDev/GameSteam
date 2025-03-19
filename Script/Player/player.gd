@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 	_moviment()
 	move_and_slide()
 
-@rpc("call_remote","any_peer")
+@rpc("call_local","any_peer")
 func test(id: int) -> void:
 	Ui.alert(str(id))
 
@@ -50,4 +50,5 @@ func _moviment() -> void:
 
 
 func _on_timer_timeout() -> void:
-	test.rpc(Host.steam_id)
+	if Input.is_action_pressed("jump"):
+		test.rpc(Host.steam_id)
