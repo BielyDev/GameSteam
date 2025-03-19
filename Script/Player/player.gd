@@ -50,7 +50,7 @@ func _moviment() -> void:
 
 
 func _on_timer_timeout() -> void:
-	if Input.is_action_pressed("d"):
+	if Input.is_action_pressed("left"):
 		test.rpc(Host.steam_id)
 		
 		#for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
