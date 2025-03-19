@@ -17,8 +17,17 @@ func _ready() -> void:
 	Camera.current = authority
 	set_physics_process(authority)
 
+
+
 func _physics_process(_delta: float) -> void:
-	
+	_moviment()
+	move_and_slide()
+
+@rpc("call_remote","any_peer")
+func test(id: int) -> void:
+	print(id)
+
+func _moviment() -> void:
 	velocity.y += -GRAVITY
 	
 	if velocity.y < -MAX_GRAVITY:
@@ -26,7 +35,6 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP
-	
 	
 	motion = Vector3()
 	
@@ -39,4 +47,7 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity.x = lerp(velocity.x, motion.x, ACCELERATE)
 	velocity.z = lerp(velocity.z, motion.z, ACCELERATE)
-	move_and_slide()
+
+
+func _on_timer_timeout() -> void:
+	test.rpc(Host.steam_id)

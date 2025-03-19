@@ -21,7 +21,7 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_id_lobby,Host.KEY_SETTINGS))
 		
 		if _lobby_settings == null: # Apenas pra debugar
-			_lobby_settings = Host.lobby_settings
+			_lobby_settings = Lobby.lobby_settings
 		
 		var new_button: Button = MAP_BUTTON.instantiate()
 		

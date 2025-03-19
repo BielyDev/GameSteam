@@ -58,7 +58,7 @@ func createHost() -> int:
 	
 	return _err
 
-func createClient(address : String) -> int:
+func createClient() -> int:
 	#Steam.acceptSessionWithUser(host_id)
 	
 	multiplayer.peer_connected.connect(peer_connected)

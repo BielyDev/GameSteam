@@ -93,7 +93,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				else:
 					Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
-					var _err: int = Host.createClient("127.0.0.1")
+					var _err: int = Host.createClient()
 					if _err == OK:
 						Ui.alert("Create client")
 						Ui.new_scene(INFO_LOBBY)
