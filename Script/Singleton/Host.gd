@@ -54,18 +54,18 @@ func createHost() -> int:
 	#var _err: int = steam.create_host(DEFAULT_PORT)
 	var _err: int = enet.create_server(DEFAULT_PORT)
 	multiplayer.multiplayer_peer = enet
-	multiplayer.peer_connected.connect(peer_connected)
-	multiplayer.connected_to_server.connect(connected_to_server)
+	enet.peer_connected.connect(peer_connected)
+	#enet.connected_to_server.connect(connected_to_server)
 	
 	
 	return _err
 
 func createClient() -> int:
 	#var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
-	var _err: int = enet.create_client("localhost",DEFAULT_PORT)
+	var _err: int = enet.create_client("192.168.1.1",DEFAULT_PORT)
 	multiplayer.multiplayer_peer = enet
-	multiplayer.peer_connected.connect(peer_connected)
-	multiplayer.connected_to_server.connect(connected_to_server)	
+	enet.peer_connected.connect(peer_connected)
+	#enet.connected_to_server.connect(connected_to_server)	
 	
 	
 	return _err
