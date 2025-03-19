@@ -54,6 +54,6 @@ func _on_timer_timeout() -> void:
 		#test.rpc(Host.steam_id)
 		
 		for player_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-			print(Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ))
-			
-			test.rpc_id(Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ),"EEEEEUUUUU")
+			var id = (Host.steam.get_peer_id_from_steam64( Steam.getLobbyMemberByIndex(Lobby.lobby_id, player_number) ))
+			print(id)
+			test.rpc_id(id,"EEEEEUUUUU")
