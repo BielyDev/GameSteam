@@ -26,6 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640229, 0)
 script = ExtResource("2_erwjw")
 
 [node name="Camera" type="Camera3D" parent="Cam"]
+current = true
 
 [node name="MS" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wcuod")
