@@ -25,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 
 @rpc("call_remote","any_peer")
 func test(id: int) -> void:
-	print(id)
+	Ui.alert(str(id))
 
 func _moviment() -> void:
 	velocity.y += -GRAVITY
