@@ -9,26 +9,31 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 func _ready() -> void:
 	refresh_player()
 
+
 func refresh_player() -> void:
 	
 	print("Host ",Host.steam)
-	print("Peers ",Host.steam)
+	print("Netword ",multiplayer.multiplayer_peer.get_unique_id())
+	
 	
 	await get_tree().create_timer(2).timeout
 	
-	for peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-		var steam_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, peer_number)
-		var steam_peer: int = Host.steam.get_peer_id_from_steam64(steam_id)
-		add_player(steam_id, steam_peer)
+	#for peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+	#	var steam_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, peer_number)
+	#	var steam_peer: int = Host.steam.get_peer_id_from_steam64(steam_id)
+	#	print("Peers ",multiplayer.get_peers())
+	
+	if multiplayer.multiplayer_peer.get_unique_id() == 1:
+		add_player(1, 1)
 
 func add_player(steam_id: int, peer_id: int) -> void:
 	var new_player = PLAYER.instantiate()
 	
-	if steam_id == Host.steam_id:
-		new_player.authority = true
+	new_player.name = str(peer_id)
+	new_player.set_multiplayer_authority(peer_id)
+	#if steam_id == Host.steam_id:
+	#	new_player.authority = true
 	
 	Instances.add_child(new_player)
 	new_player.name = str(peer_id)
 	new_player.set_multiplayer_authority(peer_id)
-	
-	#print(Host.steam.new_player.name.to_int())

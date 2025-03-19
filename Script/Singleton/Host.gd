@@ -2,7 +2,7 @@ extends Node
 
 signal steamConnected
 
-const DEFAULT_PORT: int = 135
+const DEFAULT_PORT: int = 3247
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
@@ -62,7 +62,7 @@ func createClient() -> int:
 	var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
 	
 	multiplayer.peer_connected.connect(peer_connected)
-	multiplayer.connected_to_server.connect(connected_to_server)
+	multiplayer.connected_to_server.connect(connected_to_server)	
 	multiplayer.multiplayer_peer = steam
 	
 	return _err
