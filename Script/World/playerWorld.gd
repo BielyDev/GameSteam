@@ -18,7 +18,7 @@ func refresh_player() -> void:
 	
 	for peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
 		var steam_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, peer_number)
-		var steam_peer: int = Host.steam.get_steam64_from_peer_id(steam_id)
+		var steam_peer: int = Host.steam.get_peer_id_from_steam64(steam_id)
 		add_player(steam_id, steam_peer)
 
 func add_player(steam_id: int, peer_id: int) -> void:
