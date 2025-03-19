@@ -13,18 +13,16 @@ func _ready() -> void:
 func refresh_player() -> void:
 	
 	print("Host ",Host.steam)
-	print("Netword ",multiplayer.multiplayer_peer.get_unique_id())
+	print("Netword ",multiplayer.is_server())
 	
 	
 	await get_tree().create_timer(2).timeout
 	
-	#for peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-	#	var steam_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, peer_number)
-	#	var steam_peer: int = Host.steam.get_peer_id_from_steam64(steam_id)
-	#	print("Peers ",multiplayer.get_peers())
-	
-	if multiplayer.multiplayer_peer.get_unique_id() == 1:
-		add_player(1, 1)
+	for peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
+		var steam_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, peer_number)
+		var steam_peer: int = Host.steam.get_peer_id_from_steam64(steam_id)
+		print("Peers ",multiplayer.get_peers())
+		add_player(steam_id, steam_peer)
 
 func add_player(steam_id: int, peer_id: int) -> void:
 	var new_player = PLAYER.instantiate()
