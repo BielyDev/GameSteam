@@ -2,7 +2,7 @@ extends Node
 
 signal steamConnected
 
-const DEFAULT_PORT: int = 4802
+const DEFAULT_PORT: int = 2345
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
@@ -57,16 +57,19 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
+	#Steam.acceptSessionWithUser(Host.steam_id)
+	multiplayer.peer_connected.connect(peer_connected)
+	
 	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
-	enet.set_target_peer(1)
 	multiplayer.set_multiplayer_peer(enet)
-	enet.peer_connected.connect(peer_connected)
 	
 	return _err
 
-func createClient(address : String) -> int:
+func createClient(address : String, host_id: int) -> int:
+	#Steam.acceptSessionWithUser(host_id)
+	
 	var _err: int = enet.create_client(address, DEFAULT_PORT)
 	multiplayer.set_multiplayer_peer(enet)
-	enet.peer_connected.connect(peer_connected)
+	multiplayer.peer_connected.connect(peer_connected)
 	
 	return _err
