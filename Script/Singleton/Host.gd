@@ -2,7 +2,7 @@ extends Node
 
 signal steamConnected
 
-const DEFAULT_PORT: int = 2345
+const DEFAULT_PORT: int = 135
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
@@ -23,8 +23,7 @@ var port: int = 0:
 			port = randi_range(1420,9999)
 		return port
 
-#var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
-var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var players: Array
 
 func _ready() -> void:
@@ -43,13 +42,7 @@ func _ready() -> void:
 	
 	steamConnected.emit()
 
-func peer_connected_steam(peer: int) -> void:
-	print("connect_handle = ",peer)
 
-func peer_connected(connect_handle: int, connection: Dictionary, old_state: int) -> void:
-	print("connect_handle = ",connect_handle)
-	print("connection = ",connection)
-	print("old_state = ",old_state)
 
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
@@ -59,17 +52,24 @@ func request_lobby() -> void:
 func createHost() -> int:
 	#Steam.acceptSessionWithUser(Host.steam_id)
 	multiplayer.peer_connected.connect(peer_connected)
-	
-	var _err: int = enet.create_server(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
-	multiplayer.set_multiplayer_peer(enet)
+	multiplayer.connected_to_server.connect(connected_to_server)
+	var _err: int = steam.create_host(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
+	multiplayer.multiplayer_peer = steam
 	
 	return _err
 
-func createClient(address : String, host_id: int) -> int:
+func createClient(address : String) -> int:
 	#Steam.acceptSessionWithUser(host_id)
 	
-	var _err: int = enet.create_client(address, DEFAULT_PORT)
-	multiplayer.set_multiplayer_peer(enet)
 	multiplayer.peer_connected.connect(peer_connected)
+	multiplayer.connected_to_server.connect(connected_to_server)
+	var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
+	multiplayer.multiplayer_peer = steam
 	
 	return _err
+
+func peer_connected(peer: int) -> void:
+	print("connect_handle = ",peer)
+
+func connected_to_server() -> void:
+	print("connected_to_server")
