@@ -24,7 +24,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 @rpc("call_local","any_peer")
-func test(id: int) -> void:
+func test(id) -> void:
 	Ui.alert(str(id))
 
 func _moviment() -> void:
