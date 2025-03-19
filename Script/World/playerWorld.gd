@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func refresh_player() -> void:
 	
-	print("Host ",Host.steam)
+	print("Host ",Host.enet)
 	print("Netword ",multiplayer.is_server())
 	
 	
@@ -26,7 +26,7 @@ func refresh_player() -> void:
 
 func add_player(steam_id: int, peer_id: int) -> void:
 	var new_player = PLAYER.instantiate()
-	
-	new_player.name = str(peer_id)
 	new_player.set_multiplayer_authority(peer_id)
+	new_player.name = str(peer_id)
+	
 	Instances.add_child(new_player)

@@ -23,7 +23,8 @@ var port: int = 0:
 			port = randi_range(1420,9999)
 		return port
 
-var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
+#var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
+var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 var players: Array
 
 func _ready() -> void:
@@ -50,20 +51,22 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
-	var _err: int = steam.create_host(DEFAULT_PORT)
-	
+	#var _err: int = steam.create_host(DEFAULT_PORT)
+	var _err: int = enet.create_server(DEFAULT_PORT)
+	multiplayer.multiplayer_peer = enet
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.connected_to_server.connect(connected_to_server)
-	multiplayer.multiplayer_peer = steam
+	
 	
 	return _err
 
 func createClient() -> int:
-	var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
-	
+	#var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
+	var _err: int = enet.create_client("localhost",DEFAULT_PORT)
+	multiplayer.multiplayer_peer = enet
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.connected_to_server.connect(connected_to_server)	
-	multiplayer.multiplayer_peer = steam
+	
 	
 	return _err
 
