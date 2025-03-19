@@ -50,20 +50,19 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
-	#Steam.acceptSessionWithUser(Host.steam_id)
+	var _err: int = steam.create_host(DEFAULT_PORT)
+	
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.connected_to_server.connect(connected_to_server)
-	var _err: int = steam.create_host(DEFAULT_PORT)#int(Lobby.lobby_settings.port)
 	multiplayer.multiplayer_peer = steam
 	
 	return _err
 
 func createClient() -> int:
-	#Steam.acceptSessionWithUser(host_id)
+	var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
 	
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.connected_to_server.connect(connected_to_server)
-	var _err: int = steam.create_client(steam_id, DEFAULT_PORT)
 	multiplayer.multiplayer_peer = steam
 	
 	return _err
