@@ -1,5 +1,6 @@
 extends Node
 
+signal getIpPublic(ip: StringName)
 signal steamConnected
 
 const DEFAULT_PORT: int = 3247
@@ -22,12 +23,17 @@ var port: int = 0:
 		if port == 0:
 			port = randi_range(1420,9999)
 		return port
+var ip: String
 
 #var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+var http: HTTPRequest = HTTPRequest.new()
 var players: Array
 
 func _ready() -> void:
+	add_child(http)
+	http.request_completed.connect(packed)
+	
 	OS.set_environment("SteamAppID",str(APP_ID))
 	
 	var _result: Dictionary = Steam.steamInit(true, APP_ID)
@@ -51,20 +57,26 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
-	#var _err: int = steam.create_host(DEFAULT_PORT)
-	enet.set_bind_ip("45.233.177.117")
+	http.request("https://api.ipify.org")
+	ip = await getIpPublic
+	
 	var _err: int = enet.create_server(DEFAULT_PORT)
 	Ui.alert(str("CreateHost: ",_err))
 	multiplayer.multiplayer_peer = enet
 	enet.peer_connected.connect(peer_connected)
-	#enet.connected_to_server.connect(connected_to_server)
-	
 	
 	return _err
 
+func packed(result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
+	if result == OK:
+		getIpPublic.emit(body.get_string_from_utf8())
+	else:
+		Ui.alert("Não foi possivel requisição de IP publico")
+
+
 func createClient() -> int:
-	
-	var _err: int = enet.create_client("45.233.177.117",DEFAULT_PORT)
+	print(Lobby.settings.ip)
+	var _err: int = enet.create_client(Lobby.settings.ip,DEFAULT_PORT)
 	Ui.alert(str("CreateClient: ",_err))
 	multiplayer.multiplayer_peer = enet
 	enet.peer_connected.connect(peer_connected)

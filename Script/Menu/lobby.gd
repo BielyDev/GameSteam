@@ -39,7 +39,7 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
-	Lobby.lobby_settings.ip = "127.0.0.1"
+	Lobby.lobby_settings.ip = Host.ip
 	Lobby.players_lobby = {}
 	
 	#Host.steam.disconnect_peer(1,true)
@@ -82,7 +82,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
-					var _err: int = Host.createHost()
+					var _err: int = await Host.createHost()
 					print("CreateHost: ",_err)
 					if _err == OK:
 						Ui.alert("Host criado")
