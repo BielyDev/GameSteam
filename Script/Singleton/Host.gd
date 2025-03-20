@@ -52,6 +52,7 @@ func request_lobby() -> void:
 
 func createHost() -> int:
 	#var _err: int = steam.create_host(DEFAULT_PORT)
+	enet.set_bind_ip("45.233.177.117")
 	var _err: int = enet.create_server(DEFAULT_PORT)
 	Ui.alert(str("CreateHost: ",_err))
 	multiplayer.multiplayer_peer = enet
@@ -63,7 +64,7 @@ func createHost() -> int:
 
 func createClient() -> int:
 	
-	var _err: int = enet.create_client("0.0.0.0",DEFAULT_PORT)
+	var _err: int = enet.create_client("45.233.177.117",DEFAULT_PORT)
 	Ui.alert(str("CreateClient: ",_err))
 	multiplayer.multiplayer_peer = enet
 	enet.peer_connected.connect(peer_connected)
