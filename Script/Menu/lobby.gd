@@ -55,14 +55,15 @@ func joinLobby(_lobby_id: int) -> void:
 
 func createLobby() -> void:
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
-	#Steam.connectP2P(Host.steam_id, Host.port, {})
 
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	match _result:
 		Steam.RESULT_OK:
-			configureLobby(_lobby_id)
-			Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
 			
+			#
+			#Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
+			#Lobby.lobby_settings.ip = Host.ip
+			#print("Create", Lobby.lobby_settings)
 			return
 		Steam.RESULT_FAIL:
 			Ui.notif("Expirado")
@@ -83,6 +84,8 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
 					
 					var _err: int = await Host.createHost()
+					configureLobby(_lobby_id)
+					print(Lobby.lobby_settings)
 					print("CreateHost: ",_err)
 					if _err == OK:
 						Ui.alert("Host criado")

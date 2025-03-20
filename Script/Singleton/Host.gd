@@ -75,8 +75,8 @@ func packed(result: int, response_code: int, headers: Array, body: PackedByteArr
 
 
 func createClient() -> int:
-	print(Lobby.settings.ip)
-	var _err: int = enet.create_client(Lobby.settings.ip,DEFAULT_PORT)
+	print(Lobby.lobby_settings.ip)
+	var _err: int = enet.create_client(Lobby.lobby_settings.ip,DEFAULT_PORT)
 	Ui.alert(str("CreateClient: ",_err))
 	multiplayer.multiplayer_peer = enet
 	enet.peer_connected.connect(peer_connected)
