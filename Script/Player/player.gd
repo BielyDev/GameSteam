@@ -17,6 +17,9 @@ func _ready() -> void:
 	Ui.alert(str("           ",multiplayer.is_server(),"       ", multiplayer.get_unique_id()))
 	Camera.current = authority
 	set_physics_process(authority)
+	
+	if !authority:
+		Steam.sendP2PPacket(name.to_int(),var_to_bytes("OI"),Steam.P2P_SEND_RELIABLE)
 
 
 func _physics_process(_delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp8ku5q1oxrcj"]
+[gd_scene load_steps=5 format=3 uid="uid://bp8ku5q1oxrcj"]
 
 [ext_resource type="Script" uid="uid://b84yo201yjbbn" path="res://Script/Player/player.gd" id="1_x5h45"]
 [ext_resource type="Script" uid="uid://bmy4clj0pqocq" path="res://Script/Player/cam.gd" id="2_erwjw"]
@@ -6,11 +6,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3r2y"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_en14x"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wcuod"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_x5h45")
@@ -27,9 +22,6 @@ script = ExtResource("2_erwjw")
 
 [node name="Camera" type="Camera3D" parent="Cam"]
 current = true
-
-[node name="MS" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_wcuod")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

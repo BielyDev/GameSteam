@@ -60,6 +60,7 @@ func request_lobby() -> void:
 	Steam.requestLobbyList()
 
 func createHost() -> int:
+	
 	if Steam.acceptP2PSessionWithUser(steam_id):
 		return OK
 	
@@ -67,7 +68,9 @@ func createHost() -> int:
 
 
 func createClient() -> int:
-	return Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
+	var _err: int = Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
+	
+	return _err
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)
