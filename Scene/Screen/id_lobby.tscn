@@ -48,7 +48,7 @@ custom_minimum_size = Vector2(0, 72.765)
 layout_mode = 2
 placeholder_text = "ID"
 alignment = 1
-max_length = 20
+max_length = 18
 
 [node name="hs2" type="HSeparator" parent="vbox"]
 layout_mode = 2
