@@ -14,6 +14,7 @@ var speed: Array = [SPEED,RUN_SPEED]
 var authority: bool
 
 func _ready() -> void:
+	Ui.alert(str("           ",multiplayer.is_server(),"       ", multiplayer.get_unique_id()))
 	Camera.current = authority
 	set_physics_process(authority)
 
@@ -38,7 +39,7 @@ func _moviment() -> void:
 	motion.z += -Input.get_axis("down","up") * Camera.global_basis.z.z
 	motion.x += -Input.get_axis("down","up") * Camera.global_basis.z.x
 	
-	if motion != Vector3():
+	if motion != Vector3() and authority:
 		sync_pos.rpc(Host.steam_id,global_position)
 	
 	motion = motion.normalized() * speed[int(Input.is_action_pressed("run"))]
