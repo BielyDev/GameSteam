@@ -14,9 +14,8 @@ var speed: Array = [SPEED,RUN_SPEED]
 var authority: bool
 
 func _ready() -> void:
-	Camera.current = is_multiplayer_authority()
-	set_physics_process(is_multiplayer_authority())
-
+	Camera.current = authority
+	set_physics_process(authority)
 
 
 func _physics_process(_delta: float) -> void:
@@ -39,7 +38,15 @@ func _moviment() -> void:
 	motion.z += -Input.get_axis("down","up") * Camera.global_basis.z.z
 	motion.x += -Input.get_axis("down","up") * Camera.global_basis.z.x
 	
+	if motion != Vector3():
+		sync_pos.rpc(Host.steam_id,global_position)
+	
 	motion = motion.normalized() * speed[int(Input.is_action_pressed("run"))]
 	
 	velocity.x = lerp(velocity.x, motion.x, ACCELERATE)
 	velocity.z = lerp(velocity.z, motion.z, ACCELERATE)
+
+@rpc("call_remote")
+func sync_pos(id: int, position: Vector3) -> void:
+	if id != Host.steam_id:
+		global_position = position

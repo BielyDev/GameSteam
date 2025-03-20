@@ -25,16 +25,20 @@ var port: int = 0:
 		return port
 var ip: String
 
-#var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
-var enet: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-var http: HTTPRequest = HTTPRequest.new()
+var config_options: Dictionary = {
+	"NETWORKING_CONFIG_FAKE_PACKET_LAG_SEND" : 4,
+	"NETWORKING_CONFIG_SEND_BUFFER_SIZE": 5000,
+	"NETWORKING_CONFIG_RECV_BUFFER_SIZE": 3000 
+}
+
 var players: Array
+var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
-	add_child(http)
-	http.request_completed.connect(packed)
+	steam.peer_connected.connect(peer_connected)
 	
 	OS.set_environment("SteamAppID",str(APP_ID))
+	OS.set_environment("SteamGameID",str(APP_ID))
 	
 	var _result: Dictionary = Steam.steamInit(true, APP_ID)
 	
@@ -50,38 +54,20 @@ func _ready() -> void:
 	steamConnected.emit()
 
 
-
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.addRequestLobbyListStringFilter(KEY_NAME, "", Steam.LOBBY_COMPARISON_NOT_EQUAL)
 	Steam.requestLobbyList()
 
 func createHost() -> int:
-	http.request("https://api.ipify.org")
-	ip = await getIpPublic
+	if Steam.acceptP2PSessionWithUser(steam_id):
+		return OK
 	
-	var _err: int = enet.create_server(DEFAULT_PORT)
-	Ui.alert(str("CreateHost: ",_err))
-	multiplayer.multiplayer_peer = enet
-	enet.peer_connected.connect(peer_connected)
-	
-	return _err
-
-func packed(result: int, response_code: int, headers: Array, body: PackedByteArray) -> void:
-	if result == OK:
-		getIpPublic.emit(body.get_string_from_utf8())
-	else:
-		Ui.alert("Não foi possivel requisição de IP publico")
+	return FAILED
 
 
 func createClient() -> int:
-	print(Lobby.lobby_settings.ip)
-	var _err: int = enet.create_client(Lobby.lobby_settings.ip,DEFAULT_PORT)
-	Ui.alert(str("CreateClient: ",_err))
-	multiplayer.multiplayer_peer = enet
-	enet.peer_connected.connect(peer_connected)
-	
-	return _err
+	return Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)
