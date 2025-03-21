@@ -117,8 +117,8 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	
 	Ui.alert(str("ERROR ,",_responde))
 
-func lobby_invite(_lobby_id: int) -> void:
-	print("Recebi o convite: ",_lobby_id)
+func lobby_invite(_user_invite: int, _lobby_id: int, _game: int) -> void:
+	Ui.alert(str("Recebi o convite: ",_lobby_id))
 
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:

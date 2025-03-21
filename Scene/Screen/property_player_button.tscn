@@ -41,23 +41,23 @@ text = "Add Friend"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="CreateInvinteLobby" type="Button" parent="vbox"]
+[node name="CreateInviteLobby" type="Button" parent="vbox"]
 modulate = Color(0.411765, 1, 0.466667, 1)
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ButtonQuad"
-text = "Invinte Lobby"
+text = "Invite Lobby"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="InvinteLobby" type="Button" parent="vbox"]
+[node name="InviteLobby" type="Button" parent="vbox"]
 modulate = Color(0.411765, 1, 0.466667, 1)
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ButtonQuad"
-text = "Invinte Lobby"
+text = "Invite Lobby"
 script = ExtResource("1_31cgp")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
@@ -76,6 +76,6 @@ metadata/_custom_type_script = "uid://b32k327cs6cov"
 [connection signal="pressed" from="vbox/SendMessage" to="." method="_on_send_message_pressed"]
 [connection signal="pressed" from="vbox/ViewProfile" to="." method="_on_view_profile_pressed"]
 [connection signal="pressed" from="vbox/AddFriend" to="." method="_on_add_friend_pressed"]
-[connection signal="pressed" from="vbox/CreateInvinteLobby" to="." method="_on_create_invinte_lobby_pressed"]
-[connection signal="pressed" from="vbox/InvinteLobby" to="." method="_on_invinte_lobby_pressed"]
+[connection signal="pressed" from="vbox/CreateInviteLobby" to="." method="_on_create_invinte_lobby_pressed"]
+[connection signal="pressed" from="vbox/InviteLobby" to="." method="_on_invinte_lobby_pressed"]
 [connection signal="pressed" from="vbox/RemoveFriend" to="." method="_on_remove_friend_pressed"]
