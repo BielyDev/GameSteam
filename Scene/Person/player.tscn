@@ -10,6 +10,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_bwxun"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 0
 script = ExtResource("1_x5h45")
 
 [node name="Navigation" type="NavigationAgent3D" parent="."]

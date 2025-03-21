@@ -15,10 +15,12 @@ const MAX_GRAVITY: int = 25
 var motion: Vector3
 var speed: float = 2.5
 var authority: bool
+var peer_position: Vector3
 
 func _ready() -> void:
 	Camera.current = authority
 	set_physics_process(authority)
+	set_process(!authority)
 	
 	if !authority:
 		P2P.received_position.connect(sync_pos)
@@ -26,6 +28,8 @@ func _ready() -> void:
 		SendPosition.start()
 
 
+func _process(_delta: float) -> void:
+	global_position = global_position.lerp(peer_position, P2P.LERP_POSITION)
 
 func _physics_process(_delta: float) -> void:
 	_moviment()
@@ -58,9 +62,8 @@ func _gravity() -> void:
 			velocity.y = -MAX_GRAVITY
 
 func sync_pos(id: int, position: Vector3) -> void:
-	print("pas")
 	if id == name.to_int() and !authority:
-		create_tween().tween_property(self,"global_position",position, P2P.LERP_POSITION).set_trans(Tween.TRANS_CUBIC)
+		peer_position = position
 
 
 func _on_send_position_timeout() -> void:
