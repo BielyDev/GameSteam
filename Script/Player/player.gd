@@ -43,7 +43,7 @@ func _moviment() -> void:
 	motion.x += -Input.get_axis("down","up") * Camera.global_basis.z.x
 	
 	if motion != Vector3() and authority:
-		sync_pos.rpc(Host.steam_id,global_position)
+		P2P.send_position(global_position)
 	
 	motion = motion.normalized() * speed[int(Input.is_action_pressed("run"))]
 	

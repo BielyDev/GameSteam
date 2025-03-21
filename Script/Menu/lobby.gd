@@ -21,7 +21,7 @@ const MODE: Array = ["Easy","Medium","Hard"]
 var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
-	"adm_id": "",
+	"host_id": 0,
 	"port": 0,
 }
 var settings: Dictionary = {
@@ -43,6 +43,7 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
+	Lobby.lobby_settings.host_id = Host.steam_id
 	Lobby.players_lobby = {}
 	
 	#Host.steam.disconnect_peer(1,true)
@@ -97,6 +98,8 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 					var lobby = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					if lobby != null:
 						Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
+					
+					print(Lobby.lobby_settings)
 					
 					var _err: int = Host.createClient()
 					
