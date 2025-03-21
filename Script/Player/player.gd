@@ -39,6 +39,9 @@ func _moviment() -> void:
 	
 	velocity.x = next_position.x * speed
 	velocity.z = next_position.z * speed
+	
+	if velocity.x != 0 or velocity.z != 0:
+		sync_pos(Host.steam_id, global_position)
 
 func _gravity() -> void:
 	velocity.y += -GRAVITY
