@@ -39,4 +39,10 @@ skeleton = NodePath("../../Timer")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="SendPosition" type="Timer" parent="Timers"]
+wait_time = 0.1
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/SendPosition" to="." method="_on_send_position_timeout"]
