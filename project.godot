@@ -21,7 +21,8 @@ Ui="*res://Script/Singleton/UI.gd"
 Host="*res://Script/Singleton/Host.gd"
 Lobby="*res://Script/Menu/lobby.gd"
 Loader="*res://Scene/Singleton/loader.tscn"
-P2P="*res://Script/Singleton/p2p.gd"
+P2P="*res://Script/Singleton/P2P.gd"
+Index="*res://Script/Singleton/Index.gd"
 
 [debug]
 

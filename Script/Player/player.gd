@@ -1,74 +1,23 @@
-extends CharacterBody3D
+extends Peer
 
-const ACCELERATE: float = 0.2
-const SPEED: float = 3.5
-const RUN_SPEED: float = 7.5
-const JUMP: float = 6.5
-const GRAVITY: float = 0.3
-const MAX_GRAVITY: int = 25
 
-@onready var Camera: Camera3D = $Cam/Camera
-@onready var Navigation: NavigationAgent3D = $Navigation
-@onready var MouseRay: RayCast3D = $Cam/Camera/MouseRay
-@onready var SendPosition: Timer = $Timers/SendPosition
-
-var motion: Vector3
-var speed: float = 2.5
-var authority: bool
-var peer_position: Vector3
 
 func _ready() -> void:
-	Camera.current = authority
-	set_physics_process(authority)
-	set_process(!authority)
-	
-	if !authority:
-		P2P.received_position.connect(sync_pos)
-	else:
-		SendPosition.start()
-		
-		await get_tree().create_timer(1).timeout
-		P2P.send_message_for_peers(false , P2P.PLAYER.POSITION, [global_position], Steam.P2P_SEND_UNRELIABLE_NO_DELAY)
+	_peer_configurate()
 
 
 func _process(_delta: float) -> void:
 	global_position = global_position.lerp(peer_position, P2P.LERP_POSITION)
 
 func _physics_process(_delta: float) -> void:
-	_moviment()
-	_gravity()
-	move_and_slide()
-
-func _moviment() -> void:
-	velocity.x = 0
-	velocity.z = 0
-	
-	if Input.is_action_just_pressed("walk"):
-		pass
-	if Input.is_action_pressed("walk"):
-		Navigation.target_position = MouseRay.get_collision_point()
-	
-	var next_position: Vector3 = global_position.direction_to(Navigation.get_next_path_position()).normalized() * speed
-	
-	velocity.x = next_position.x
-	velocity.z = next_position.z
-	
-	SendPosition.paused = !((velocity.x < -0.1 or velocity.x > 0.1) or (velocity.z < -0.1 or velocity.z > 0.1))
-
-func _gravity() -> void:
-	velocity.y += -GRAVITY
-	
-	if is_on_floor():
-		velocity.y = 0
+	if authority:
+		player(_delta)
 	else:
-		if velocity.y < -MAX_GRAVITY:
-			velocity.y = -MAX_GRAVITY
-
-func sync_pos(id: int, position: Vector3) -> void:
-	print("pas")
-	if id == name.to_int() and !authority:
-		peer_position = position
-
+		peer(_delta)
+	
+	move_and_slide()
 
 func _on_send_position_timeout() -> void:
 	P2P.send_position(global_position)
+func _on_send_velocity_timeout() -> void:
+	P2P.send_velocity(velocity)

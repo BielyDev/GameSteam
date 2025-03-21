@@ -6,12 +6,17 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3r2y"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_en14x"]
+radius = 0.365
 
 [sub_resource type="BoxMesh" id="BoxMesh_bwxun"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "RayMouse", "Navigation")]
 collision_layer = 0
 script = ExtResource("1_x5h45")
+Camera = NodePath("Cam/Camera")
+RayMouse = NodePath("Cam/Camera/MouseRay")
+Navigation = NodePath("Navigation")
+metadata/_custom_type_script = "uid://d3db5i7ts3mw2"
 
 [node name="Navigation" type="NavigationAgent3D" parent="."]
 
@@ -21,29 +26,19 @@ shape = SubResource("CapsuleShape3D_n3r2y")
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_en14x")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.382188, 0, 0, 0, 0.382188, 0, 0, 0, 0.826853, 0, 0.376482, 0.195865)
+mesh = SubResource("BoxMesh_bwxun")
+
 [node name="Cam" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640229, 0)
+top_level = true
 script = ExtResource("2_erwjw")
 
 [node name="Camera" type="Camera3D" parent="Cam"]
 transform = Transform3D(1, 0, 0, 0, 0.40321, 0.915108, 0, -0.915108, 0.40321, 0, 7.10359, 3.36324)
+current = true
 
 [node name="MouseRay" type="RayCast3D" parent="Cam/Camera"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 8
-
-[node name="pos" type="MeshInstance3D" parent="Cam"]
-top_level = true
-mesh = SubResource("BoxMesh_bwxun")
-skeleton = NodePath("../../Timer")
-
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
-[node name="Timers" type="Node" parent="."]
-
-[node name="SendPosition" type="Timer" parent="Timers"]
-wait_time = 0.1
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timers/SendPosition" to="." method="_on_send_position_timeout"]

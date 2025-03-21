@@ -1,0 +1,96 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://gxqn0vcubl6v"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_1o8aa"]
+constant = Color(0.179236, 0.362123, 1, 1)
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_fxcka"]
+operator = 4
+
+[sub_resource type="Gradient" id="Gradient_mr1nw"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.027027, 0.046332)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dw5pm"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_mr1nw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.1)
+metadata/_snap_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1o8aa"]
+output_port_for_preview = 0
+source = 5
+texture = SubResource("GradientTexture2D_dw5pm")
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_fxcka"]
+parameter_name = "Gradient"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D Gradient;
+
+
+
+void fragment() {
+// ColorConstant:12
+	vec4 n_out12p0 = vec4(0.179236, 0.362123, 1.000000, 1.000000);
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Gradient, UV);
+
+
+	vec3 n_out13p0;
+// ColorOp:13
+	{
+		float base = vec3(n_out12p0.xyz).x;
+		float blend = vec3(n_out2p0.xyz).x;
+		if (base < 0.5) {
+			n_out13p0.x = 2.0 * base * blend;
+		} else {
+			n_out13p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out12p0.xyz).y;
+		float blend = vec3(n_out2p0.xyz).y;
+		if (base < 0.5) {
+			n_out13p0.y = 2.0 * base * blend;
+		} else {
+			n_out13p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out12p0.xyz).z;
+		float blend = vec3(n_out2p0.xyz).z;
+		if (base < 0.5) {
+			n_out13p0.z = 2.0 * base * blend;
+		} else {
+			n_out13p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+
+// Output:0
+	ALBEDO = n_out13p0;
+	ALPHA = n_out2p0.x;
+
+
+}
+"
+graph_offset = Vector2(-526.545, -68.0014)
+nodes/fragment/0/position = Vector2(600, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_1o8aa")
+nodes/fragment/2/position = Vector2(-360, 340)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_fxcka")
+nodes/fragment/3/position = Vector2(-740, 300)
+nodes/fragment/12/node = SubResource("VisualShaderNodeColorConstant_1o8aa")
+nodes/fragment/12/position = Vector2(-320, -40)
+nodes/fragment/13/node = SubResource("VisualShaderNodeColorOp_fxcka")
+nodes/fragment/13/position = Vector2(20, 80)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 13, 0, 0, 0, 12, 0, 13, 0, 2, 0, 13, 1, 2, 0, 0, 1)

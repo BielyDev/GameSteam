@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://cm584dcof8jtn"]
+
+[ext_resource type="Shader" uid="uid://gxqn0vcubl6v" path="res://Assets/2D/Shader/Cursor.tres" id="1_vn0kr"]
+
+[sub_resource type="GDScript" id="GDScript_cyosy"]
+script/source = "extends Node3D
+
+
+func _on_anima_animation_finished(_anim_name: StringName) -> void:
+	queue_free()
+"
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rnk6w"]
+
+[sub_resource type="Gradient" id="Gradient_mr1nw"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.027027, 0.046332)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dw5pm"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_mr1nw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.1)
+metadata/_snap_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rmyi"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("1_vn0kr")
+shader_parameter/Gradient = SubResource("GradientTexture2D_dw5pm")
+
+[sub_resource type="Animation" id="Animation_bgv0e"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plane:surface_material_override/0:shader_parameter/Gradient:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.733333, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.027027, 0.046332), PackedFloat32Array(0, 0.273543, 0.605381), PackedFloat32Array(0.264574, 0.578475, 0.730942), PackedFloat32Array(0.811659, 0.825112, 0.829596)]
+}
+
+[sub_resource type="Animation" id="Animation_h6j1t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plane:surface_material_override/0:shader_parameter/Gradient:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.027027, 0.046332)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjhub"]
+_data = {
+&"RESET": SubResource("Animation_h6j1t"),
+&"start": SubResource("Animation_bgv0e")
+}
+
+[node name="CursorDirection" type="Node3D"]
+script = SubResource("GDScript_cyosy")
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("PlaneMesh_rnk6w")
+surface_material_override/0 = SubResource("ShaderMaterial_4rmyi")
+
+[node name="Anima" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rjhub")
+}
+autoplay = "start"
+speed_scale = 2.0
+
+[connection signal="animation_finished" from="Anima" to="." method="_on_anima_animation_finished"]
