@@ -19,6 +19,8 @@ func set_disabled_buttons(value: bool = true) -> void:
 	CreateLobby.disabled = value
 
 func _on_create_pressed() -> void:
+	if NameLobby.text == "":
+		NameLobby.text = "Lobby_sem_nome"
 	Lobby.lobby_name = NameLobby.text
 	
 	Lobby.createLobby()
