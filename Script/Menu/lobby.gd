@@ -34,7 +34,6 @@ func _ready() -> void:
 	Steam.lobby_joined.connect(lobby_joined)
 	Steam.lobby_created.connect(lobby_created)
 	Steam.lobby_message.connect(lobby_message)
-	Steam.persona_state_change.connect(persona_state_change)
 	Steam.lobby_invite.connect(lobby_invite)
 
 func configureLobby(_lobby_id: int) -> void:
@@ -132,9 +131,6 @@ func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _
 			exited_player.emit(_changed_id)
 		Steam.CHAT_MEMBER_STATE_CHANGE_DISCONNECTED:
 			exited_player.emit(_changed_id)
-
-func persona_state_change(_nick, _avatar) -> void:
-	print("persona_state_change: ",_nick, _avatar)
 
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	print("State: ",_chat_state)

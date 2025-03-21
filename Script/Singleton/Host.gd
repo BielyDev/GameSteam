@@ -38,8 +38,8 @@ var players: Array
 var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
-	steam.peer_connected.connect(peer_connected)
 	Steam.network_messages_session_request.connect(network_messages_session_request)
+	steam.peer_connected.connect(peer_connected)
 	
 	OS.set_environment("SteamAppID",str(APP_ID))
 	OS.set_environment("SteamGameID",str(APP_ID))
@@ -47,8 +47,12 @@ func _ready() -> void:
 	var _result: Dictionary = Steam.steamInit(true, APP_ID)
 	
 	if !Steam.isSteamRunning():
-		OS.alert("Abre a steam rapaz","Game")
+		OS.alert("Abre a steam rapaz","Teu pai")
 		get_tree().quit()
+	else:
+		if !Steam.loggedOn():
+			OS.alert("Steam desconectada!","Teu pai")
+			get_tree().quit()
 	
 	steam_id = Steam.getSteamID()
 	Lobby.lobby_settings.adm_id = steam_id
@@ -59,8 +63,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	var events: Array = Steam.receiveMessagesOnChannel(0,10)
-	print(events)
+	var events: Array = Steam.receiveMessagesOnChannel(0,5)
+	if events != []:
+		print(events)
 
 
 func request_lobby() -> void:
@@ -83,8 +88,9 @@ func createClient() -> int:
 func send_invite(_id: int) -> void:
 	Steam.sendMessageToUser(_id, [Host.MESSAGE.INVITE,Lobby.lobby_id,Host.steam_id],0,0)
 
-func network_messages_session_request(id: int) -> void:
-	printerr(id)
+func network_messages_session_request(_id: int) -> void:
+	print(_id)
+	Steam.acceptSessionWithUser(_id)
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)
