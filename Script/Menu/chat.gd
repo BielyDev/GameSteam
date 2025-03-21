@@ -3,6 +3,7 @@ extends PanelContainer
 @onready var MessageEdit: LineEdit = $vbox/Bar/MessageEdit
 @onready var Send: ButtonAnimated = $vbox/Bar/Send
 @onready var Vbox: VBoxContainer = $vbox/Scroll/vbox
+@onready var Scroll: ScrollContainer = $vbox/Scroll
 
 var image: Array = [
 	preload("res://Assets/2D/Chat/Cat/cat_0.jpeg"),
@@ -64,6 +65,9 @@ func instance_rich_label(_message: String) -> void:
 	new_rich.scroll_active = false
 	
 	Vbox.add_child(new_rich)
+	
+	await get_tree().create_timer(0.2).timeout
+	Scroll.scroll_vertical += 500
 
 func instance_image(_user_id: int, _image: int) -> void:
 	if !(_image < image.size()): return
@@ -73,11 +77,14 @@ func instance_image(_user_id: int, _image: int) -> void:
 	
 	new_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	new_texture.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	#new_texture.stretch_mode = TextureRect.STRETCH_KEEP
+	
 	new_texture.custom_minimum_size = Vector2(100.0,100.0)
 	new_texture.texture = image[_image]
 	
 	Vbox.add_child(new_texture)
+	
+	await get_tree().create_timer(0.2).timeout
+	Scroll.scroll_vertical += 500
 
 
 func _received_message(_user_id: int, _message: String) -> void:
@@ -103,5 +110,5 @@ func _on_message_edit_text_changed(_new_text: String) -> void:
 	Send.disabled = !_new_text.length() > 0
 
 func _on_message_edit_text_submitted(_new_text: String) -> void:
-	Send.disabled = !_new_text.length() > 0
-	_on_send_pressed()
+	if _new_text.length() > 0:
+		_on_send_pressed()

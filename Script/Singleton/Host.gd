@@ -83,7 +83,7 @@ func createHost() -> int:
 
 func createClient() -> int:
 	var _err: int = Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
-	print("Owner: ",Steam.getLobbyOwner(Lobby.lobby_id))
+	print(_err," Owner: ",Steam.getLobbyOwner(Lobby.lobby_id))
 	return OK
 
 func send_invite(_id: int) -> void:

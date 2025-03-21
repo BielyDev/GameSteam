@@ -145,7 +145,6 @@ func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_
 func _lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
 	match _type:
 		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
-			print(JSON.parse_string(_buffer))
 			var message: Array = JSON.parse_string(_buffer)
 			
 			received_message(_user_id, message)
