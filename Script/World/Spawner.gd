@@ -36,5 +36,3 @@ func add_player(_peer_number: int, _peer_id: int) -> void:
 	
 	if new_player.authority:
 		new_player.global_position = Pos.get_child(_peer_number).global_position + Vector3(0,1,0)
-		P2P.send_position(new_player.global_position)
-	

@@ -26,6 +26,9 @@ func _ready() -> void:
 		P2P.received_position.connect(sync_pos)
 	else:
 		SendPosition.start()
+		
+		await get_tree().create_timer(1).timeout
+		P2P.send_position(global_position)
 
 
 func _process(_delta: float) -> void:
