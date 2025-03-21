@@ -39,6 +39,7 @@ var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
 	steam.peer_connected.connect(peer_connected)
+	Steam.network_messages_session_request.connect(network_messages_session_request)
 	
 	OS.set_environment("SteamAppID",str(APP_ID))
 	OS.set_environment("SteamGameID",str(APP_ID))
@@ -82,8 +83,8 @@ func createClient() -> int:
 func send_invite(_id: int) -> void:
 	Steam.sendMessageToUser(_id, [Host.MESSAGE.INVITE,Lobby.lobby_id,Host.steam_id],0,0)
 
-func client_message() -> void:
-	print()
+func network_messages_session_request(id: int) -> void:
+	printerr(id)
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)

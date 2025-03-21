@@ -42,7 +42,7 @@ func update() -> void:
 func _input(_event: InputEvent) -> void:
 	if !(_event is InputEventMouseMotion):
 		if !mouse:
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.2).timeout
 			queue_free()
 
 func _on_add_friend_pressed() -> void:
