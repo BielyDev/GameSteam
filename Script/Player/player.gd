@@ -28,7 +28,7 @@ func _ready() -> void:
 		SendPosition.start()
 		
 		await get_tree().create_timer(1).timeout
-		P2P.send_position(global_position)
+		P2P.send_message_for_peers(false , P2P.PLAYER.POSITION, [global_position], Steam.P2P_SEND_UNRELIABLE_NO_DELAY)
 
 
 func _process(_delta: float) -> void:
