@@ -76,6 +76,7 @@ material = SubResource("StandardMaterial3D_ybfmy")
 script = ExtResource("3_c5ll6")
 
 [node name="Pos" type="Node3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="One" type="Marker3D" parent="Spawner/Pos"]
 
