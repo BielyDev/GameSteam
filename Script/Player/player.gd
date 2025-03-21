@@ -46,8 +46,7 @@ func _moviment() -> void:
 	velocity.x = next_position.x
 	velocity.z = next_position.z
 	
-	print((velocity.x < -0.1 or velocity.x > 0.1) or (velocity.z < -0.1 or velocity.z > 0.1))
-	SendPosition.paused = !(velocity.x < -0.1 or velocity.x > 0.1) or (velocity.z < -0.1 or velocity.z > 0.1)
+	SendPosition.paused = !((velocity.x < -0.1 or velocity.x > 0.1) or (velocity.z < -0.1 or velocity.z > 0.1))
 
 func _gravity() -> void:
 	velocity.y += -GRAVITY
@@ -60,7 +59,7 @@ func _gravity() -> void:
 
 func sync_pos(id: int, position: Vector3) -> void:
 	if id == name.to_int() and !authority:
-		global_position = position
+		create_tween().tween_property(self,"global_position",position, P2P.LERP_POSITION).set_trans(Tween.TRANS_CUBIC)
 
 
 func _on_send_position_timeout() -> void:

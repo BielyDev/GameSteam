@@ -2,6 +2,8 @@ extends Node
 
 signal received_position(id: int, position: Vector3)
 
+const LERP_POSITION: float = 0.1
+
 enum PLAYER {
 	POSITION
 }
