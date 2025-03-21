@@ -9,8 +9,8 @@ var id: int
 @onready var RemoveFriend: ButtonAnimated = $vbox/RemoveFriend
 @onready var SendMessage: ButtonAnimated = $vbox/SendMessage
 @onready var ViewProfile: ButtonAnimated = $vbox/ViewProfile
-@onready var InvinteLobby: ButtonAnimated = $vbox/InvinteLobby
-@onready var CreateInvinteLobby: ButtonAnimated = $vbox/CreateInvinteLobby
+@onready var InviteLobby: ButtonAnimated = $vbox/InviteLobby
+@onready var CreateInviteLobby: ButtonAnimated = $vbox/CreateInviteLobby
 
 func _ready() -> void:
 	update()
@@ -20,16 +20,16 @@ func update() -> void:
 		AddFriend.hide()
 		RemoveFriend.hide()
 		SendMessage.hide()
-		InvinteLobby.hide()
-		CreateInvinteLobby.hide()
+		InviteLobby.hide()
+		CreateInviteLobby.hide()
 	
 	if is_lobby:
-		CreateInvinteLobby.hide()
+		CreateInviteLobby.hide()
 		
 		if is_in_lobby:
-			InvinteLobby.hide()
+			InviteLobby.hide()
 	else:
-		InvinteLobby.hide()
+		InviteLobby.hide()
 	
 	if Steam.hasFriend(id, Steam.FRIEND_FLAG_IMMEDIATE):
 		AddFriend.hide()
@@ -53,12 +53,14 @@ func _on_send_message_pressed() -> void:
 	Steam.activateGameOverlayToUser("chat",id)
 func _on_view_profile_pressed() -> void:
 	Steam.activateGameOverlayToUser("stats",id)
-func _on_invinte_lobby_pressed() -> void:
+func _on_invite_lobby_pressed() -> void:
+	Steam.activateGameOverlayInviteDialog(Host.steam_id)
 	Steam.inviteUserToLobby(Lobby.lobby_id, id)
-func _on_create_invinte_lobby_pressed() -> void:
+func _on_create_invite_lobby_pressed() -> void:
+	Steam.activateGameOverlayInviteDialog(Host.steam_id)
 	Lobby.createLobby()
 	await get_tree().create_timer(2).timeout
-	Steam.inviteUserToGame(id,"teste")
+	
 	Steam.inviteUserToLobby(Lobby.lobby_id, id)
 
 func _on_mouse_entered() -> void:

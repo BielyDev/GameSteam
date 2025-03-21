@@ -76,6 +76,6 @@ metadata/_custom_type_script = "uid://b32k327cs6cov"
 [connection signal="pressed" from="vbox/SendMessage" to="." method="_on_send_message_pressed"]
 [connection signal="pressed" from="vbox/ViewProfile" to="." method="_on_view_profile_pressed"]
 [connection signal="pressed" from="vbox/AddFriend" to="." method="_on_add_friend_pressed"]
-[connection signal="pressed" from="vbox/CreateInviteLobby" to="." method="_on_create_invinte_lobby_pressed"]
-[connection signal="pressed" from="vbox/InviteLobby" to="." method="_on_invinte_lobby_pressed"]
+[connection signal="pressed" from="vbox/CreateInviteLobby" to="." method="_on_create_invite_lobby_pressed"]
+[connection signal="pressed" from="vbox/InviteLobby" to="." method="_on_invite_lobby_pressed"]
 [connection signal="pressed" from="vbox/RemoveFriend" to="." method="_on_remove_friend_pressed"]
