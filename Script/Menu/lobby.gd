@@ -17,7 +17,6 @@ var lobby_settings: Dictionary = {
 	"mode" : 0,
 	"adm_id": "",
 	"port": 0,
-	"ip": "",
 }
 var settings: Dictionary = {
 	"map" : [0, "Name"],
@@ -126,7 +125,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	Ui.alert(str("ERROR ,",_responde))
 
 func lobby_invite(_lobby_id: int) -> void:
-	print(_lobby_id)
+	print("Recebi o convite: ",_lobby_id)
 
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:

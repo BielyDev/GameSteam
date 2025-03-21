@@ -23,7 +23,6 @@ var port: int = 0:
 		if port == 0:
 			port = randi_range(1420,9999)
 		return port
-var ip: String
 
 var config_options: Dictionary = {
 	"NETWORKING_CONFIG_FAKE_PACKET_LAG_SEND" : 4,
@@ -62,6 +61,7 @@ func request_lobby() -> void:
 func createHost() -> int:
 	
 	if Steam.acceptP2PSessionWithUser(steam_id):
+		Steam.connectP2P(Lobby.settings.adm_id, DEFAULT_PORT,{})
 		return OK
 	
 	return FAILED
