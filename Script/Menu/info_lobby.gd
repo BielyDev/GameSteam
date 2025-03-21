@@ -2,9 +2,9 @@ extends Control
 
 @onready var SettingsLobby: PanelContainer = $vbox/Panel/Margin/Buttons/Hbox/SettingsLobby
 @onready var Players: PanelContainer = $vbox/Panel/Margin/Buttons/Hbox/Players
-@onready var PlayButton: Button = $vbox/Buttons/PlayButton
-@onready var ReadyButton: Button = $vbox/Buttons/ReadyButton
-@onready var QuitButton: Button = $vbox/Buttons/QuitButton
+@onready var PlayButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/PlayButton
+@onready var ReadyButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/ReadyButton
+@onready var QuitButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/QuitButton
 @onready var ID: Button = $vbox/Panel/Margin/Buttons/vbox/ID
 
 const LOBBIES = preload("res://Scene/Screen/lobbies.tscn")

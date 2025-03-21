@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjkyya7tmt3ui"]
+
+[ext_resource type="Script" uid="uid://ddfp882r7m2fq" path="res://Script/Menu/chat.gd" id="1_rameb"]
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_rcd0b"]
+
+[node name="Chat" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 250)
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_type_variation = &"PanelGradient"
+script = ExtResource("1_rameb")
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="vbox" type="VBoxContainer" parent="vbox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bar" type="HBoxContainer" parent="vbox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="MessageEdit" type="LineEdit" parent="vbox/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 28
+
+[node name="Send" type="Button" parent="vbox/Bar"]
+layout_mode = 2
+disabled = true
+text = "Send"
+script = ExtResource("1_rcd0b")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="text_changed" from="vbox/Bar/MessageEdit" to="." method="_on_message_edit_text_changed"]
+[connection signal="pressed" from="vbox/Bar/Send" to="." method="_on_send_pressed"]

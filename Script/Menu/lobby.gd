@@ -3,8 +3,13 @@ extends Control
 signal new_player(id: int)
 signal exited_player(id: int)
 signal ready_lobby(id: int, value: bool)
+signal lobby_chat(id: int, message: String)
 
-enum MESSAGE_LOBBY {PLAY, READY}
+enum MESSAGE_LOBBY {
+	CHAT,
+	PLAY,
+	READY
+}
 
 const INFO_LOBBY = preload("res://Scene/Screen/info_lobby.tscn")
 
@@ -24,7 +29,7 @@ var settings: Dictionary = {
 }
 var my_ready_lobby: bool:
 	set(value):
-		Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.READY, value]))
+		send_message(Lobby.MESSAGE_LOBBY.READY, [value])
 		my_ready_lobby = value
 
 func _ready() -> void:
@@ -33,7 +38,7 @@ func _ready() -> void:
 	Steam.lobby_kicked.connect(lobby_kicked)
 	Steam.lobby_joined.connect(lobby_joined)
 	Steam.lobby_created.connect(lobby_created)
-	Steam.lobby_message.connect(lobby_message)
+	Steam.lobby_message.connect(_lobby_message)
 	Steam.lobby_invite.connect(lobby_invite)
 
 func configureLobby(_lobby_id: int) -> void:
@@ -135,28 +140,53 @@ func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	print("State: ",_chat_state)
 
-func lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
+
+# MESSAGE ===================================================================================
+func _lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
 	match _type:
 		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
 			print(JSON.parse_string(_buffer))
 			var message: Array = JSON.parse_string(_buffer)
 			
-			match int(message[0]):
-				Lobby.MESSAGE_LOBBY.PLAY:
-					for player in players_lobby:
-						if players_lobby.get(player) == false:
-							Ui.alert(str(Steam.getFriendPersonaName(int(player))," ainda não está pronto."))
-							
-							return
-					
-					Ui.alert("Vai começar em...")
-					for i in range(3):
-						await get_tree().create_timer(1).timeout
-						Ui.alert(str(3-i))
-					
-					Loader.pass_scene("res://Scene/Map/world.tscn")
-					Ui.clear_scene()
+			received_message(_user_id, message)
+
+func received_message(_user_id: int, _message: Array) -> void:
+	match int(_message[0]):
+		Lobby.MESSAGE_LOBBY.CHAT:
+			message_chat(_user_id, _message[1])
+		Lobby.MESSAGE_LOBBY.READY:
+			message_ready(_user_id, _message[1])
+		Lobby.MESSAGE_LOBBY.PLAY:
+			message_play(_message)
+
+func send_message(_type: int, _message: Array) -> void:
+	var _err_message: Array
+	
+	_err_message.append(_type)
+	for i in _message:
+		_err_message.append(i)
+	
+	Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify(_err_message))
+
+func message_chat(_user_id: int, _value: String) -> void:
+	lobby_chat.emit(_user_id, _value)
+
+func message_ready(_user_id: int, _value: bool) -> void:
+	players_lobby[str(_user_id)] = _value
+	ready_lobby.emit(_user_id,_value)
+
+func message_play(_message: Array) -> void:
+	for player in players_lobby:
+		if players_lobby.get(player) == false:
+			Ui.alert(str(Steam.getFriendPersonaName(int(player))," ainda não está pronto."))
 			
-				Lobby.MESSAGE_LOBBY.READY:
-					players_lobby[str(_user_id)] = message[1]
-					ready_lobby.emit(_user_id, message[1])
+			return
+	
+	Ui.alert("Vai começar em...")
+	for i in range(3):
+		await get_tree().create_timer(1).timeout
+		Ui.alert(str(3-i))
+	
+	Loader.pass_scene("res://Scene/Map/world.tscn")
+	Ui.clear_scene()
+#============================================================================================

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6kkqat6ikuvn"]
+[gd_scene load_steps=9 format=3 uid="uid://c6kkqat6ikuvn"]
 
 [ext_resource type="Script" uid="uid://c6vxu1ina8rdr" path="res://Script/Menu/info_lobby.gd" id="1_avspo"]
 [ext_resource type="Shader" uid="uid://5smgjtmpegii" path="res://Assets/2D/Shader/blur.gdshader" id="2_m2sst"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_qdqe4"]
 [ext_resource type="Script" uid="uid://dqtkb8tv45fau" path="res://Script/Menu/players.gd" id="3_m2sst"]
+[ext_resource type="PackedScene" uid="uid://bjkyya7tmt3ui" path="res://Scene/Screen/chat.tscn" id="5_m2sst"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_octjr"]
 shader = ExtResource("2_m2sst")
@@ -148,7 +149,7 @@ script = ExtResource("2_qdqe4")
 enable_x = false
 
 [node name="Players" type="PanelContainer" parent="vbox/Panel/Margin/Buttons/Hbox"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 270)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qdqe4")
 script = ExtResource("3_m2sst")
@@ -182,21 +183,17 @@ layout_mode = 2
 size_flags_vertical = 10
 text = "Atualizar"
 
-[node name="hs2" type="HSeparator" parent="vbox/Panel/Margin/Buttons"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="Buttons" type="HBoxContainer" parent="vbox"]
+[node name="Buttons" type="HBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox"]
 custom_minimum_size = Vector2(256, 48)
 layout_mode = 2
-size_flags_horizontal = 8
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayButton" type="Button" parent="vbox/Buttons"]
+[node name="PlayButton" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons"]
 modulate = Color(0.880157, 0.785138, 0.90584, 1)
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(100, 48)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
+size_flags_vertical = 8
 mouse_default_cursor_shape = 2
 text = "Play"
 script = ExtResource("2_qdqe4")
@@ -204,11 +201,12 @@ enable_x = false
 scale_max = 1.2
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="ReadyButton" type="Button" parent="vbox/Buttons"]
+[node name="ReadyButton" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons"]
 modulate = Color(0.880157, 0.785138, 0.90584, 1)
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(100, 48)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
+size_flags_vertical = 8
 mouse_default_cursor_shape = 2
 text = "Ready"
 script = ExtResource("2_qdqe4")
@@ -216,11 +214,12 @@ enable_x = false
 scale_max = 1.2
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
-[node name="QuitButton" type="Button" parent="vbox/Buttons"]
+[node name="QuitButton" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons"]
 modulate = Color(1, 0.336673, 0.270683, 1)
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(100, 48)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
+size_flags_vertical = 8
 mouse_default_cursor_shape = 2
 text = "Quit"
 script = ExtResource("2_qdqe4")
@@ -228,8 +227,16 @@ enable_y = false
 scale_max = 1.15
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
+[node name="Chat" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons" instance=ExtResource("5_m2sst")]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="hs2" type="HSeparator" parent="vbox/Panel/Margin/Buttons"]
+layout_mode = 2
+size_flags_vertical = 8
+
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/vbox/ID" to="." method="_on_id_pressed"]
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="vbox/Panel/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
-[connection signal="pressed" from="vbox/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="vbox/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
-[connection signal="pressed" from="vbox/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
