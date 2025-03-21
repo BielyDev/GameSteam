@@ -9,7 +9,7 @@ const KEY_NAME: String = "namer"
 const KEY_SETTINGS: String = "settings"
 const KEY_PLAYER_LOBBY: String = "player_lobby"
 
-const MODE: Array = ["Easy","Medium","Hard"]
+
 const MAP: Array = [
 	{"name" : "Bind", "image" : preload("res://Assets/2D/Background/bind.png")},
 	{"name" : "Ascent", "image" : preload("res://Assets/2D/Background/mapa2.jpg")},
@@ -61,7 +61,6 @@ func request_lobby() -> void:
 func createHost() -> int:
 	
 	if Steam.acceptP2PSessionWithUser(steam_id):
-		Steam.connectP2P(Lobby.settings.adm_id, DEFAULT_PORT,{})
 		return OK
 	
 	return FAILED
@@ -69,8 +68,8 @@ func createHost() -> int:
 
 func createClient() -> int:
 	var _err: int = Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
-	
-	return _err
+	print("Owner: ",Steam.getLobbyOwner(Lobby.lobby_id))
+	return OK
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)

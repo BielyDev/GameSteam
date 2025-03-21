@@ -12,6 +12,7 @@ var lobby_id: int
 var lobby_name: String
 var players_lobby: Dictionary
 
+const MODE: Array = ["Easy","Medium","Hard"]
 var lobby_settings: Dictionary = {
 	"map" : 0,
 	"mode" : 0,
@@ -38,7 +39,6 @@ func _ready() -> void:
 
 func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.port = Host.port
-	Lobby.lobby_settings.ip = Host.ip
 	Lobby.players_lobby = {}
 	
 	#Host.steam.disconnect_peer(1,true)
@@ -58,11 +58,9 @@ func createLobby() -> void:
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	match _result:
 		Steam.RESULT_OK:
+			Ui.alert("Lobby criado!")
+			configureLobby(_lobby_id)
 			
-			#configureLobby(_lobby_id)
-			#Lobby.lobby_settings.adm_id = str(Steam.getSteamID())
-			#Lobby.lobby_settings.ip = Host.ip
-			#print("Create", Lobby.lobby_settings)
 			return
 		Steam.RESULT_FAIL:
 			Ui.notif("Expirado")
@@ -97,6 +95,7 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 						Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
 					var _err: int = Host.createClient()
+					
 					if _err == OK:
 						Ui.alert("Create client")
 						Ui.new_scene(INFO_LOBBY)
@@ -104,12 +103,6 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 						Ui.alert("Entrou em lobby desconhecido")
 						Ui.new_scene(INFO_LOBBY)
 					
-					#109775241608557185
-					#Steam.sendLobbyChatMsg(Lobby.lobby_id,str({}))
-					#109775241590767179
-					#for i in range(244555):
-					#	Steam.sendLobbyChatMsg(Lobby.lobby_id,str(var_to_bytes(CharacterBody3D.new())))
-					#	print(i)
 					Ui.FriendList.z_index = 10
 			return
 		Steam.RESULT_FAIL:

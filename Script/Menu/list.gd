@@ -16,34 +16,31 @@ func delete_buttons() -> void:
 func _on_lobby_match_list(_id_lobbies: Array) -> void:
 	delete_buttons()
 	
-	for _id_lobby: int in _id_lobbies:
-		var _lobby_name: String = Steam.getLobbyData(_id_lobby,Host.KEY_NAME)
-		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_id_lobby,Host.KEY_SETTINGS))
+	for _lobby_id: int in _id_lobbies:
+		print(_lobby_id)
+		var _lobby_name: String = Steam.getLobbyData(_lobby_id,Host.KEY_NAME)
+		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id,Host.KEY_SETTINGS))
 		
 		if _lobby_settings == null: # Apenas pra debugar
 			_lobby_settings = Lobby.lobby_settings
 		
-		var new_button: Button = MAP_BUTTON.instantiate()
-		
-		ListVbox.add_child(new_button)
-		
-		new_button.lobby_id = _id_lobby
-		new_button.adm_id = int(_lobby_settings.adm_id)
-		
-		new_button.Map.texture = Host.MAP[int(_lobby_settings.map)].image
-		new_button.MapName.text = Host.MAP[int(_lobby_settings.map)].name
-		
-		var _lobby_mode: String = Steam.getLobbyData(_id_lobby,"mode")
-		var _lobby_size: String = str(" ",Steam.getNumLobbyMembers(_id_lobby),"/",Steam.getLobbyMemberLimit(_id_lobby))
-		#Steam.getLobbyMemberData(_id_lobby,)
-		
-		new_button.Mode.text = _lobby_mode
-		new_button.Tittle.text = _lobby_name
-		new_button.Number.text = _lobby_size
+		_instance_lobby_button(_lobby_id,_lobby_name,_lobby_settings)
+
+
+func _instance_lobby_button(_lobby_id: int, _lobby_name: StringName, _lobby_settings: Dictionary) -> void:
+	var new_button: Button = MAP_BUTTON.instantiate()
+	
+	ListVbox.add_child(new_button)
+	
+	new_button.lobby_id = _lobby_id
+	new_button.adm_id = int(_lobby_settings.adm_id)
+	
+	new_button.Map.texture = Host.MAP[int(_lobby_settings.map)].image
+	new_button.MapName.text = Host.MAP[int(_lobby_settings.map)].name
+	
+	new_button.Mode.text = Lobby.MODE[_lobby_settings.mode]
+	new_button.Tittle.text = _lobby_name
+	new_button.Number.text = str(" ",Steam.getNumLobbyMembers(_lobby_id),"/",Steam.getLobbyMemberLimit(_lobby_id))
 
 func _on_refresh_pressed() -> void:
 	Host.request_lobby()
-
-func _on_mode_item_selected(_index: int) -> void:
-	pass
-	#Steam.setLobbyData(Host.lobby_id, "mode", Host.MODE[_index])
