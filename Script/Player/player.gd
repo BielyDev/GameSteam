@@ -41,7 +41,7 @@ func _moviment() -> void:
 	velocity.z = next_position.z * speed
 	
 	if velocity.x != 0 or velocity.z != 0:
-		sync_pos(Host.steam_id, global_position)
+		P2P.send_position(global_position)
 
 func _gravity() -> void:
 	velocity.y += -GRAVITY
