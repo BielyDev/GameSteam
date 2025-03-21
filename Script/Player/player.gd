@@ -14,7 +14,8 @@ var speed: Array = [SPEED,RUN_SPEED]
 var authority: bool
 
 func _ready() -> void:
-	Ui.alert(str("           ",multiplayer.is_server(),"       ", multiplayer.get_unique_id()))
+	P2P.received_position.connect(sync_pos)
+	
 	Camera.current = authority
 	set_physics_process(authority)
 	
@@ -50,7 +51,6 @@ func _moviment() -> void:
 	velocity.x = lerp(velocity.x, motion.x, ACCELERATE)
 	velocity.z = lerp(velocity.z, motion.z, ACCELERATE)
 
-@rpc("call_remote")
 func sync_pos(id: int, position: Vector3) -> void:
 	if id != Host.steam_id:
 		global_position = position
