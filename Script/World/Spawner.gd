@@ -8,7 +8,7 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 func _ready() -> void:
 	refresh_player()
-	Ui.alert("Necessario esperar conexão!")
+	Ui.alert("ENVIANDO PIIIINNNGG!")
 	P2P.send_message_for_peers(false, P2P.PLAYER.NAT,[OK])
 
 
@@ -35,3 +35,4 @@ func add_player(_peer_number: int, _peer_id: int) -> void:
 	Players.add_child(new_player)
 	
 	new_player.global_position = Pos.get_child(_peer_number).global_position + Vector3(0,1,0)
+	P2P.send_position(new_player.global_position)

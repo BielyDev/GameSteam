@@ -24,10 +24,10 @@ func _process(delta: float) -> void:
 				
 				received_position.emit(events.remote_steam_id, position)
 			PLAYER.NAT:
-				Ui.alert("NAT INICIALIZADO")
+				Ui.alert("RECEBENDO POOOOOOONGGGGGGG!!!!!!!!!!!!!")
 
 func send_position(global_position: Vector3) -> void:
-	send_message_for_peers(false , PLAYER.POSITION, [global_position], Steam.P2P_SEND_UNRELIABLE)
+	send_message_for_peers(false , PLAYER.POSITION, [global_position], Steam.P2P_SEND_UNRELIABLE_NO_DELAY)
 
 func send_message_for_peers(my: bool ,_type: int, _message: Array, _flag: int = Steam.P2P_SEND_RELIABLE, _channel: int = 0) -> void:
 	for peer: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
