@@ -42,5 +42,5 @@ func send_message(_send_player: int,_type: int, _message: Array, _flag: int = St
 	message.append(int(_message[0]))
 	message.append(int(_message[1]))
 	message.append(int(_message[2]))
-	print(message)
+	print("NE: ", message)
 	Steam.sendP2PPacket(_send_player, message, _flag, _channel)

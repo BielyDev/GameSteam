@@ -52,5 +52,5 @@ func _moviment() -> void:
 	velocity.z = lerp(velocity.z, motion.z, ACCELERATE)
 
 func sync_pos(id: int, position: Vector3) -> void:
-	if id != Host.steam_id:
+	if !authority:
 		global_position = position
