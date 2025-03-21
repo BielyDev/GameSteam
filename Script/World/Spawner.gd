@@ -8,6 +8,8 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 func _ready() -> void:
 	refresh_player()
+	Ui.alert("Necessario esperar conexão!")
+	P2P.send_message_for_peers(false, P2P.PLAYER.NAT,[OK])
 
 
 func refresh_player() -> void:
@@ -23,6 +25,8 @@ func refresh_player() -> void:
 		add_player(_player, _peer_id)
 
 func add_player(_peer_number: int, _peer_id: int) -> void:
+	await get_tree().create_timer(5).timeout
+	
 	var new_player = PLAYER.instantiate()
 	
 	new_player.name = str(_peer_id)

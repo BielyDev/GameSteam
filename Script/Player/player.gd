@@ -62,10 +62,10 @@ func _gravity() -> void:
 			velocity.y = -MAX_GRAVITY
 
 func sync_pos(id: int, position: Vector3) -> void:
+	print("pas")
 	if id == name.to_int() and !authority:
 		peer_position = position
 
 
 func _on_send_position_timeout() -> void:
 	P2P.send_position(global_position)
-	print("pas")
