@@ -23,6 +23,7 @@ func _ready() -> void:
 		P2P.received_position.connect(sync_pos)
 
 
+
 func _physics_process(_delta: float) -> void:
 	_moviment()
 	_gravity()

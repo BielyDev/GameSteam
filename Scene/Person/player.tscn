@@ -31,10 +31,12 @@ transform = Transform3D(1, 0, 0, 0, 0.40321, 0.915108, 0, -0.915108, 0.40321, 0,
 target_position = Vector3(0, 0, -50)
 collision_mask = 8
 
+[node name="pos" type="MeshInstance3D" parent="Cam"]
+top_level = true
+mesh = SubResource("BoxMesh_bwxun")
+skeleton = NodePath("../../Timer")
+
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-
-[node name="pos" type="MeshInstance3D" parent="Timer"]
-mesh = SubResource("BoxMesh_bwxun")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

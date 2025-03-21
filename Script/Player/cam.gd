@@ -4,11 +4,13 @@ extends Node3D
 
 @onready var Camera: Camera3D = $Camera
 @onready var MouseRay: RayCast3D = $Camera/MouseRay
-@onready var pos: MeshInstance3D = $"../Timer/pos"
+@onready var pos: MeshInstance3D = $pos
+@onready var Player: CharacterBody3D = $".."
 
 
 func _ready() -> void:
-	pass
+	if !Player.authority:
+		queue_free()
 
 func _input(_event: InputEvent) -> void:
 	
