@@ -3,6 +3,10 @@ extends Node
 signal getIpPublic(ip: StringName)
 signal steamConnected
 
+enum MESSAGE {
+	INVITE
+}
+
 const DEFAULT_PORT: int = 3247
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
@@ -53,6 +57,11 @@ func _ready() -> void:
 	steamConnected.emit()
 
 
+func _process(_delta: float) -> void:
+	var events: Array = Steam.receiveMessagesOnChannel(0,10)
+	print(events)
+
+
 func request_lobby() -> void:
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.addRequestLobbyListStringFilter(KEY_NAME, "", Steam.LOBBY_COMPARISON_NOT_EQUAL)
@@ -65,11 +74,16 @@ func createHost() -> int:
 	
 	return FAILED
 
-
 func createClient() -> int:
 	var _err: int = Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
 	print("Owner: ",Steam.getLobbyOwner(Lobby.lobby_id))
 	return OK
+
+func send_invite(_id: int) -> void:
+	Steam.sendMessageToUser(_id, [Host.MESSAGE.INVITE,Lobby.lobby_id,Host.steam_id],0,0)
+
+func client_message() -> void:
+	print()
 
 func peer_connected(peer: int) -> void:
 	print("connect_handle = ",peer)

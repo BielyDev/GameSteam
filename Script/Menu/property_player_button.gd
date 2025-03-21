@@ -57,10 +57,9 @@ func _on_invite_lobby_pressed() -> void:
 	Steam.activateGameOverlayInviteDialog(Host.steam_id)
 	Steam.inviteUserToLobby(Lobby.lobby_id, id)
 func _on_create_invite_lobby_pressed() -> void:
-	Steam.activateGameOverlayInviteDialog(Host.steam_id)
 	Lobby.createLobby()
 	await get_tree().create_timer(2).timeout
-	
+	Host.send_invite(id)
 	Steam.inviteUserToLobby(Lobby.lobby_id, id)
 
 func _on_mouse_entered() -> void:
