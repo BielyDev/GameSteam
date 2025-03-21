@@ -35,12 +35,10 @@ var config_options: Dictionary = {
 }
 
 var players: Array
-var steam: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func _ready() -> void:
 	Steam.network_messages_session_request.connect(network_messages_session_request)
 	Steam.network_messages_session_failed.connect(network_messages_session_failed)
-	steam.peer_connected.connect(peer_connected)
 	
 	OS.set_environment("SteamAppID",str(APP_ID))
 	OS.set_environment("SteamGameID",str(APP_ID))
@@ -83,7 +81,6 @@ func createHost() -> int:
 
 func createClient() -> int:
 	var _err: int = Steam.connectP2P(Steam.getLobbyOwner(Lobby.lobby_id),DEFAULT_PORT,{})
-	print(_err," Owner: ",Steam.getLobbyOwner(Lobby.lobby_id))
 	return OK
 
 func send_invite(_id: int) -> void:
@@ -98,9 +95,3 @@ func network_messages_session_failed(_result: int, _remote_id: int, _state: int,
 	print(_state)
 	print(_debug)
 	#Steam.acceptSessionWithUser(_id)
-
-func peer_connected(peer: int) -> void:
-	print("connect_handle = ",peer)
-
-func connected_to_server() -> void:
-	print("connected_to_server")

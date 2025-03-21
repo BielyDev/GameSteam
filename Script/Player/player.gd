@@ -14,13 +14,11 @@ var speed: Array = [SPEED,RUN_SPEED]
 var authority: bool
 
 func _ready() -> void:
-	P2P.received_position.connect(sync_pos)
-	
 	Camera.current = authority
 	set_physics_process(authority)
 	
 	if !authority:
-		Steam.sendP2PPacket(name.to_int(),var_to_bytes("OI"),Steam.P2P_SEND_RELIABLE)
+		P2P.received_position.connect(sync_pos)
 
 
 func _physics_process(_delta: float) -> void:
