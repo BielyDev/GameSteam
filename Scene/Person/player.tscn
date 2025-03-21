@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp8ku5q1oxrcj"]
+[gd_scene load_steps=6 format=3 uid="uid://bp8ku5q1oxrcj"]
 
 [ext_resource type="Script" uid="uid://b84yo201yjbbn" path="res://Script/Player/player.gd" id="1_x5h45"]
 [ext_resource type="Script" uid="uid://bmy4clj0pqocq" path="res://Script/Player/cam.gd" id="2_erwjw"]
@@ -7,8 +7,12 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_en14x"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_bwxun"]
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_x5h45")
+
+[node name="Navigation" type="NavigationAgent3D" parent="."]
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_n3r2y")
@@ -21,8 +25,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640229, 0)
 script = ExtResource("2_erwjw")
 
 [node name="Camera" type="Camera3D" parent="Cam"]
+transform = Transform3D(1, 0, 0, 0, 0.40321, 0.915108, 0, -0.915108, 0.40321, 0, 7.10359, 3.36324)
+
+[node name="MouseRay" type="RayCast3D" parent="Cam/Camera"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 8
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="pos" type="MeshInstance3D" parent="Timer"]
+mesh = SubResource("BoxMesh_bwxun")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
