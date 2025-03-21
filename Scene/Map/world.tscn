@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnwr1nr5cp5ld"]
+[gd_scene load_steps=10 format=3 uid="uid://bnwr1nr5cp5ld"]
 
 [ext_resource type="Texture2D" uid="uid://ljo12rnorp0u" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_8ttk5"]
 [ext_resource type="Texture2D" uid="uid://bt1go26gggu1x" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="2_c5ll6"]
-[ext_resource type="Script" uid="uid://c0wnrh5qgmxxq" path="res://Script/World/playerWorld.gd" id="2_i7xta"]
+[ext_resource type="Script" uid="uid://c0wnrh5qgmxxq" path="res://Script/World/Spawner.gd" id="3_c5ll6"]
 
 [sub_resource type="Environment" id="Environment_c5ll6"]
 background_mode = 2
@@ -19,6 +19,16 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybfmy"]
 albedo_texture = ExtResource("2_c5ll6")
 uv1_triplanar = true
+
+[sub_resource type="Gradient" id="Gradient_c5ll6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4c4pm"]
+gradient = SubResource("Gradient_c5ll6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.2)
+metadata/_snap_enabled = true
 
 [node name="World" type="Node3D"]
 
@@ -62,13 +72,36 @@ radius = 0.68457
 height = 4.37048
 material = SubResource("StandardMaterial3D_ybfmy")
 
-[node name="Player" type="Node3D" parent="."]
-script = ExtResource("2_i7xta")
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("3_c5ll6")
 
-[node name="Instances" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Pos" type="Node3D" parent="Spawner"]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Player"]
-_spawnable_scenes = PackedStringArray("uid://bp8ku5q1oxrcj")
-spawn_path = NodePath("../Instances")
-spawn_limit = 4
+[node name="One" type="Marker3D" parent="Spawner/Pos"]
+
+[node name="Cicle" type="Sprite3D" parent="Spawner/Pos/One"]
+transform = Transform3D(2.30737, 0, 0, 0, -1.00858e-07, 2.30737, 0, -2.30737, -1.00858e-07, 0, 0.0271953, 0)
+texture = SubResource("GradientTexture2D_4c4pm")
+
+[node name="Two" type="Marker3D" parent="Spawner/Pos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="Cicle" type="Sprite3D" parent="Spawner/Pos/Two"]
+transform = Transform3D(2.30737, 0, 0, 0, -1.00858e-07, 2.30737, 0, -2.30737, -1.00858e-07, 0, 0.0271953, 0)
+texture = SubResource("GradientTexture2D_4c4pm")
+
+[node name="Three" type="Marker3D" parent="Spawner/Pos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="Cicle" type="Sprite3D" parent="Spawner/Pos/Three"]
+transform = Transform3D(2.30737, 0, 0, 0, -1.00858e-07, 2.30737, 0, -2.30737, -1.00858e-07, 0, 0.0271953, 0)
+texture = SubResource("GradientTexture2D_4c4pm")
+
+[node name="For" type="Marker3D" parent="Spawner/Pos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Cicle" type="Sprite3D" parent="Spawner/Pos/For"]
+transform = Transform3D(2.30737, 0, 0, 0, -1.00858e-07, 2.30737, 0, -2.30737, -1.00858e-07, 0, 0.0271953, 0)
+texture = SubResource("GradientTexture2D_4c4pm")
+
+[node name="Players" type="Node3D" parent="Spawner"]
