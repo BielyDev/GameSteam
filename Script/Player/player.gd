@@ -58,9 +58,11 @@ func _gravity() -> void:
 			velocity.y = -MAX_GRAVITY
 
 func sync_pos(id: int, position: Vector3) -> void:
+	print("pas")
 	if id == name.to_int() and !authority:
 		create_tween().tween_property(self,"global_position",position, P2P.LERP_POSITION).set_trans(Tween.TRANS_CUBIC)
 
 
 func _on_send_position_timeout() -> void:
 	P2P.send_position(global_position)
+	print("pas")

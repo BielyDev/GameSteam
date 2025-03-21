@@ -11,12 +11,16 @@ func _ready() -> void:
 
 
 func refresh_player() -> void:
-	
-	await get_tree().create_timer(2).timeout
+	var _players: Array
 	
 	for _peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-		var _peer_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, _peer_number)
-		add_player(_peer_number, _peer_id)
+		_players.append(Steam.getLobbyMemberByIndex(Lobby.lobby_id, _peer_number))
+	
+	_players.sort()
+	
+	for _player: int in _players.size():
+		var _peer_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, _player)
+		add_player(_player, _peer_id)
 
 func add_player(_peer_number: int, _peer_id: int) -> void:
 	var new_player = PLAYER.instantiate()
