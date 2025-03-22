@@ -49,6 +49,7 @@ func configureLobby(_lobby_id: int) -> void:
 	#Host.steam.disconnect_peer(1,true)
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
+	Steam.setLobbyData(_lobby_id, Host.KEY_OWNER_NAME, str(Steam.getPersonaName(), "_123456789101112"))
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
 
 func startGame() -> void:
@@ -136,9 +137,9 @@ func lobby_chat_update(_lobby_id: int,_changed_id: int,_making_change_id: int, _
 func lobby_kicked(_lobby_id: int,_changed_id: int,_making_change_id: int, _chat_state: int) -> void:
 	print("State: ",_chat_state)
 
-
 # MESSAGE ===================================================================================
 func _lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) -> void:
+	
 	match _type:
 		Steam.CHAT_ENTRY_TYPE_CHAT_MSG:
 			var message: Array = JSON.parse_string(_buffer)
@@ -146,6 +147,7 @@ func _lobby_message(_lobby_id: int, _user_id: int, _buffer: String, _type: int) 
 			received_message(_user_id, message)
 
 func received_message(_user_id: int, _message: Array) -> void:
+	
 	match int(_message[0]):
 		Lobby.MESSAGE_LOBBY.CHAT:
 			message_chat(_user_id, _message[1])

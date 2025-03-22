@@ -10,6 +10,7 @@ enum MESSAGE {
 const DEFAULT_PORT: int = 3247
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
+const KEY_OWNER_NAME: String = "owner_name"
 const KEY_SETTINGS: String = "settings"
 const KEY_PLAYER_LOBBY: String = "player_lobby"
 
@@ -62,6 +63,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	Steam.run_callbacks()
+	
 	var events: Array = Steam.receiveMessagesOnChannel(0,5)
 	if events != []:
 		print(events)

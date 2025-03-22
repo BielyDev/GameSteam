@@ -16,27 +16,25 @@ func get_image_tenor(_key: String = "cat") -> AnimatedTexture:
 	return image_gif
 
 
-func request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	if response_code == 200:
-		# Parse JSON response
-		var response = JSON.parse_string(body.get_string_from_ascii())
+func request_completed(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+	if _response_code == 200:
+		var response = JSON.parse_string(_body.get_string_from_ascii())
 		
 		var results = response.results
 		if results.size() > 0:
 			var gif_url = results[0]["media"][0]["gif"]["url"]
-			print("GIF URL: ", gif_url)
 			
 			http.request_completed.disconnect(request_completed)
 			http.request_completed.connect(request_completed_gif)
 			
 			http.request(gif_url)
 	else:
-		print("Erro na requisição: ", response_code)
+		print("Erro na requisição: ", _response_code)
 
-func request_completed_gif(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	if response_code == 200:
+func request_completed_gif(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+	if _response_code == 200:
 		
-		image_gif = GifManager.animated_texture_from_buffer(body, 256)
+		image_gif = GifManager.animated_texture_from_buffer(_body, 256)
 		received_image_gif.emit()
 		
 		http.request_completed.disconnect(request_completed_gif)

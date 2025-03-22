@@ -11,6 +11,10 @@ const FRIEND_BUTTON = preload("res://Scene/Screen/friend_button.tscn")
 @onready var VboxPending: VBoxContainer = $Margin/vbox/List/Scroll/margin/vbox/Pending/info/margin/VboxPending
 @onready var VboxAway: VBoxContainer = $Margin/vbox/List/Scroll/margin/vbox/Away/info/margin/VboxAway
 
+@export var loader_ready: bool = true
+@export var online: bool = true
+@export var away: bool = true
+@export var offline: bool = true
 
 var now_parent: Node
 var now_friend_info: Dictionary
@@ -20,6 +24,9 @@ var now_status: int
 func _ready() -> void:
 	Host.steamConnected.connect(_server_steam_connected)
 	Ui.FriendList = self
+	
+	if loader_ready:
+		_server_steam_connected()
 
 
 
@@ -38,23 +45,25 @@ func _server_steam_connected() -> void:
 		
 		match friend.status:
 			Steam.PERSONA_STATE_ONLINE:
-				
-				if Steam.hasFriend(friend.id, Steam.FRIEND_FLAG_IMMEDIATE):
-					now_status = Ui.STATUS_BUTTONFRIEND.FRIEND
-					add_friend(friend, VboxOnline)
-				if Steam.hasFriend(friend.id, Steam.FRIEND_FLAG_REQUESTING_FRIENDSHIP):
-					now_status = Ui.STATUS_BUTTONFRIEND.PENDING
-					add_friend(friend, VboxPending)
-				
-				await loader_friend
+				if online:
+					if Steam.hasFriend(friend.id, Steam.FRIEND_FLAG_IMMEDIATE):
+						now_status = Ui.STATUS_BUTTONFRIEND.FRIEND
+						add_friend(friend, VboxOnline)
+					if Steam.hasFriend(friend.id, Steam.FRIEND_FLAG_REQUESTING_FRIENDSHIP):
+						now_status = Ui.STATUS_BUTTONFRIEND.PENDING
+						add_friend(friend, VboxPending)
+					
+					await loader_friend
 			Steam.PERSONA_STATE_OFFLINE:
-				now_status = Ui.STATUS_BUTTONFRIEND.OFFLINE
-				add_friend(friend, VboxOffline)
-				await loader_friend
+				if offline:
+					now_status = Ui.STATUS_BUTTONFRIEND.OFFLINE
+					add_friend(friend, VboxOffline)
+					await loader_friend
 			Steam.PERSONA_STATE_AWAY:
-				now_status = Ui.STATUS_BUTTONFRIEND.AWAY
-				add_friend(friend, VboxAway)
-				await loader_friend
+				if away:
+					now_status = Ui.STATUS_BUTTONFRIEND.AWAY
+					add_friend(friend, VboxAway)
+					await loader_friend
 		
 	Steam.avatar_loaded.disconnect(createPlayerLobby)
 

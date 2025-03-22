@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dctoiqfudep7"]
+[gd_scene load_steps=4 format=3 uid="uid://dctoiqfudep7"]
 
 [ext_resource type="Script" uid="uid://c87itd4e5tkf2" path="res://Script/Menu/hud.gd" id="1_s1tqy"]
 [ext_resource type="PackedScene" uid="uid://bjkyya7tmt3ui" path="res://Scene/Screen/chat.tscn" id="2_pkur7"]
+[ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="3_pkur7"]
 
 [node name="GUI" type="CanvasLayer"]
 
@@ -16,12 +17,32 @@ mouse_filter = 2
 script = ExtResource("1_s1tqy")
 metadata/_edit_use_anchors_ = true
 
-[node name="Chat" parent="HUD" instance=ExtResource("2_pkur7")]
-visible = false
+[node name="Social" type="Control" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Chat" parent="HUD/Social" instance=ExtResource("2_pkur7")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -250.0
-offset_right = 300.0
+offset_top = -300.0
+offset_right = 400.0
 grow_vertical = 0
+
+[node name="FriendList" parent="HUD/Social" instance=ExtResource("3_pkur7")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -242.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2

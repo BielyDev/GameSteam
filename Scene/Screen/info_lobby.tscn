@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6kkqat6ikuvn"]
+[gd_scene load_steps=10 format=3 uid="uid://c6kkqat6ikuvn"]
 
 [ext_resource type="Script" uid="uid://c6vxu1ina8rdr" path="res://Script/Menu/info_lobby.gd" id="1_avspo"]
 [ext_resource type="Shader" uid="uid://5smgjtmpegii" path="res://Assets/2D/Shader/blur.gdshader" id="2_m2sst"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_qdqe4"]
 [ext_resource type="Script" uid="uid://dqtkb8tv45fau" path="res://Script/Menu/players.gd" id="3_m2sst"]
 [ext_resource type="PackedScene" uid="uid://bjkyya7tmt3ui" path="res://Scene/Screen/chat.tscn" id="5_m2sst"]
+[ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="5_octjr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_octjr"]
 shader = ExtResource("2_m2sst")
@@ -183,6 +184,12 @@ layout_mode = 2
 size_flags_vertical = 10
 text = "Atualizar"
 
+[node name="FriendList" parent="vbox/Panel/Margin/Buttons/Hbox/Players" instance=ExtResource("5_octjr")]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+offline = false
+
 [node name="Buttons" type="HBoxContainer" parent="vbox/Panel/Margin/Buttons/Hbox"]
 custom_minimum_size = Vector2(256, 48)
 layout_mode = 2
@@ -228,6 +235,7 @@ scale_max = 1.15
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="Chat" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons" instance=ExtResource("5_m2sst")]
+custom_minimum_size = Vector2(350, 300)
 layout_mode = 2
 size_flags_horizontal = 10
 

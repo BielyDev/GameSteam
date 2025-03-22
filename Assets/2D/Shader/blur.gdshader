@@ -6,4 +6,3 @@ uniform float blur_force = 1.0f;
 void fragment() {
 	COLOR = textureLod(TEXTURE_SCREEN, SCREEN_UV, blur_force);
 }
-
