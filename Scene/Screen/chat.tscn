@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_rcd0b"]
 
 [node name="Chat" type="PanelContainer"]
-custom_minimum_size = Vector2(300, 250)
+custom_minimum_size = Vector2(400, 300)
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_type_variation = &"PanelGradient"
