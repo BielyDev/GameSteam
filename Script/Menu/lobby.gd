@@ -60,6 +60,7 @@ func joinLobby(_lobby_id: int) -> void:
 func createLobby() -> void:
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, 4)
 
+
 func lobby_created(_result: int, _lobby_id: int) -> void:
 	match _result:
 		Steam.RESULT_OK:
@@ -75,7 +76,6 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 	Ui.alert(str("Não foi possível criar o lobby! ERROR: ",_result))
 
 func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int) -> void:
-	
 	match _responde:
 		Steam.RESULT_OK:
 			

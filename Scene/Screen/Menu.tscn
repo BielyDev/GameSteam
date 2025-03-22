@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg7mxqfmvjwu5"]
+[gd_scene load_steps=8 format=3 uid="uid://dg7mxqfmvjwu5"]
 
 [ext_resource type="Script" uid="uid://dyheatqx33lt5" path="res://Script/world.gd" id="1_yrwqp"]
 [ext_resource type="Texture2D" uid="uid://dfq5sm6xj4c8e" path="res://Assets/2D/Background/valorant-all-agents.jpg" id="2_stgls"]
 [ext_resource type="Theme" uid="uid://bviqf28ee70lw" path="res://Assets/Theme/main.tres" id="3_2vnot"]
 [ext_resource type="Script" uid="uid://xopp0jblj88x" path="res://Script/Menu/menu.gd" id="4_e6qgj"]
-[ext_resource type="Script" uid="uid://es1wee4f5lwe" path="res://Script/Menu/lobby.gd" id="5_iv6cl"]
 [ext_resource type="PackedScene" uid="uid://bixyxbk4ttw0o" path="res://Scene/Screen/profile.tscn" id="6_a12hu"]
 [ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="7_mrfr7"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="8_rm2lv"]
@@ -55,21 +54,6 @@ grow_vertical = 2
 theme = ExtResource("3_2vnot")
 script = ExtResource("4_e6qgj")
 metadata/_edit_use_anchors_ = true
-
-[node name="Lobby" type="Control" parent="Gui/Menu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -355.0
-offset_top = -165.0
-offset_right = 294.0
-offset_bottom = 208.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_iv6cl")
 
 [node name="PanelSocial" type="PanelContainer" parent="Gui/Menu"]
 custom_minimum_size = Vector2(250, 0)

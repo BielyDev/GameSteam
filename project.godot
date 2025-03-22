@@ -23,6 +23,7 @@ Lobby="*res://Script/Menu/lobby.gd"
 Loader="*res://Scene/Singleton/loader.tscn"
 P2P="*res://Script/Singleton/P2P.gd"
 Index="*res://Script/Singleton/Index.gd"
+Request="*res://Script/Singleton/Request.gd"
 
 [debug]
 

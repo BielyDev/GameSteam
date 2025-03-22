@@ -123,42 +123,42 @@ use_collision = true
 
 [node name="CSGCylinder3D" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966896, -3)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D5" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966896, 3)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D6" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0.966896, 0)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D7" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0.966896, 0)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D8" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.53553, 0.966896, -3.53553)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D9" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 3.53553, 0.966896, 3.53553)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D10" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -3.53553, 0.966896, 3.53553)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D11" type="CSGBox3D" parent="Nv/Map"]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 3.53553, 0.966896, -3.53553)
-size = Vector3(1.892, 1.99, 0.816)
+size = Vector3(1.877, 2.045, 0.346)
 material = SubResource("StandardMaterial3D_ybfmy")
 
 [node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Nv/Map"]

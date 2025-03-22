@@ -1,7 +1,6 @@
 extends Peer
 
 
-
 func _ready() -> void:
 	_peer_configurate()
 
