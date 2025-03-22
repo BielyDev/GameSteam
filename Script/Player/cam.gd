@@ -12,7 +12,7 @@ func _ready() -> void:
 		queue_free()
 
 func _process(_delta: float) -> void:
-	global_position = global_position.lerp(Player.global_position, 5 * _delta)
+	global_position = global_position.lerp(Player.global_position, 4 * _delta)
 
 func _input(_event: InputEvent) -> void:
 	

@@ -1,10 +1,5 @@
 extends CanvasLayer
 
-const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
-const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
-const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
-const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_button.tscn")
-
 enum STATUS_BUTTONFRIEND {
 	FRIEND,
 	PENDING,
@@ -12,20 +7,43 @@ enum STATUS_BUTTONFRIEND {
 	AWAY,
 }
 
+const BUTTON_SCRIPT = preload("res://Script/Menu/button.gd")
+const PANEL_SCENE = preload("res://Scene/Screen/panel_scene.tscn")
+const NOTIFICATION = preload("res://Scene/Screen/notification.tscn")
+const PROPERTY_PLAYER_BUTTON = preload("res://Scene/Screen/property_player_button.tscn")
+
+var queue_alert: Array = []
+
+var parent_alert: Node = Node.new()
 var parent_scene: Node = Node.new()
 var newProperty: Control
 var FriendList: Control
 
 func _ready() -> void:
+	parent_alert.child_order_changed.connect(_call_queue_alert)
+	
 	layer = 2
 	
+	add_child(parent_alert)
 	add_child(parent_scene)
-	#parent_scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-func alert(text: String, icon: Texture2D = null) -> void:
-	var new_n = NOTIFICATION.instantiate()
-	add_child(new_n)
-	new_n.start(text, icon)
+func alert(_text: String, _icon: Texture2D = null) -> void:
+	if parent_alert.get_child_count() > 0:
+		queue_alert.append([_text, _icon])
+	else:
+		_instance_alert(_text, _icon)
+
+func _instance_alert(_text: String, _icon: Texture2D = null) -> void:
+	var new_alert = NOTIFICATION.instantiate()
+	
+	parent_alert.add_child(new_alert)
+	new_alert.start(_text, _icon)
+
+func _call_queue_alert() -> void:
+	if parent_alert.get_child_count() == 0 and queue_alert.size() > 0:
+		var _message: Array = queue_alert[0]
+		_instance_alert(_message[0], _message[1])
+		queue_alert.erase(_message)
 
 func clear_scene() -> void:
 	for child in parent_scene.get_children():

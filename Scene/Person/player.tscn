@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp8ku5q1oxrcj"]
+[gd_scene load_steps=7 format=3 uid="uid://bp8ku5q1oxrcj"]
 
 [ext_resource type="Script" uid="uid://b84yo201yjbbn" path="res://Script/Player/player.gd" id="1_x5h45"]
 [ext_resource type="Script" uid="uid://bmy4clj0pqocq" path="res://Script/Player/cam.gd" id="2_erwjw"]
+[ext_resource type="PackedScene" uid="uid://dctoiqfudep7" path="res://Scene/Screen/gui.tscn" id="3_g2yw2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3r2y"]
+radius = 0.372003
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_en14x"]
 radius = 0.365
@@ -19,6 +21,8 @@ Navigation = NodePath("Navigation")
 metadata/_custom_type_script = "uid://d3db5i7ts3mw2"
 
 [node name="Navigation" type="NavigationAgent3D" parent="."]
+debug_path_custom_color = Color(0.584314, 0.419608, 0.901961, 1)
+debug_path_custom_point_size = 7.0
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_n3r2y")
@@ -31,7 +35,7 @@ transform = Transform3D(0.382188, 0, 0, 0, 0.382188, 0, 0, 0, 0.826853, 0, 0.376
 mesh = SubResource("BoxMesh_bwxun")
 
 [node name="Cam" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.640229, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0581, 7.65122)
 top_level = true
 script = ExtResource("2_erwjw")
 
@@ -42,3 +46,5 @@ current = true
 [node name="MouseRay" type="RayCast3D" parent="Cam/Camera"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 8
+
+[node name="GUI" parent="." instance=ExtResource("3_g2yw2")]

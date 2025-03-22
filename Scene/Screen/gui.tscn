@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dctoiqfudep7"]
+
+[ext_resource type="Script" uid="uid://c87itd4e5tkf2" path="res://Script/Menu/hud.gd" id="1_s1tqy"]
+[ext_resource type="PackedScene" uid="uid://bjkyya7tmt3ui" path="res://Scene/Screen/chat.tscn" id="2_pkur7"]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_s1tqy")
+metadata/_edit_use_anchors_ = true
+
+[node name="Chat" parent="HUD" instance=ExtResource("2_pkur7")]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -250.0
+offset_right = 300.0
+grow_vertical = 0

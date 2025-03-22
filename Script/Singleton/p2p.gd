@@ -1,5 +1,6 @@
 extends Node
 
+signal ping()
 signal received_position(id: int, position: Vector3)
 signal received_velocity(id: int, velocity: Vector3)
 
@@ -30,7 +31,7 @@ func _process(_delta: float) -> void:
 				
 				received_position.emit(events.remote_steam_id, position)
 			PLAYER.NAT:
-				Ui.alert("RECEBENDO POOOOOOONGGGGGGG!!!!!!!!!!!!!")
+				ping.emit()
 
 func send_position(_global_position: Vector3) -> void:
 	send_message_for_peers(false , PLAYER.POSITION, [_global_position], Steam.P2P_SEND_UNRELIABLE_NO_DELAY)

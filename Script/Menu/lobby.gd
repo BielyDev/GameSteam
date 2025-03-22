@@ -68,49 +68,41 @@ func lobby_created(_result: int, _lobby_id: int) -> void:
 			
 			return
 		Steam.RESULT_FAIL:
-			Ui.notif("Expirado")
+			Ui.alert("Expirado")
 			
 			return
 	
-	Ui.notif("Não foi possível criar o lobby! ERROR: ",_result)
+	Ui.alert(str("Não foi possível criar o lobby! ERROR: ",_result))
 
 func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int) -> void:
 	
 	match _responde:
 		Steam.RESULT_OK:
-			#Ui.alert("Enter lobby!")
 			
 			if Lobby.lobby_id != _lobby_id:
 				Lobby.lobby_id = _lobby_id
 				
 				if Steam.getLobbyOwner(_lobby_id) == Host.steam_id:
-					
 					var _err: int = await Host.createHost()
-					print(Lobby.lobby_settings)
-					print("CreateHost: ",_err)
+					
 					if _err == OK:
-						Ui.alert("Host criado")
 						players_lobby[str(Host.steam_id)] = true
+						
 						Ui.new_scene(INFO_LOBBY)
-					
-					Ui.FriendList.z_index = 10
 				else:
-					var lobby = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
-					if lobby != null:
-						Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
+					var read_lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
-					print(Lobby.lobby_settings)
+					if read_lobby_settings != null:
+						Lobby.lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id, Host.KEY_SETTINGS))
 					
 					var _err: int = Host.createClient()
 					
 					if _err == OK:
-						Ui.alert("Create client")
+						Ui.alert("Entrou em lobby.")
 						Ui.new_scene(INFO_LOBBY)
 					else:
-						Ui.alert("Entrou em lobby desconhecido")
+						Ui.alert("Entrou em lobby desconhecido...")
 						Ui.new_scene(INFO_LOBBY)
-					
-					Ui.FriendList.z_index = 10
 			return
 		Steam.RESULT_FAIL:
 			Ui.alert("Aconteceu algo inesperado! COD 2")
@@ -124,9 +116,10 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	
 	Ui.alert(str("ERROR ,",_responde))
 
+
+
 func lobby_invite(_user_invite: int, _lobby_id: int, _game: int) -> void:
 	Ui.alert(str("Recebi o convite: ",_lobby_id))
-
 
 func lobby_data_update(_lobby_id: int,_changed_id: int,_making_change_id: int) -> void:
 	pass
@@ -184,10 +177,7 @@ func message_play(_message: Array) -> void:
 			
 			return
 	
-	Ui.alert("Vai começar em...")
-	for i in range(3):
-		await get_tree().create_timer(1).timeout
-		Ui.alert(str(3-i))
+	Ui.alert("Iniciando partida...")
 	
 	Loader.pass_scene("res://Scene/Map/world.tscn")
 	Ui.clear_scene()

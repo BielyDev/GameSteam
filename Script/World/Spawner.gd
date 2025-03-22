@@ -7,12 +7,16 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 
 func _ready() -> void:
-	refresh_player()
+	Lobby.new_player.connect(peer_connected)
+	Lobby.exited_player.connect(peer_exited)
+	P2P.ping.connect(refresh_player)
+	
 	Ui.alert("ENVIANDO PIIIINNNGG!")
 	P2P.send_message_for_peers(false, P2P.PLAYER.NAT,[OK])
 
 
 func refresh_player() -> void:
+	await get_tree().create_timer(0.5).timeout
 	var _players: Array
 	
 	for _peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
@@ -25,8 +29,6 @@ func refresh_player() -> void:
 		add_player(_player, _peer_id)
 
 func add_player(_peer_number: int, _peer_id: int) -> void:
-	await get_tree().create_timer(5).timeout
-	
 	var new_player = PLAYER.instantiate()
 	
 	new_player.name = str(_peer_id)
@@ -36,3 +38,12 @@ func add_player(_peer_number: int, _peer_id: int) -> void:
 	
 	if new_player.authority:
 		new_player.global_position = Pos.get_child(_peer_number).global_position + Vector3(0,1,0)
+
+
+func peer_connected(id: int) -> void:
+	add_player(Players.get_child_count() - 1, id)
+
+func peer_exited(id: int) -> void:
+	for player: Peer in Players.get_children():
+		if player.name.to_int() == id:
+			player.queue_free()
