@@ -15,8 +15,3 @@ func _physics_process(_delta: float) -> void:
 		peer(_delta)
 	
 	move_and_slide()
-
-func _on_send_position_timeout() -> void:
-	P2P.send_position(global_position)
-func _on_send_velocity_timeout() -> void:
-	P2P.send_velocity(velocity)
