@@ -4,6 +4,7 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 @onready var Pos: Node3D = $Pos
 @onready var Players: Node3D = $Players
+@onready var Cam: Camera3D = $"../Settings/CamReady/Cam"
 
 
 func _ready() -> void:
@@ -39,6 +40,7 @@ func add_player(_peer_number: int, _peer_id: int) -> void:
 	Players.add_child(new_player)
 	
 	if new_player.authority:
+		Cam.current = false
 		new_player.global_position = Pos.get_child(_peer_number).global_position + Vector3(0,1,0)
 		P2P.send_position(new_player.global_position)
 
