@@ -112,7 +112,6 @@ func instance_gif(_user_id: int, _key: String) -> void:
 	
 	new_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	new_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	#new_texture.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	
 	new_texture.custom_minimum_size = Vector2(300.0,200.0)
 	new_texture.texture = await Request.get_image_tenor(_key)
