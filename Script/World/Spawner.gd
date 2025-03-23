@@ -16,6 +16,9 @@ func _ready() -> void:
 	P2P.send_message_for_peers(false, P2P.PLAYER.ENTER_WORLD,[OK])
 
 func new_player_in_world(_id: int) -> void:
+	if _id == Host.steam_id:
+		await get_tree().create_timer(1).timeout
+	
 	add_player(0,_id)
 
 func add_player(_peer_number: int, _peer_id: int) -> void:

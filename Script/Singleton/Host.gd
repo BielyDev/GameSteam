@@ -10,7 +10,7 @@ enum MESSAGE {
 const DEFAULT_PORT: int = 3247
 const APP_ID: int = 480
 const KEY_NAME: String = "namer"
-const KEY_OWNER_NAME: String = "owner_name"
+const KEY_READY: String = "ready"
 const KEY_SETTINGS: String = "settings"
 const KEY_PLAYER_LOBBY: String = "player_lobby"
 

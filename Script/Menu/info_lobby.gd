@@ -4,22 +4,31 @@ extends Control
 @onready var Players: PanelContainer = $vbox/Panel/Margin/Buttons/Hbox/Players
 @onready var PlayButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/PlayButton
 @onready var ReadyButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/ReadyButton
+@onready var EnterButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/Enter_in_Game
 @onready var QuitButton: Button = $vbox/Panel/Margin/Buttons/Hbox/Buttons/QuitButton
 @onready var ID: Button = $vbox/Panel/Margin/Buttons/vbox/ID
+
 
 const LOBBIES = preload("res://Scene/Screen/lobbies.tscn")
 
 func _ready() -> void:
 	ID.text = str("ID ",Lobby.lobby_id)
+	
+	if Steam.getLobbyOwner(Lobby.lobby_id) == Host.steam_id:
+		host_config()
+	else:
+		client_config(JSON.parse_string(Steam.getLobbyData(Lobby.lobby_id, Host.KEY_READY)))
 
-func client_config() -> void:
+func client_config(_ready: bool) -> void:
 	SettingsLobby.hide()
 	PlayButton.hide()
-	ReadyButton.show()
+	ReadyButton.visible = !_ready
+	EnterButton.visible = _ready
 func host_config() -> void:
 	SettingsLobby.show()
 	PlayButton.show()
 	ReadyButton.hide()
+	EnterButton.hide()
 
 func _on_quit_button_pressed() -> void:
 	Steam.leaveLobby(Lobby.lobby_id)
@@ -39,3 +48,6 @@ func _on_ready_button_pressed() -> void:
 
 func _on_play_button_pressed() -> void:
 	Lobby.startGame()
+
+func _on_enter_in_game_pressed() -> void:
+	Lobby.message_play()

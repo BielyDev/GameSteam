@@ -221,6 +221,19 @@ enable_x = false
 scale_max = 1.2
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
+[node name="Enter_in_Game" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons"]
+modulate = Color(0.880157, 0.785138, 0.90584, 1)
+custom_minimum_size = Vector2(100, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_default_cursor_shape = 2
+text = "Enter in Game"
+script = ExtResource("2_qdqe4")
+enable_x = false
+scale_max = 1.2
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
 [node name="QuitButton" type="Button" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons"]
 modulate = Color(1, 0.336673, 0.270683, 1)
 custom_minimum_size = Vector2(100, 48)
@@ -247,4 +260,5 @@ size_flags_vertical = 8
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Players/Margin/Buttons/Button" to="vbox/Panel/Margin/Buttons/Hbox/Players" method="_on_button_pressed"]
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/Enter_in_Game" to="." method="_on_enter_in_game_pressed"]
 [connection signal="pressed" from="vbox/Panel/Margin/Buttons/Hbox/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

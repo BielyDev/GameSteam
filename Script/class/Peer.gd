@@ -13,7 +13,6 @@ var SendVelocity: Timer = Timer.new()
 
 func peer(_delta: float) -> void:
 	_moviment(_delta, next_peer_position)
-	print(next_peer_position)
 	_gravity()
 
 func player(_delta: float) -> void:
@@ -56,9 +55,7 @@ func is_peer(_id: int) -> bool:
 
 func _on_received_position(_id: int, _position: Vector3) -> void:
 	if is_peer(_id):
-		global_position = peer_position
-		#global_position = global_position.lerp(peer_position, P2P.LERP_POSITION)
-		#peer_position = _position
+		global_position = _position
 func _on_received_velocity(_id: int, _velocity: Vector3) -> void:
 	if is_peer(_id):
 		next_peer_position = _velocity

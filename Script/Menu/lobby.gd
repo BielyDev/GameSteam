@@ -49,11 +49,13 @@ func configureLobby(_lobby_id: int) -> void:
 	#Host.steam.disconnect_peer(1,true)
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
+	Steam.setLobbyData(_lobby_id, Host.KEY_READY, str(false))
 	Steam.setLobbyData(_lobby_id, Host.KEY_OWNER_NAME, str(Steam.getPersonaName(), "_123456789101112"))
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
 
 func startGame() -> void:
 	Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.PLAY]))
+	Steam.setLobbyData(Lobby.lobby_id, Host.KEY_READY, str(true))
 
 func joinLobby(_lobby_id: int) -> void:
 	Steam.joinLobby(_lobby_id)
@@ -117,8 +119,6 @@ func lobby_joined(_lobby_id: int, _permission: int, _block: bool, _responde: int
 	
 	Ui.alert(str("ERROR ,",_responde))
 
-
-
 func lobby_invite(_user_invite: int, _lobby_id: int, _game: int) -> void:
 	Ui.alert(str("Recebi o convite: ",_lobby_id))
 
@@ -154,7 +154,7 @@ func received_message(_user_id: int, _message: Array) -> void:
 		Lobby.MESSAGE_LOBBY.READY:
 			message_ready(_user_id, _message[1])
 		Lobby.MESSAGE_LOBBY.PLAY:
-			message_play(_message)
+			message_play()
 
 func send_message(_type: int, _message: Array) -> void:
 	var _err_message: Array
@@ -172,7 +172,7 @@ func message_ready(_user_id: int, _value: bool) -> void:
 	players_lobby[str(_user_id)] = _value
 	ready_lobby.emit(_user_id,_value)
 
-func message_play(_message: Array) -> void:
+func message_play() -> void:
 	for player in players_lobby:
 		if players_lobby.get(player) == false:
 			Ui.alert(str(Steam.getFriendPersonaName(int(player))," ainda não está pronto."))
@@ -180,7 +180,6 @@ func message_play(_message: Array) -> void:
 			return
 	
 	Ui.alert("Iniciando partida...")
-	
 	Loader.pass_scene("res://Scene/Map/world.tscn")
 	Ui.clear_scene()
 #============================================================================================
