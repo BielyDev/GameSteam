@@ -176,4 +176,4 @@ func _on_message_edit_text_submitted(_new_text: String) -> void:
 func _on_hidecase_timeout() -> void:
 	if use_showcase:
 		tween = create_tween()
-		tween.tween_property(Scroll,"modulate:a",0,3).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(Scroll,"modulate:a",0,5).set_trans(Tween.TRANS_CUBIC)

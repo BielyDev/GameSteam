@@ -64,6 +64,7 @@ position = Vector2(594.004, -70.9979)
 amount = 21
 texture = SubResource("GradientTexture2D_stgls")
 lifetime = 5.45
+speed_scale = 0.25
 fixed_fps = 30
 draw_order = 1
 emission_shape = 3

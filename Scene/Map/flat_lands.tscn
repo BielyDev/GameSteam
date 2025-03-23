@@ -59,6 +59,21 @@ _data = {
 &"RESET": SubResource("Animation_4c4pm")
 }
 
+[sub_resource type="Animation" id="Animation_27n2v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.9219, -0.785398, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_p8qn6"]
 resource_name = "start"
 length = 5.0
@@ -74,21 +89,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-1.0472, 0, 0), Vector3(-1.0472, 6.28319, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_27n2v"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.9219, -0.785398, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_grrad"]
