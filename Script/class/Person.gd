@@ -20,6 +20,7 @@ func _moviment(_delta: float, _next_position: Vector3) -> void:
 	
 	velocity.x = _next_position.x
 	velocity.z = _next_position.z
+	
 	_rotation(velocity, _delta)
 
 func _controller() -> Vector3:
