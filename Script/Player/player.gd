@@ -9,8 +9,8 @@ func _ready() -> void:
 		add_child(GUI.instantiate())
 
 
-func _process(_delta: float) -> void:
-	global_position = global_position.lerp(peer_position, P2P.LERP_POSITION)
+#func _process(_delta: float) -> void:
+#	
 
 func _physics_process(_delta: float) -> void:
 	if authority:
