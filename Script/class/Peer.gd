@@ -37,9 +37,9 @@ func _configurate_timers() -> void:
 	add_child(SendPosition)
 	add_child(SendVelocity)
 	
-	SendPosition.wait_time = 0.1
+	SendPosition.wait_time = 0.5
 	SendVelocity.wait_time = 0.1
-	SendPosition.paused = true
+	SendPosition.paused = false
 	SendVelocity.paused = true
 	
 	SendPosition.start()
