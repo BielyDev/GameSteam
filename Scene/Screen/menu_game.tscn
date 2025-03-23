@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://20ojwp45e1ps"]
+
+[ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_22kf4"]
+[ext_resource type="Script" uid="uid://dl27ww86ytwd4" path="res://Script/Menu/menu_game.gd" id="1_vxh6d"]
+
+[node name="MenuGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vxh6d")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = -76.0
+offset_right = 211.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="Panel/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Continue"
+script = ExtResource("1_22kf4")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Settings" type="Button" parent="Panel/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Settings"
+script = ExtResource("1_22kf4")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[node name="Quit" type="Button" parent="Panel/vbox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Quit"
+script = ExtResource("1_22kf4")
+metadata/_custom_type_script = "uid://b32k327cs6cov"
+
+[connection signal="pressed" from="Panel/vbox/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Panel/vbox/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/vbox/Quit" to="." method="_on_quit_pressed"]

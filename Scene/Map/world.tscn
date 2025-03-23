@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnwr1nr5cp5ld"]
+[gd_scene load_steps=16 format=3 uid="uid://bnwr1nr5cp5ld"]
 
+[ext_resource type="Script" uid="uid://bwo45olb0f0tw" path="res://Script/World/world.gd" id="1_4c4pm"]
 [ext_resource type="Texture2D" uid="uid://ljo12rnorp0u" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_8ttk5"]
 [ext_resource type="Texture2D" uid="uid://bt1go26gggu1x" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="2_c5ll6"]
 [ext_resource type="Script" uid="uid://c0wnrh5qgmxxq" path="res://Script/World/Spawner.gd" id="3_c5ll6"]
@@ -84,6 +85,7 @@ fill_to = Vector2(0.8, 0.2)
 metadata/_snap_enabled = true
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_4c4pm")
 
 [node name="Settings" type="Node" parent="."]
 

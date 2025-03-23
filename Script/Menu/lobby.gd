@@ -50,12 +50,10 @@ func configureLobby(_lobby_id: int) -> void:
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
 	Steam.setLobbyData(_lobby_id, Host.KEY_READY, str(false))
-	Steam.setLobbyData(_lobby_id, Host.KEY_OWNER_NAME, str(Steam.getPersonaName(), "_123456789101112"))
 	Steam.setLobbyData(_lobby_id, Host.KEY_SETTINGS, JSON.stringify(Lobby.lobby_settings))
 
 func startGame() -> void:
 	Steam.sendLobbyChatMsg(Lobby.lobby_id, JSON.stringify([Lobby.MESSAGE_LOBBY.PLAY]))
-	Steam.setLobbyData(Lobby.lobby_id, Host.KEY_READY, str(true))
 
 func joinLobby(_lobby_id: int) -> void:
 	Steam.joinLobby(_lobby_id)
