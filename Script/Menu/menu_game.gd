@@ -1,6 +1,7 @@
 extends Control
 
 
+
 func _on_continue_pressed() -> void:
 	queue_free()
 
@@ -10,4 +11,4 @@ func _on_settings_pressed() -> void:
 func _on_quit_pressed() -> void:
 	Steam.leaveLobby(Lobby.lobby_id)
 	Loader.pass_scene("res://Scene/Screen/Menu.tscn")
-	queue_free()
+	Ui.clear_scene()

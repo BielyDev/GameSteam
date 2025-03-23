@@ -16,9 +16,8 @@ const KEY_PLAYER_LOBBY: String = "player_lobby"
 
 
 const MAP: Array = [
-	{"name" : "Bind", "image" : preload("res://Assets/2D/Background/bind.png")},
-	{"name" : "Ascent", "image" : preload("res://Assets/2D/Background/mapa2.jpg")},
-	{"name" : "Sunsent", "image" : preload("res://Assets/2D/Background/sunsent.jpg")}
+	{"name" : "World Test", "scene": ("res://Scene/Map/world.tscn"),"image" : preload("res://Assets/2D/Background/Map/WorldTest.png")},
+	{"name" : "Flat World", "scene": ("res://Scene/Map/flat_lands.tscn"),"image" : preload("res://Assets/2D/Background/Map/FlatWorld.png")},
 ]
 
 
@@ -46,13 +45,7 @@ func _ready() -> void:
 	
 	var _result: Dictionary = Steam.steamInit(true, APP_ID)
 	
-	if !Steam.isSteamRunning():
-		OS.alert("Abre a steam rapaz","Teu pai")
-		get_tree().quit()
-	else:
-		if !Steam.loggedOn():
-			OS.alert("Steam desconectada!","Teu pai")
-			get_tree().quit()
+	is_steam_on()
 	
 	steam_id = Steam.getSteamID()
 	Lobby.lobby_settings.adm_id = steam_id
@@ -61,6 +54,16 @@ func _ready() -> void:
 	
 	steamConnected.emit()
 
+func is_steam_on() -> bool:
+	if !Steam.isSteamRunning():
+		OS.alert("Abre a steam rapaz","Teu pai")
+		get_tree().quit()
+	else:
+		if !Steam.loggedOn():
+			OS.alert("Steam desconectada!","Teu pai")
+			get_tree().quit()
+	
+	return true
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()

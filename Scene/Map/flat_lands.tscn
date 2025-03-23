@@ -1,0 +1,159 @@
+[gd_scene load_steps=15 format=3 uid="uid://bo7evn4vv2je"]
+
+[ext_resource type="Script" uid="uid://bwo45olb0f0tw" path="res://Script/World/world.gd" id="1_845ei"]
+[ext_resource type="Texture2D" uid="uid://c88gf25ntspy" path="res://addons/kenney_prototype_textures/green/texture_13.png" id="2_845ei"]
+[ext_resource type="PackedScene" uid="uid://cas40y5u3h0b8" path="res://Scene/Resource/spawner.tscn" id="3_27n2v"]
+
+[sub_resource type="Gradient" id="Gradient_grrad"]
+colors = PackedColorArray(0, 0, 0.105882, 1, 0.984314, 0.984314, 0.898039, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ybfmy"]
+gradient = SubResource("Gradient_grrad")
+
+[sub_resource type="Environment" id="Environment_kpdrs"]
+background_mode = 2
+ambient_light_color = Color(0.269907, 0.391123, 0.499071, 1)
+tonemap_mode = 4
+glow_enabled = true
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_contrast = 1.3
+adjustment_saturation = 0.75
+adjustment_color_correction = SubResource("GradientTexture1D_ybfmy")
+
+[sub_resource type="Animation" id="Animation_c5ll6"]
+resource_name = "Load"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cam:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 4.31226e-07, 0.134704), Vector3(0, 1.62765e-07, 6.27636)]
+}
+
+[sub_resource type="Animation" id="Animation_4c4pm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4.31226e-07, 0.134704)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4c4pm"]
+_data = {
+&"Load": SubResource("Animation_c5ll6"),
+&"RESET": SubResource("Animation_4c4pm")
+}
+
+[sub_resource type="Animation" id="Animation_p8qn6"]
+resource_name = "start"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.0472, 0, 0), Vector3(-1.0472, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_27n2v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.9219, -0.785398, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_grrad"]
+_data = {
+&"RESET": SubResource("Animation_27n2v"),
+&"start": SubResource("Animation_p8qn6")
+}
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_845ei"]
+vertices = PackedVector3Array(-49.5, 0.4885, -49.5, -49.5, 0.4885, 49.5, 49.5, 0.4885, 49.5, 49.5, 0.4885, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpdrs"]
+albedo_color = Color(0.817815, 0.817815, 0.817815, 1)
+albedo_texture = ExtResource("2_845ei")
+uv1_triplanar = true
+
+[node name="FlatLands" type="Node3D"]
+script = ExtResource("1_845ei")
+
+[node name="Settings" type="Node" parent="."]
+
+[node name="World" type="WorldEnvironment" parent="Settings"]
+environment = SubResource("Environment_kpdrs")
+
+[node name="Light" type="DirectionalLight3D" parent="Settings"]
+transform = Transform3D(-0.44492, 0.878601, -0.17351, 0.161859, 0.26944, 0.949317, 0.880822, 0.394286, -0.262089, 0, 1.07399, 0)
+shadow_enabled = true
+
+[node name="CamReady" type="Node3D" parent="Settings"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="Cam" type="Camera3D" parent="Settings/CamReady"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.31226e-07, 0.134704)
+current = true
+
+[node name="Anima" type="AnimationPlayer" parent="Settings/CamReady"]
+libraries = {
+&"": SubResource("AnimationLibrary_4c4pm")
+}
+autoplay = "Load"
+speed_scale = 0.1
+
+[node name="Initialize" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0.563388, -0.42731, 0, 0.604307, 0.796751, 0.707107, -0.563388, 0.42731, 0, 0, 0)
+
+[node name="Cam" type="Camera3D" parent="Initialize"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)
+current = true
+
+[node name="Anima" type="AnimationPlayer" parent="Initialize"]
+libraries = {
+&"": SubResource("AnimationLibrary_grrad")
+}
+autoplay = "start"
+speed_scale = 0.2
+
+[node name="Nv" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_845ei")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Nv"]
+use_collision = true
+collision_layer = 9
+collision_mask = 9
+size = Vector3(100, 0.023, 100)
+material = SubResource("StandardMaterial3D_kpdrs")
+
+[node name="Spawner" parent="." instance=ExtResource("3_27n2v")]

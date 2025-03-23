@@ -1,10 +1,15 @@
 extends Control
 
+const MENU_GAME = preload("res://Scene/Screen/menu_game.tscn")
+
+
 @onready var Chat: PanelContainer = $Social/Chat
 @onready var Social: Control = $Social
 @onready var FriendList: PanelContainer = $Social/FriendList
 
 var item_visible: bool = false
+var MenuGame: Control
+
 
 func _ready() -> void:
 	update_visible()
@@ -20,6 +25,14 @@ func _input(event: InputEvent) -> void:
 			Chat.submit()
 		
 		update_visible()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("menu"):
+		if is_instance_valid(MenuGame):
+			MenuGame.queue_free()
+			return
+		
+		MenuGame = Ui.new_simple_scene(MENU_GAME)
 
 func update_visible() -> void:
 	FriendList.visible = item_visible

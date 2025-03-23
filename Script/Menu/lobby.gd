@@ -24,9 +24,7 @@ var lobby_settings: Dictionary = {
 	"host_id": 0,
 	"port": 0,
 }
-var settings: Dictionary = {
-	"map" : [0, "Name"],
-}
+
 var my_ready_lobby: bool:
 	set(value):
 		send_message(Lobby.MESSAGE_LOBBY.READY, [value])
@@ -46,7 +44,6 @@ func configureLobby(_lobby_id: int) -> void:
 	Lobby.lobby_settings.host_id = Host.steam_id
 	Lobby.players_lobby = {}
 	
-	#Host.steam.disconnect_peer(1,true)
 	Steam.setLobbyJoinable(_lobby_id, true)
 	Steam.setLobbyData(_lobby_id, Host.KEY_NAME, Lobby.lobby_name)
 	Steam.setLobbyData(_lobby_id, Host.KEY_READY, str(false))
@@ -178,6 +175,7 @@ func message_play() -> void:
 			return
 	
 	Ui.alert("Iniciando partida...")
-	Loader.pass_scene("res://Scene/Map/world.tscn")
+	
+	Loader.pass_scene(Host.MAP[lobby_settings.map].scene)
 	Ui.clear_scene()
 #============================================================================================

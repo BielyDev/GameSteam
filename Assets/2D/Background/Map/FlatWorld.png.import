@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2mahwu87r12u"
-path="res://.godot/imported/sunsent.jpg-775144e9a95f1f0d23c11165da90d318.ctex"
+uid="uid://bsdo3h773fb27"
+path="res://.godot/imported/FlatWorld.png-d27ca6969405106465d9e7673f795840.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Background/sunsent.jpg"
-dest_files=["res://.godot/imported/sunsent.jpg-775144e9a95f1f0d23c11165da90d318.ctex"]
+source_file="res://Assets/2D/Background/Map/FlatWorld.png"
+dest_files=["res://.godot/imported/FlatWorld.png-d27ca6969405106465d9e7673f795840.ctex"]
 
 [params]
 

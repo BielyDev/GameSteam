@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfq5sm6xj4c8e"
-path="res://.godot/imported/valorant-all-agents.jpg-40f3442d2771be3fb7d1d7a1f7768060.ctex"
+uid="uid://cs2h8i482cytv"
+path="res://.godot/imported/WorldTest.png-fb90f984ea7a31fb599c021693fafb97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Background/valorant-all-agents.jpg"
-dest_files=["res://.godot/imported/valorant-all-agents.jpg-40f3442d2771be3fb7d1d7a1f7768060.ctex"]
+source_file="res://Assets/2D/Background/Map/WorldTest.png"
+dest_files=["res://.godot/imported/WorldTest.png-fb90f984ea7a31fb599c021693fafb97.ctex"]
 
 [params]
 

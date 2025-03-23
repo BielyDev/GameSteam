@@ -1,13 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://hr4vrcuuvpoj"]
+[gd_scene load_steps=11 format=3 uid="uid://hr4vrcuuvpoj"]
 
 [ext_resource type="Script" uid="uid://pbmi7upegtxj" path="res://Script/Menu/create_lobby.gd" id="1_r5mhi"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="2_v1lm1"]
 [ext_resource type="Script" uid="uid://dgk3yq5oiu68m" path="res://Script/Menu/map.gd" id="3_6x6n1"]
 [ext_resource type="Texture2D" uid="uid://b22mhxu20ktdx" path="res://Assets/2D/arrow.png" id="4_7mim1"]
 [ext_resource type="Shader" uid="uid://cefk4ldpmlfex" path="res://Assets/2D/Shader/mapimage.tres" id="5_16jyb"]
-[ext_resource type="Texture2D" uid="uid://78tev7xsyros" path="res://Assets/2D/Background/bind.png" id="6_ihm83"]
-[ext_resource type="Texture2D" uid="uid://0105lkw7dsc7" path="res://Assets/2D/Background/mapa2.jpg" id="7_2x7i7"]
-[ext_resource type="Texture2D" uid="uid://2mahwu87r12u" path="res://Assets/2D/Background/sunsent.jpg" id="8_sb7fq"]
+[ext_resource type="Texture2D" uid="uid://cs2h8i482cytv" path="res://Assets/2D/Background/Map/WorldTest.png" id="6_34n76"]
+[ext_resource type="Texture2D" uid="uid://bsdo3h773fb27" path="res://Assets/2D/Background/Map/FlatWorld.png" id="7_r5mhi"]
 [ext_resource type="Texture2D" uid="uid://cbgvisutpavkq" path="res://Assets/2D/arrow_right.png" id="9_fyuxw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1qje"]
@@ -19,11 +18,6 @@ shader_parameter/x = 0.0
 resource_local_to_scene = true
 shader = ExtResource("5_16jyb")
 shader_parameter/x = -1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w375h"]
-resource_local_to_scene = true
-shader = ExtResource("5_16jyb")
-shader_parameter/x = -1.05
 
 [node name="CreateLobby" type="Control"]
 custom_minimum_size = Vector2(300, 0)
@@ -130,7 +124,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-texture = ExtResource("6_ihm83")
+texture = ExtResource("6_34n76")
 expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -144,21 +138,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-texture = ExtResource("7_2x7i7")
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="Map3" type="TextureRect" parent="Panel/Margin/Buttons/Map/Image"]
-material = SubResource("ShaderMaterial_w375h")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-texture = ExtResource("8_sb7fq")
+texture = ExtResource("7_r5mhi")
 expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true

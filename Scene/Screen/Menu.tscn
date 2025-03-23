@@ -1,20 +1,58 @@
-[gd_scene load_steps=8 format=3 uid="uid://dg7mxqfmvjwu5"]
+[gd_scene load_steps=15 format=3 uid="uid://dg7mxqfmvjwu5"]
 
 [ext_resource type="Script" uid="uid://dyheatqx33lt5" path="res://Script/world.gd" id="1_yrwqp"]
-[ext_resource type="Texture2D" uid="uid://dfq5sm6xj4c8e" path="res://Assets/2D/Background/valorant-all-agents.jpg" id="2_stgls"]
+[ext_resource type="Texture2D" uid="uid://bfbnee6jhm8ux" path="res://Assets/2D/Background/Menu.png" id="2_a12pc"]
 [ext_resource type="Theme" uid="uid://bviqf28ee70lw" path="res://Assets/Theme/main.tres" id="3_2vnot"]
 [ext_resource type="Script" uid="uid://xopp0jblj88x" path="res://Script/Menu/menu.gd" id="4_e6qgj"]
 [ext_resource type="PackedScene" uid="uid://bixyxbk4ttw0o" path="res://Scene/Screen/profile.tscn" id="6_a12hu"]
 [ext_resource type="PackedScene" uid="uid://wdxbbmlnfh3m" path="res://Scene/Screen/friend_list.tscn" id="7_mrfr7"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="8_rm2lv"]
 
+[sub_resource type="Gradient" id="Gradient_a12pc"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yrwqp"]
+gradient = SubResource("Gradient_a12pc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_yrwqp"]
+offsets = PackedFloat32Array(0, 0.477733)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_stgls"]
+gradient = SubResource("Gradient_yrwqp")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_a12pc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.274266, 0.679839), 0.0, 0.0, 0, 0, Vector2(0.387133, 0.894459), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_yrwqp"]
+curve = SubResource("Curve_a12pc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2vnot"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(640, 1, 1)
+angle_min = -111.7
+angle_max = 196.9
+angular_velocity_min = -62.11
+angular_velocity_max = 50.55
+gravity = Vector3(0, 100, 0)
+alpha_curve = SubResource("CurveTexture_yrwqp")
+turbulence_enabled = true
+turbulence_noise_scale = 3.95
+
 [node name="Menu" type="Node"]
 script = ExtResource("1_yrwqp")
 
 [node name="Gui" type="CanvasLayer" parent="."]
 
-[node name="Valorant-all-agents" type="TextureRect" parent="Gui"]
-modulate = Color(0.0138452, 0.096381, 0.25032, 1)
+[node name="Background" type="TextureRect" parent="Gui"]
 z_index = -2
 anchors_preset = -1
 anchor_left = -1.16667
@@ -27,12 +65,28 @@ offset_right = -1344.0
 offset_bottom = -756.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_stgls")
+texture = ExtResource("2_a12pc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="TextureRect" type="TextureRect" parent="Gui/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_yrwqp")
+metadata/_edit_use_anchors_ = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Gui/Background/TextureRect"]
+position = Vector2(594.004, -70.9979)
+amount = 12
+texture = SubResource("GradientTexture2D_stgls")
+lifetime = 20.0
+process_material = SubResource("ParticleProcessMaterial_2vnot")
+
 [node name="Message" type="RichTextLabel" parent="Gui"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,8 +97,11 @@ bbcode_enabled = true
 text = "[wave amp=60.0]Conectando na [rainbow freq=0.3 val=0.8 speed=1.0]STEAM[/rainbow][/wave]"
 fit_content = true
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Menu" type="Control" parent="Gui"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,6 +138,7 @@ layout_mode = 2
 
 [node name="FriendList" parent="Gui/Menu/PanelSocial/margin/Social" instance=ExtResource("7_mrfr7")]
 layout_mode = 2
+loader_ready = false
 
 [node name="margin" type="MarginContainer" parent="Gui/Menu"]
 layout_mode = 1

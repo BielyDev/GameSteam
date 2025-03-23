@@ -6,8 +6,8 @@ extends HBoxContainer
 var selected: int:
 	set(value):
 		if value == -1:
-			value = 2
-		if value == 3:
+			value = 1
+		if value == 2:
 			value = 0
 		
 		selected = value
