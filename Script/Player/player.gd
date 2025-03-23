@@ -1,8 +1,12 @@
 extends Peer
 
+const GUI = preload("res://Scene/Screen/gui.tscn")
 
 func _ready() -> void:
 	_peer_configurate()
+	
+	if authority:
+		add_child(GUI.instantiate())
 
 
 func _process(_delta: float) -> void:

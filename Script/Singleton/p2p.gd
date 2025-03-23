@@ -1,6 +1,6 @@
 extends Node
 
-signal ping()
+signal new_player_in_world()
 signal received_position(id: int, position: Vector3)
 signal received_velocity(id: int, velocity: Vector3)
 
@@ -10,7 +10,7 @@ const LERP_POSITION: float = 0.1
 enum PLAYER {
 	VELOCITY,
 	POSITION,
-	NAT
+	ENTER_WORLD
 }
 
 
@@ -30,8 +30,8 @@ func _process(_delta: float) -> void:
 				var position: Vector3 = message[1]
 				
 				received_position.emit(events.remote_steam_id, position)
-			PLAYER.NAT:
-				ping.emit()
+			PLAYER.ENTER_WORLD:
+				new_player_in_world.emit(events.remote_steam_id)
 
 func send_position(_global_position: Vector3) -> void:
 	send_message_for_peers(false , PLAYER.POSITION, [_global_position], Steam.P2P_SEND_UNRELIABLE_NO_DELAY)

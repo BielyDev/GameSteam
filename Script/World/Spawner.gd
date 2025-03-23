@@ -8,28 +8,15 @@ const PLAYER = preload("res://Scene/Person/player.tscn")
 
 
 func _ready() -> void:
-	Lobby.new_player.connect(peer_connected)
+	P2P.new_player_in_world.connect(peer_connected)
 	Lobby.exited_player.connect(peer_exited)
-	P2P.ping.connect(refresh_player)
 	
-	Ui.alert("ENVIANDO PIIIINNNGG!")
-	P2P.send_message_for_peers(false, P2P.PLAYER.NAT,[OK])
+	
+	Ui.alert("CARREGANDO MUNDO!")
+	P2P.send_message_for_peers(false, P2P.PLAYER.ENTER_WORLD,[OK])
 
-
-func refresh_player() -> void:
-	Ui.alert("RECEBENDO POOOOOOOOONG")
-	
-	await get_tree().create_timer(0.5).timeout
-	var _players: Array
-	
-	for _peer_number: int in Steam.getNumLobbyMembers(Lobby.lobby_id):
-		_players.append(Steam.getLobbyMemberByIndex(Lobby.lobby_id, _peer_number))
-	
-	_players.sort()
-	
-	for _player: int in _players.size():
-		var _peer_id: int = Steam.getLobbyMemberByIndex(Lobby.lobby_id, _player)
-		add_player(_player, _peer_id)
+func new_player_in_world(_id: int) -> void:
+	add_player(0,_id)
 
 func add_player(_peer_number: int, _peer_id: int) -> void:
 	var new_player = PLAYER.instantiate()
