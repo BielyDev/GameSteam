@@ -248,7 +248,7 @@ scale_max = 1.15
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
 [node name="Chat" parent="vbox/Panel/Margin/Buttons/Hbox/Buttons" instance=ExtResource("5_m2sst")]
-custom_minimum_size = Vector2(350, 300)
+custom_minimum_size = Vector2(350, 250)
 layout_mode = 2
 size_flags_horizontal = 10
 

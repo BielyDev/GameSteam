@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjkyya7tmt3ui"]
+[gd_scene load_steps=4 format=3 uid="uid://bjkyya7tmt3ui"]
 
 [ext_resource type="Script" uid="uid://ddfp882r7m2fq" path="res://Script/Menu/chat.gd" id="1_rameb"]
 [ext_resource type="Script" uid="uid://b32k327cs6cov" path="res://Script/Menu/buttonAnimated.gd" id="1_rcd0b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rameb"]
 
 [node name="Chat" type="PanelContainer"]
 custom_minimum_size = Vector2(400, 300)
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_type_variation = &"PanelGradient"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rameb")
 script = ExtResource("1_rameb")
 
 [node name="vbox" type="VBoxContainer" parent="."]
@@ -18,7 +20,12 @@ layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="vbox" type="VBoxContainer" parent="vbox/Scroll"]
+[node name="Background" type="PanelContainer" parent="vbox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="vbox" type="VBoxContainer" parent="vbox/Scroll/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
@@ -39,6 +46,11 @@ text = "Send"
 script = ExtResource("1_rcd0b")
 metadata/_custom_type_script = "uid://b32k327cs6cov"
 
+[node name="hidecase" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="text_changed" from="vbox/Bar/MessageEdit" to="." method="_on_message_edit_text_changed"]
 [connection signal="text_submitted" from="vbox/Bar/MessageEdit" to="." method="_on_message_edit_text_submitted"]
 [connection signal="pressed" from="vbox/Bar/Send" to="." method="_on_send_pressed"]
+[connection signal="timeout" from="hidecase" to="." method="_on_hidecase_timeout"]

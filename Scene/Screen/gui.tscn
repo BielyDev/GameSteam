@@ -34,6 +34,7 @@ anchor_bottom = 1.0
 offset_top = -300.0
 offset_right = 400.0
 grow_vertical = 0
+use_showcase = true
 
 [node name="FriendList" parent="HUD/Social" instance=ExtResource("3_pkur7")]
 layout_mode = 1

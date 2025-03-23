@@ -18,12 +18,9 @@ func peer(_delta: float) -> void:
 func player(_delta: float) -> void:
 	_moviment(_delta, _controller())
 	_gravity()
-	
-	#SendVelocity.paused = !((velocity.x < -0.1 or velocity.x > 0.1) or (velocity.z < -0.1 or velocity.z > 0.1))
 
 func _peer_configurate() -> void:
 	Camera.current = authority
-	set_process(!authority)
 	
 	if !authority:
 		P2P.received_position.connect(_on_received_position)

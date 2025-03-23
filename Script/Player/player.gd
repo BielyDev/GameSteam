@@ -6,11 +6,8 @@ func _ready() -> void:
 	_peer_configurate()
 	
 	if authority:
+		Index.player = self
 		add_child(GUI.instantiate())
-
-
-#func _process(_delta: float) -> void:
-#	
 
 func _physics_process(_delta: float) -> void:
 	if authority:

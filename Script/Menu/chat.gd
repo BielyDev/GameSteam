@@ -2,8 +2,20 @@ extends PanelContainer
 
 @onready var MessageEdit: LineEdit = $vbox/Bar/MessageEdit
 @onready var Send: ButtonAnimated = $vbox/Bar/Send
-@onready var Vbox: VBoxContainer = $vbox/Scroll/vbox
+@onready var Vbox: VBoxContainer = $vbox/Scroll/Background/vbox
 @onready var Scroll: ScrollContainer = $vbox/Scroll
+@onready var Hidecase: Timer = $hidecase
+@onready var Bar: HBoxContainer = $vbox/Bar
+
+@export var use_showcase: bool:
+	set(value):
+		use_showcase = value
+		if use_showcase:
+			if !is_instance_valid(Hidecase):
+				await ready
+			showcase()
+		else:
+			showcase()
 
 var image: Array = [
 	preload("res://Assets/2D/Chat/Cat/cat_0.jpeg"),
@@ -17,10 +29,13 @@ var image: Array = [
 	preload("res://Assets/2D/Chat/Cat/cat_8.jpg"),
 	preload("res://Assets/2D/Chat/Cat/cat_9.png"),
 ]
+var tween: Tween
 
 
 func _ready() -> void:
 	Lobby.lobby_chat.connect(_received_message)
+	
+	if use_showcase: Hidecase.start()
 
 
 func _commands() -> bool:
@@ -50,7 +65,6 @@ func _commands() -> bool:
 	
 	return false
 
-
 func _received_commands(_user_id: int, _message: String) -> bool:
 	if _message[0] == "/":
 		var command: PackedStringArray = _message.split(" ")
@@ -69,6 +83,12 @@ func _received_commands(_user_id: int, _message: String) -> bool:
 		return true
 	return false
 
+func showcase() -> void:
+	if tween != null:
+		tween.stop()
+	
+	Hidecase.start(0)
+	create_tween().tween_property(Scroll,"modulate:a",1,0.3).set_trans(Tween.TRANS_BACK)
 
 func message_commands(_message: String) -> void:
 	instance_rich_label(str("[color=gray]",_message))
@@ -122,6 +142,8 @@ func instance_gif(_user_id: int, _key: String) -> void:
 	Scroll.scroll_vertical += 500
 
 func _received_message(_user_id: int, _message: String) -> void:
+	if use_showcase: showcase()
+	
 	if _received_commands(_user_id ,_message): return
 	
 	var nickname: String
@@ -132,6 +154,10 @@ func _received_message(_user_id: int, _message: String) -> void:
 		nickname = str("[color=yellow]",Steam.getFriendPersonaName(_user_id),"[/color]: ")
 	
 	instance_rich_label(str(nickname,_message))
+
+func submit() -> void:
+	if MessageEdit.text.length() > 0:
+		_on_send_pressed()
 
 func _on_send_pressed() -> void:
 	if !_commands():
@@ -144,5 +170,10 @@ func _on_message_edit_text_changed(_new_text: String) -> void:
 	Send.disabled = !_new_text.length() > 0
 
 func _on_message_edit_text_submitted(_new_text: String) -> void:
-	if _new_text.length() > 0:
-		_on_send_pressed()
+	submit()
+
+
+func _on_hidecase_timeout() -> void:
+	if use_showcase:
+		tween = create_tween()
+		tween.tween_property(Scroll,"modulate:a",0,3).set_trans(Tween.TRANS_CUBIC)

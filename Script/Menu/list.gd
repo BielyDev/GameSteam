@@ -17,7 +17,7 @@ func _on_lobby_match_list(_id_lobbies: Array) -> void:
 	delete_buttons()
 	
 	for _lobby_id: int in _id_lobbies:
-		print(_lobby_id)
+		
 		var _lobby_name: String = Steam.getLobbyData(_lobby_id,Host.KEY_NAME)
 		var _lobby_settings = JSON.parse_string(Steam.getLobbyData(_lobby_id,Host.KEY_SETTINGS))
 		

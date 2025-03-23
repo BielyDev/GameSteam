@@ -13,6 +13,7 @@ var speed: float = 2.5
 
 @export var RayMouse: RayCast3D
 @export var Navigation: NavigationAgent3D
+@export var move: bool = true
 
 func _moviment(_delta: float, _next_position: Vector3) -> void:
 	velocity.x = 0
@@ -24,6 +25,8 @@ func _moviment(_delta: float, _next_position: Vector3) -> void:
 	_rotation(velocity, _delta)
 
 func _controller() -> Vector3:
+	if !move: return Vector3()
+	
 	if Input.is_action_just_pressed("walk"):
 		Effect.cursor_direction(RayMouse.get_collision_point() + Vector3(0,0.1,0))
 	if Input.is_action_pressed("walk"):
