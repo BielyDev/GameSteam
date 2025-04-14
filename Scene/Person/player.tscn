@@ -27,6 +27,7 @@ debug_path_custom_point_size = 7.0
 shape = SubResource("CapsuleShape3D_n3r2y")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
+layers = 3
 mesh = SubResource("CapsuleMesh_en14x")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]

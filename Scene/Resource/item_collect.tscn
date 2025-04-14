@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://7pk5mx7j7uqp"]
+
+[ext_resource type="Script" uid="uid://cjhj8qwbpdqry" path="res://Script/Resource/item_collect.gd" id="1_4s0rg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hvi8v"]
+
+[node name="ItemCollect" type="Node3D"]
+script = ExtResource("1_4s0rg")
+
+[node name="Area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+shape = SubResource("SphereShape3D_hvi8v")
+
+[node name="Model" type="Node3D" parent="."]
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

@@ -3,7 +3,7 @@ extends Control
 
 
 func _on_continue_pressed() -> void:
-	queue_free()
+	Ui.clear_scene()
 
 func _on_settings_pressed() -> void:
 	pass # Replace with function body.

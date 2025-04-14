@@ -1,0 +1,17 @@
+{
+	"Peer_equipped": {
+		"class_unique": "all",
+		"id": 0.0,
+		"slot_amount": 8.0
+	},
+	"Peer_inventory": {
+		"class_unique": "all",
+		"id": 1.0,
+		"slot_amount": 32.0
+	},
+	"Void": {
+		"class_unique": "all",
+		"id": -2.0,
+		"slot_amount": 15.0
+	}
+}

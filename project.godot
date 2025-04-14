@@ -28,6 +28,7 @@ Loader="*res://Scene/Singleton/loader.tscn"
 P2P="*res://Script/Singleton/P2P.gd"
 Index="*res://Script/Singleton/Index.gd"
 Request="*res://Script/Singleton/Request.gd"
+Inventory="*res://addons/inventory_slot_plugin/script/slot/inventory.gd"
 
 [debug]
 
@@ -37,6 +38,10 @@ file_logging/enable_file_logging=true
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/inventory_slot_plugin/plugin.cfg")
 
 [filesystem]
 
@@ -62,6 +67,11 @@ chat={
 menu={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+inventory={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

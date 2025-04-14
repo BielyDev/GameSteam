@@ -1,0 +1,11 @@
+{
+	"Common": {
+		"Sword": {
+			"description": "",
+			"icon": "res://addons/inventory_slot_plugin/script/slot/../../assets/item_image/life.png",
+			"max_amount": 1.0,
+			"scene": "res://",
+			"unique_id": 0.0
+		}
+	}
+}
